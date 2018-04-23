@@ -10339,8 +10339,13 @@ flat_map(sorted_unique_t, initializer_list<pair<Key, T>> il,
 \begin{itemdescr}
 \pnum
 \effects Initializes \tcode{compare} with \tcode{comp}; adds elements to
-\tcode{c.keys} and \tcode{c.values} as if by
-\tcode{for (auto && x : il) { c.keys.insert(c.keys.end(), std::move(x.first)); c.values.insert(c.values.end(), std::move(x.second)); }}.
+\tcode{c.keys} and \tcode{c.values} as if by:
+\begin{codeblock}
+for (auto&& x : il) {
+  c.keys.insert(c.keys.end(), std::move(x.first));
+  c.values.insert(c.values.end(), std::move(x.second));
+}
+\end{codeblock}
 
 \pnum
 \complexity
@@ -10350,7 +10355,7 @@ Linear.
 \rSec3[flatmap.cons.alloc]{Constructors with allocators}
 
 \pnum
-If \tcode{uses_allocator_v<key_container_type, Alloc> &&
+If \tcode{uses_allocator_v<key_container_type, Alloc> \&\&
 uses_allocator_v<mapped_container_type, Alloc>} is \tcode{false} the
 constructors in this subclause shall not participate in overload resolution.
 
@@ -10426,8 +10431,13 @@ template <class Alloc>
 \pnum
 \effects Initializes \tcode{compare} with \tcode{comp}, \tcode{c.keys} with
 \tcode{a}, and \tcode{c.values} with \tcode{a}; adds elements to \tcode{c.keys}
-and \tcode{c.values} as if by
-\tcode{for (auto && x : il) { c.keys.insert(c.keys.end(), std::move(x.first)); c.values.insert(c.values.end(), std::move(x.second)); }};
+and \tcode{c.values} as if by:
+\begin{codeblock}
+for (auto&& x : il) {
+  c.keys.insert(c.keys.end(), std::move(x.first));
+  c.values.insert(c.values.end(), std::move(x.second));
+}
+\end{codeblock}
 and finally sorts the range \range{begin()}{end()}.
 
 \pnum
@@ -10448,8 +10458,13 @@ template <class Alloc>
 \pnum
 \effects Initializes \tcode{compare} with \tcode{comp}, \tcode{c.keys} with
 \tcode{a}, and \tcode{c.values} with \tcode{a}; adds elements to \tcode{c.keys}
-and \tcode{c.values} as if by
-\tcode{for (auto && x : il) { c.keys.insert(c.keys.end(), std::move(x.first)); c.values.insert(c.values.end(), std::move(x.second)); }}.
+and \tcode{c.values} as if by:
+\begin{codeblock}
+for (auto&& x : il) {
+  c.keys.insert(c.keys.end(), std::move(x.first));
+  c.values.insert(c.values.end(), std::move(x.second));
+}
+\end{codeblock}
 
 \pnum
 \complexity
@@ -10845,7 +10860,7 @@ template<class Key, class T, class Compare = less<Key>,
 \pnum
 \remarks
 This function shall not participate in overload resolution
-unless \tcode{is_swappable_v<KeyContainer> && is_swappable_v<MappedContainer>}
+unless \tcode{is_swappable_v<KeyContainer> \&\& is_swappable_v<MappedContainer>}
 is \tcode{true}.
 
 \pnum
@@ -11391,8 +11406,13 @@ flat_multimap(sorted_equivalent_t, initializer_list<pair<Key, T>> il,
 \begin{itemdescr}
 \pnum
 \effects Initializes \tcode{compare} with \tcode{comp}; adds elements to
-\tcode{c.keys} and \tcode{c.values} as if by
-\tcode{for (auto && x : il) { c.keys.insert(c.keys.end(), std::move(x.first)); c.values.insert(c.values.end(), std::move(x.second)); }}.
+\tcode{c.keys} and \tcode{c.values} as if by:
+\begin{codeblock}
+for (auto&& x : il) {
+  c.keys.insert(c.keys.end(), std::move(x.first));
+  c.values.insert(c.values.end(), std::move(x.second));
+}
+\end{codeblock}
 
 \pnum
 \complexity
@@ -11402,7 +11422,7 @@ Linear.
 \rSec3[flatmultimap.cons.alloc]{Constructors with allocators}
 
 \pnum
-If \tcode{uses_allocator_v<key_container_type, Alloc> &&
+If \tcode{uses_allocator_v<key_container_type, Alloc> \&\&
 uses_allocator_v<mapped_container_type, Alloc>} is \tcode{false} the
 constructors in this subclause shall not participate in overload resolution.
 
@@ -11478,8 +11498,13 @@ template <class Alloc>
 \pnum
 \effects Initializes \tcode{compare} with \tcode{comp}, \tcode{c.keys} with
 \tcode{a}, and \tcode{c.values} with \tcode{a}; adds elements to \tcode{c.keys}
-and \tcode{c.values} as if by
-\tcode{for (auto && x : il) { c.keys.insert(c.keys.end(), std::move(x.first)); c.values.insert(c.values.end(), std::move(x.second)); }};
+and \tcode{c.values} as if by:
+\begin{codeblock}
+for (auto&& x : il) {
+  c.keys.insert(c.keys.end(), std::move(x.first));
+  c.values.insert(c.values.end(), std::move(x.second));
+}
+\end{codeblock}
 and finally sorts the range \range{begin()}{end()}.
 
 \pnum
@@ -11500,8 +11525,13 @@ template <class Alloc>
 \pnum
 \effects Initializes \tcode{compare} with \tcode{comp}, \tcode{c.keys} with
 \tcode{a}, and \tcode{c.values} with \tcode{a}; adds elements to \tcode{c.keys}
-and \tcode{c.values} as if by
-\tcode{for (auto && x : il) { c.keys.insert(c.keys.end(), std::move(x.first)); c.values.insert(c.values.end(), std::move(x.second)); }}.
+and \tcode{c.values} as if by:
+\begin{codeblock}
+for (auto&& x : il) {
+  c.keys.insert(c.keys.end(), std::move(x.first));
+  c.values.insert(c.values.end(), std::move(x.second));
+}
+\end{codeblock}
 
 \pnum
 \complexity
@@ -11701,7 +11731,7 @@ template<class Key, class T, class Compare = less<Key>,
 \pnum
 \remarks
 This function shall not participate in overload resolution
-unless \tcode{is_swappable_v<KeyContainer> && is_swappable_v<MappedContainer>}
+unless \tcode{is_swappable_v<KeyContainer> \&\& is_swappable_v<MappedContainer>}
 is \tcode{true}.
 
 \pnum
