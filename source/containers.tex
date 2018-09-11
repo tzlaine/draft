@@ -10091,10 +10091,10 @@ namespace std {
       size_type max_size() const noexcept;
 
       // \ref{flatmap.access}, element access
-      T& operator[](const key_type& x);
-      T& operator[](key_type&& x);
-      T& at(const key_type& x);
-      const T& at(const key_type& x) const;
+      mapped_type& operator[](const key_type& x);
+      mapped_type& operator[](key_type&& x);
+      mapped_type& at(const key_type& x);
+      const mapped_type& at(const key_type& x) const;
 
       // \ref{flatmap.modifiers}, modifiers
       template <class... Args> pair<iterator, bool> emplace(Args&&... args);
@@ -10542,7 +10542,7 @@ Linear.
 
 \indexlibrary{\idxcode{operator[]}!\idxcode{flatmap}}%
 \begin{itemdecl}
-T& operator[](const key_type& x);
+mapped_type& operator[](const key_type& x);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -10553,7 +10553,7 @@ Equivalent to: \tcode{return try_emplace(x).first->second;}
 
 \indexlibrary{\idxcode{operator[]}!\idxcode{flatmap}}%
 \begin{itemdecl}
-T& operator[](key_type&& x);
+mapped_type& operator[](key_type&& x);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -10564,8 +10564,8 @@ Equivalent to: \tcode{return try_emplace(move(x)).first->second;}
 
 \indexlibrary{\idxcode{at}!\idxcode{flatmap}}%
 \begin{itemdecl}
-T&       at(const key_type& x);
-const T& at(const key_type& x) const;
+mapped_type&       at(const key_type& x);
+const mapped_typeT& at(const key_type& x) const;
 \end{itemdecl}
 
 \begin{itemdescr}
