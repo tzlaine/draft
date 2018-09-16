@@ -10412,8 +10412,8 @@ namespace std {
       using key_compare               = Compare;
       using reference                 = pair<const Key&, T&>;
       using const_reference           = pair<const Key&, const T&>;
-      using size_type                 = @\impdef@; // see \ref{container.requirements}
-      using difference_type           = @\impdef@; // see \ref{container.requirements}
+      using size_type                 = size_t;
+      using difference_type           = ptrdiff_t;
       using iterator                  = @\impdefx{type of \tcode{flat_map::iterator}}@; // see \ref{container.requirements}
       using const_iterator            = @\impdefx{type of \tcode{flat_map::const_iterator}}@; // see \ref{container.requirements}
       using reverse_iterator          = std::reverse_iterator<iterator>;
@@ -11430,8 +11430,8 @@ namespace std {
       using key_compare               = Compare;
       using reference                 = pair<const Key&, T&>;
       using const_reference           = pair<const Key&, const T&>;
-      using size_type                 = @\impdef@; // see \ref{container.requirements}
-      using difference_type           = @\impdef@; // see \ref{container.requirements}
+      using size_type                 = size_t;
+      using difference_type           = ptrdiff_t;
       using iterator                  = @\impdefx{type of \tcode{flat_multimap::iterator}}@; // see \ref{container.requirements}
       using const_iterator            = @\impdefx{type of \tcode{flat_multimap::const_iterator}}@; // see \ref{container.requirements}
       using reverse_iterator          = std::reverse_iterator<iterator>;
