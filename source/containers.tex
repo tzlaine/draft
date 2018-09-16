@@ -10162,6 +10162,9 @@ namespace std {
       key_compare key_comp() const;
       value_compare value_comp() const;
 
+      const key_container_type& keys() const      { return c.keys; }
+      const mapped_container_type& values() const { return c.values; }
+
       // map operations
       bool contains(const key_type& x) const;
       template <class K> bool contains(const K& x) const;
@@ -11166,6 +11169,9 @@ namespace std {
       // observers
       key_compare key_comp() const;
       value_compare value_comp() const;
+
+      const key_container_type& keys() const      { return c.keys; }
+      const mapped_container_type& values() const { return c.values; }
 
       // map operations
       bool contains(const key_type& x) const;
