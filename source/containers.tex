@@ -10488,7 +10488,7 @@ namespace std {
           : flat_map(s, first, last, key_compare(), a) { }
 
       template <class Alloc>
-        flat_map(const flat_map& m, const Alloc& a)
+        flat_map(flat_map&& m, const Alloc& a)
           : compare{std::move(m.compare)}
           , c{{std::move(m.c.keys), a}, {std::move(m.c.values), a}}
         {}
@@ -11507,7 +11507,7 @@ namespace std {
           : flat_multimap(s, first, last, key_compare(), a) { }
 
       template <class Alloc>
-        flat_multimap(const flat_multimap& m, const Alloc& a)
+        flat_multimap(flat_multimap&& m, const Alloc& a)
           : compare{std::move(m.compare)}
           , c{{std::move(m.c.keys), a}, {std::move(m.c.values), a}}
         {}
