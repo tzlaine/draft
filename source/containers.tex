@@ -10433,7 +10433,7 @@ namespace std {
         key_compare comp;
         value_compare(key_compare c) : comp(c) { }
       public:
-        bool operator()(const value_type& x, const value_type& y) const {
+        bool operator()(const_reference x, const_reference y) const {
           return comp(x.first, y.first);
         }
       };
@@ -11476,7 +11476,7 @@ namespace std {
         key_compare comp;
         value_compare(key_compare c) : comp(c) { }
       public:
-        bool operator()(const value_type& x, const value_type& y) const {
+        bool operator()(const_reference x, const_reference y) const {
           return comp(x.first, y.first);
         }
       };
