@@ -8950,6 +8950,18 @@ adaptor's \tcode{Container}, \tcode{KeyContainer}, \tcode{MappedContainer}, or
 \tcode{Compare} object (if any).
 \end{addedblock}
 
+\begin{addedblock}
+\pnum
+For container adaptors that have them, the \tcode{insert}, \tcode{emplace},
+and \tcode{erase} members shall affect the validity of iterators and
+references to the adaptor's container(s) in the same way that the containers'
+respective \tcode{insert}, \tcode{emplace}, and \tcode{erase} members do.
+\begin{example}
+A call to \tcode{flat_map<Key, T>::insert} invalidates all iterators to
+the \tcode{flat_map}.
+\end{example}
+\end{addedblock}
+
 \pnum
 A deduction guide for a container adaptor shall not participate in overload resolution if any of the following are true:
 \begin{itemize}
@@ -9917,8 +9929,9 @@ on the keys. The \tcode{flat_map} class supports random access iterators.
 A \tcode{flat_map} satisfies all of the requirements of a container, of a
 reversible container\iref{container.requirements}, and of an associative
 container\iref{associative.reqmts}, except for the requirements related to
-node handles\iref{container.node}.  A \tcode{flat_map} does not meet the
-additional requirements of an allocator-aware container, as described in
+node handles\iref{container.node} and iterator
+invalidation\iref{containers.associative.requirements}.  A \tcode{flat_map}
+does not meet the additional requirements of an allocator-aware container,
 \tref{containers.allocatoraware}.
 
 \pnum
@@ -10952,8 +10965,10 @@ the keys. The \tcode{flat_multimap} class supports random access iterators.
 A \tcode{flat_multimap} satisfies all of the requirements of a container, of a
 reversible container\iref{container.requirements}, and of an associative
 container\iref{associative.reqmts}, except for the requirements related to
-node handles\iref{container.node}.  A \tcode{flat_multimap} does not meet the
-additional requirements of an allocator-aware container, as described in
+node handles\iref{container.node} and iterator
+invalidation\iref{containers.associative.requirements}.
+A \tcode{flat_multimap} does not meet the additional requirements of an
+allocator-aware container, as described in
 \tref{containers.allocatoraware}.
 
 \pnum
