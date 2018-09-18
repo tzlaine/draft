@@ -10672,10 +10672,10 @@ namespace std {
 
   template<class Container>
     using @\placeholder{cont-key-type}@ =
-      typename Container::value_type::first_type;   // \expos
+      remove_const_t<typename Container::value_type::first_type>;   // \expos
   template<class Container>
     using @\placeholder{cont-val-type}@ =
-      typename Container::value_type::second_type;  // \expos
+      typename Container::value_type::second_type;                  // \expos
 
   template <class Container>
     flat_map(Container)
@@ -11721,10 +11721,10 @@ namespace std {
 
   template<class Container>
     using @\placeholder{cont-key-type}@ =
-      typename Container::value_type::first_type;   // \expos
+      remove_const_t<typename Container::value_type::first_type>;   // \expos
   template<class Container>
     using @\placeholder{cont-val-type}@ =
-      typename Container::value_type::second_type;  // \expos
+      typename Container::value_type::second_type;                  // \expos
 
   template <class Container>
     flat_multimap(Container)
