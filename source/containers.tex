@@ -10679,10 +10679,10 @@ namespace std {
 
   template <class Container>
     flat_map(Container)
-      -> flat_map<cont_key_t<Container>, cont_val_t<Container>,
-                  less<cont_key_t<Container>>,
-                  vector<cont_key_t<Container>>,
-                  vector<cont_val_t<Container>>>;
+      -> flat_map<@\placeholder{cont-key-type}@<Container>, @\placeholder{cont-val-type}@<Container>,
+                  less<@\placeholder{cont-key-type}@<Container>>,
+                  vector<@\placeholder{cont-key-type}@<Container>>,
+                  vector<@\placeholder{cont-val-type}@<Container>>>;
 
   template <class KeyContainer, class MappedContainer>
     flat_map(KeyContainer, MappedContainer)
@@ -10693,10 +10693,10 @@ namespace std {
 
   template <class Container, class Alloc>
     flat_map(Container, Alloc)
-      -> flat_map<cont_key_t<Container>, cont_val_t<Container>,
-                  less<cont_key_t<Container>>,
-                  vector<cont_key_t<Container>>,
-                  vector<cont_val_t<Container>>>;
+      -> flat_map<@\placeholder{cont-key-type}@<Container>, @\placeholder{cont-val-type}@<Container>,
+                  less<@\placeholder{cont-key-type}@<Container>>,
+                  vector<@\placeholder{cont-key-type}@<Container>>,
+                  vector<@\placeholder{cont-val-type}@<Container>>>;
 
   template <class KeyContainer, class MappedContainer, class Alloc>
     flat_map(KeyContainer, MappedContainer, Alloc)
@@ -10707,10 +10707,10 @@ namespace std {
 
   template <class Container>
     flat_map(sorted_unique_t, Container)
-      -> flat_map<cont_key_t<Container>, cont_val_t<Container>,
-                  less<cont_key_t<Container>>,
-                  vector<cont_key_t<Container>>,
-                  vector<cont_val_t<Container>>>;
+      -> flat_map<@\placeholder{cont-key-type}@<Container>, @\placeholder{cont-val-type}@<Container>,
+                  less<@\placeholder{cont-key-type}@<Container>>,
+                  vector<@\placeholder{cont-key-type}@<Container>>,
+                  vector<@\placeholder{cont-val-type}@<Container>>>;
 
   template <class KeyContainer, class MappedContainer>
     flat_map(sorted_unique_t, KeyContainer, MappedContainer)
@@ -10721,10 +10721,10 @@ namespace std {
 
   template <class Container, class Alloc>
     flat_map(sorted_unique_t, Container, Alloc)
-      -> flat_map<cont_key_t<Container>, cont_val_t<Container>,
-                  less<cont_key_t<Container>>,
-                  vector<cont_key_t<Container>>,
-                  vector<cont_val_t<Container>>>;
+      -> flat_map<@\placeholder{cont-key-type}@<Container>, @\placeholder{cont-val-type}@<Container>,
+                  less<@\placeholder{cont-key-type}@<Container>>,
+                  vector<@\placeholder{cont-key-type}@<Container>>,
+                  vector<@\placeholder{cont-val-type}@<Container>>>;
 
   template <class KeyContainer, class MappedContainer, class Alloc>
     flat_map(sorted_unique_t, KeyContainer, MappedContainer, Alloc)
@@ -11728,10 +11728,10 @@ namespace std {
 
   template <class Container>
     flat_multimap(Container)
-      -> flat_multimap<cont_key_t<Container>, cont_val_t<Container>,
-                       less<cont_key_t<Container>>,
-                       vector<cont_key_t<Container>>,
-                       vector<cont_val_t<Container>>>;
+      -> flat_multimap<@\placeholder{cont-key-type}@<Container>, @\placeholder{cont-val-type}@<Container>,
+                       less<@\placeholder{cont-key-type}@<Container>>,
+                       vector<@\placeholder{cont-key-type}@<Container>>,
+                       vector<@\placeholder{cont-val-type}@<Container>>>;
 
   template <class KeyContainer, class MappedContainer>
     flat_multimap(KeyContainer, MappedContainer)
@@ -11742,10 +11742,10 @@ namespace std {
 
   template <class Container, class Alloc>
     flat_multimap(Container, Alloc)
-      -> flat_multimap<cont_key_t<Container>, cont_val_t<Container>,
-                       less<cont_key_t<Container>>,
-                       vector<cont_key_t<Container>>,
-                       vector<cont_val_t<Container>>>;
+      -> flat_multimap<@\placeholder{cont-key-type}@<Container>, @\placeholder{cont-val-type}@<Container>,
+                       less<@\placeholder{cont-key-type}@<Container>>,
+                       vector<@\placeholder{cont-key-type}@<Container>>,
+                       vector<@\placeholder{cont-val-type}@<Container>>>;
 
   template <class KeyContainer, class MappedContainer, class Alloc>
     flat_multimap(KeyContainer, MappedContainer, Alloc)
@@ -11756,10 +11756,10 @@ namespace std {
 
   template <class Container>
     flat_multimap(sorted_equivalent_t, Container)
-      -> flat_multimap<cont_key_t<Container>, cont_val_t<Container>,
-                       less<cont_key_t<Container>>,
-                       vector<cont_key_t<Container>>,
-                       vector<cont_val_t<Container>>>;
+      -> flat_multimap<@\placeholder{cont-key-type}@<Container>, @\placeholder{cont-val-type}@<Container>,
+                       less<@\placeholder{cont-key-type}@<Container>>,
+                       vector<@\placeholder{cont-key-type}@<Container>>,
+                       vector<@\placeholder{cont-val-type}@<Container>>>;
 
   template <class KeyContainer, class MappedContainer>
     flat_multimap(sorted_equivalent_t, KeyContainer, MappedContainer)
@@ -11770,10 +11770,10 @@ namespace std {
 
   template <class Container, class Alloc>
     flat_multimap(sorted_equivalent_t, Container, Alloc)
-      -> flat_multimap<cont_key_t<Container>, cont_val_t<Container>,
-                       less<cont_key_t<Container>>,
-                       vector<cont_key_t<Container>>,
-                       vector<cont_val_t<Container>>>;
+      -> flat_multimap<@\placeholder{cont-key-type}@<Container>, @\placeholder{cont-val-type}@<Container>,
+                       less<@\placeholder{cont-key-type}@<Container>>,
+                       vector<@\placeholder{cont-key-type}@<Container>>,
+                       vector<@\placeholder{cont-val-type}@<Container>>>;
 
   template <class KeyContainer, class MappedContainer, class Alloc>
     flat_multimap(sorted_equivalent_t, KeyContainer, MappedContainer, Alloc)
