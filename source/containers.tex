@@ -10346,38 +10346,6 @@ namespace std {
   template<class Key, class T, class Alloc>
     flat_map(sorted_unique_t, initializer_list<pair<Key, T>>, Alloc)
       -> flat_map<Key, T, less<Key>, vector<Key>, vector<T>>;
-
-  template<class Key, class T, class Compare,
-           class KeyContainer, class MappedContainer>
-    bool operator==(const flat_map<Key, T, Compare, KeyContainer, MappedContainer>& x,
-                    const flat_map<Key, T, Compare, KeyContainer, MappedContainer>& y);
-  template<class Key, class T, class Compare,
-           class KeyContainer, class MappedContainer>
-    bool operator!=(const flat_map<Key, T, Compare, KeyContainer, MappedContainer>& x,
-                    const flat_map<Key, T, Compare, KeyContainer, MappedContainer>& y);
-  template<class Key, class T, class Compare,
-           class KeyContainer, class MappedContainer>
-    bool operator< (const flat_map<Key, T, Compare, KeyContainer, MappedContainer>& x,
-                    const flat_map<Key, T, Compare, KeyContainer, MappedContainer>& y);
-  template<class Key, class T, class Compare,
-           class KeyContainer, class MappedContainer>
-    bool operator> (const flat_map<Key, T, Compare, KeyContainer, MappedContainer>& x,
-                    const flat_map<Key, T, Compare, KeyContainer, MappedContainer>& y);
-  template<class Key, class T, class Compare,
-           class KeyContainer, class MappedContainer>
-    bool operator<=(const flat_map<Key, T, Compare, KeyContainer, MappedContainer>& x,
-                    const flat_map<Key, T, Compare, KeyContainer, MappedContainer>& y);
-  template<class Key, class T, class Compare,
-           class KeyContainer, class MappedContainer>
-    bool operator>=(const flat_map<Key, T, Compare, KeyContainer, MappedContainer>& x,
-                    const flat_map<Key, T, Compare, KeyContainer, MappedContainer>& y);
-
-  // specialized algorithms
-  template<class Key, class T, class Compare,
-           class KeyContainer, class MappedContainer>
-    void swap(flat_map<Key, T, Compare, KeyContainer, MappedContainer>& x,
-              flat_map<Key, T, Compare, KeyContainer, MappedContainer>& y)
-      noexcept(noexcept(x.swap(y)));
 }
 \end{codeblock}
 
@@ -11390,38 +11358,6 @@ namespace std {
   template<class Key, class T, class Alloc>
     flat_multimap(sorted_equivalent_t, initializer_list<pair<Key, T>>, Alloc)
       -> flat_multimap<Key, T, less<Key>, vector<Key>, vector<T>>;
-
-  template<class Key, class T, class Compare,
-           class KeyContainer, class MappedContainer>
-    bool operator==(const flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& x,
-                    const flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& y);
-  template<class Key, class T, class Compare,
-           class KeyContainer, class MappedContainer>
-    bool operator!=(const flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& x,
-                    const flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& y);
-  template<class Key, class T, class Compare,
-           class KeyContainer, class MappedContainer>
-    bool operator< (const flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& x,
-                    const flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& y);
-  template<class Key, class T, class Compare,
-           class KeyContainer, class MappedContainer>
-    bool operator> (const flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& x,
-                    const flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& y);
-  template<class Key, class T, class Compare,
-           class KeyContainer, class MappedContainer>
-    bool operator<=(const flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& x,
-                    const flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& y);
-  template<class Key, class T, class Compare,
-           class KeyContainer, class MappedContainer>
-    bool operator>=(const flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& x,
-                    const flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& y);
-
-  // specialized algorithms:
-  template<class Key, class T, class Compare,
-           class KeyContainer, class MappedContainer>
-    void swap(flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& x,
-              flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& y)
-      noexcept(noexcept(x.swap(y)));
 }
 \end{codeblock}
 
