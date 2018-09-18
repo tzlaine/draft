@@ -11045,7 +11045,7 @@ mapped_type& operator[](key_type&& x);
 \begin{itemdescr}
 \pnum
 \effects
-Equivalent to: \tcode{return try_emplace(move(x)).first->second;}
+Equivalent to: \tcode{return try_emplace(std::move(x)).first->second;}
 \end{itemdescr}
 
 \indexlibrary{\idxcode{at}!\idxcode{flatmap}}%
