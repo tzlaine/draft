@@ -10615,12 +10615,7 @@ namespace std {
       size_type erase(const key_type& x);
       iterator erase(const_iterator first, const_iterator last);
 
-      void swap(flat_map& fm)
-        noexcept(
-          is_nothrow_swappable_v<key_container_type> &&
-          is_nothrow_swappable_v<mapped_container_type> &&
-          is_nothrow_swappable_v<key_compare>
-        );
+      void swap(flat_map& fm) noexcept;
       void clear() noexcept;
 
       template<class C2>
@@ -11280,6 +11275,7 @@ to \tcode{compare}.
 \pnum \complexity Linear.
 \end{itemdescr}
 
+
 \indexlibrarymember{flatmap}{insert}%
 \begin{itemdecl}
 void insert(sorted_unique_t, initializer_list<pair<key_type, mapped_type>> il);
@@ -11287,6 +11283,29 @@ void insert(sorted_unique_t, initializer_list<pair<key_type, mapped_type>> il);
 
 \begin{itemdescr}
 \pnum Effects: Equivalent to \tcode{insert(sorted_unique_t{}, il.begin(), il.end())}.
+\end{itemdescr}
+
+\indexlibrarymember{flatmap}{swap}%
+\begin{itemdecl}
+void swap(flat_map& fm) noexcept;
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum Effects: Equivalent to:
+\begin{codeblock}
+using std::swap;
+swap(c.keys, fm.c.keys);
+swap(c.values, fm.c.values);
+swap(c.compare, fm.compare);
+\end{codeblock}
+
+\pnum
+\remarks
+This function shall not participate in overload resolution
+unless \tcode{is_nothrow_swappable_v<key_container_type> \&\&
+is_nothrow_swappable_v<mapped_container_type> \&\&
+is_nothrow_swappable_v<key_compare>} is
+\tcode{true}.
 \end{itemdescr}
 
 \indexlibrarymember{flatmap}{extract}%
@@ -11407,7 +11426,8 @@ template<class Key, class T, class Compare, class KeyContainer, class MappedCont
 \pnum
 \remarks
 This function shall not participate in overload resolution
-unless \tcode{is_swappable_v<KeyContainer> \&\& is_swappable_v<MappedContainer>}
+unless \tcode{is_nothrow_swappable_v<KeyContainer> \&\&
+is_nothrow_swappable_v<MappedContainer> \&\& is_nothrow_swappable_v<Compare>}
 is \tcode{true}.
 
 \pnum
@@ -11646,12 +11666,7 @@ namespace std {
       size_type erase(const key_type& x);
       iterator erase(const_iterator first, const_iterator last);
 
-      void swap(flat_multimap& fm)
-        noexcept(
-          is_nothrow_swappable_v<key_container_type> &&
-          is_nothrow_swappable_v<mapped_container_type> &&
-          is_nothrow_swappable_v<key_compare>
-        );
+      void swap(flat_multimap& fm) noexcept;
       void clear() noexcept;
 
       template<class C2>
@@ -12100,6 +12115,29 @@ void insert(sorted_unique_t, initializer_list<pair<key_type, mapped_type>> il);
 \pnum Effects: Equivalent to \tcode{insert(sorted_unique_t{}, il.begin(), il.end())}.
 \end{itemdescr}
 
+\indexlibrarymember{flatmultimap}{swap}%
+\begin{itemdecl}
+void swap(flat_multimap& fm) noexcept;
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum Effects: Equivalent to:
+\begin{codeblock}
+using std::swap;
+swap(c.keys, fm.c.keys);
+swap(c.values, fm.c.values);
+swap(c.compare, fm.compare);
+\end{codeblock}
+
+\pnum
+\remarks
+This function shall not participate in overload resolution
+unless \tcode{is_nothrow_swappable_v<key_container_type> \&\&
+is_nothrow_swappable_v<mapped_container_type> \&\&
+is_nothrow_swappable_v<key_compare>} is
+\tcode{true}.
+\end{itemdescr}
+
 \indexlibrarymember{flatmultimap}{extract}%
 \begin{itemdecl}
 containers extract() &&;
@@ -12218,7 +12256,8 @@ template<class Key, class T, class Compare, class KeyContainer, class MappedCont
 \pnum
 \remarks
 This function shall not participate in overload resolution
-unless \tcode{is_swappable_v<KeyContainer> \&\& is_swappable_v<MappedContainer>}
+unless \tcode{is_nothrow_swappable_v<KeyContainer> \&\&
+is_nothrow_swappable_v<MappedContainer> \&\& is_nothrow_swappable_v<Compare>}
 is \tcode{true}.
 
 \pnum
