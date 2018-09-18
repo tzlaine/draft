@@ -10733,19 +10733,6 @@ namespace std {
                   less<typename KeyContainer::value_type>,
                   KeyContainer, MappedContainer>;
 
-  template<class Compare, class Alloc>
-    flat_map(Compare, Alloc)
-      -> flat_map<alloc_key_t<Alloc>, alloc_val_t<Alloc>, Compare,
-                  vector<alloc_key_t<Alloc>>,
-                  vector<alloc_val_t<Alloc>>>;
-
-  template<class Alloc>
-    flat_map(Alloc)
-      -> flat_map<alloc_key_t<Alloc>, alloc_val_t<Alloc>,
-                  less<alloc_key_t<Alloc>>,
-                  vector<alloc_key_t<Alloc>>,
-                  vector<alloc_val_t<Alloc>>>;
-
   template <class InputIterator, class Compare = less<iter_key_t<InputIterator>>>
     flat_map(InputIterator, InputIterator, Compare = Compare())
       -> flat_map<iter_key_t<InputIterator>, iter_val_t<InputIterator>,
@@ -11781,19 +11768,6 @@ namespace std {
                        typename MappedContainer::value_type,
                        less<typename KeyContainer::value_type>,
                        KeyContainer, MappedContainer>;
-
-  template<class Compare, class Alloc>
-    flat_multimap(Compare, Alloc)
-      -> flat_multimap<alloc_key_t<Alloc>, alloc_val_t<Alloc>, Compare,
-                       vector<alloc_key_t<Alloc>>,
-                       vector<alloc_val_t<Alloc>>>;
-
-  template<class Alloc>
-    flat_multimap(Alloc)
-      -> flat_multimap<alloc_key_t<Alloc>, alloc_val_t<Alloc>,
-                       less<alloc_key_t<Alloc>>,
-                       vector<alloc_key_t<Alloc>>,
-                       vector<alloc_val_t<Alloc>>>;
 
   template <class InputIterator, class Compare = less<iter_key_t<InputIterator>>>
     flat_multimap(InputIterator, InputIterator, Compare = Compare())
