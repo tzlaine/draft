@@ -10375,9 +10375,9 @@ flat_map(key_container_type&& key_cont, mapped_container_type&& mapped_cont);
 \begin{itemdescr}
 \pnum
 \effects Initializes \tcode{c.keys} with
-\tcode{std::forward<key_container_type>(key_cont)} and \tcode{c.values} with
-\tcode{std::forward<mapped_container_type>(mapped_cont)}; sorts the range
-\range{begin()}{end()}.
+\tcode{std::move(key_cont)} and \tcode{c.values} with
+\tcode{std::move(mapped_cont)}; sorts the range
+\range{begin()}{end()} with \tcode{compare}.
 
 \pnum
 \complexity
@@ -10394,8 +10394,8 @@ flat_map(sorted_unique_t, key_container_type&& key_cont, mapped_container_type&&
 \begin{itemdescr}
 \pnum
 \effects Initializes \tcode{c.keys} with
-\tcode{std::forward<key_container_type>(key_cont)} and \tcode{c.values} with
-\tcode{std::forward<mapped_container_type>(mapped_cont)}.
+\tcode{std::move(key_cont)} and \tcode{c.values} with
+\tcode{std::move(mapped_cont)}.
 
 \pnum
 \complexity
@@ -10488,7 +10488,7 @@ for (; first != last; ++last) {
   c.values.insert(c.values.end(), first->second);
 }
 \end{codeblock}
-and finally sorts the range \range{begin()}{end()}.
+and finally sorts the range \range{begin()}{end()} with \tcode{compare}.
 \end{itemdescr}
 
 \indexlibrary{\idxcode{flatmap}!constructor}%
@@ -11387,9 +11387,9 @@ flat_multimap(key_container_type&& key_cont, mapped_container_type&& mapped_cont
 \begin{itemdescr}
 \pnum
 \effects Initializes \tcode{c.keys} with
-\tcode{std::forward<key_container_type>(key_cont)} and \tcode{c.values} with
-\tcode{std::forward<mapped_container_type>(mapped_cont)}; sorts the range
-+\range{begin()}{end()}.
+\tcode{std::move(key_cont)} and \tcode{c.values} with
+\tcode{std::move(mapped_cont)}; sorts the range
+\range{begin()}{end()} with \tcode{compare}.
 
 \pnum
 \complexity
@@ -11406,8 +11406,8 @@ flat_multimap(sorted_equivalent_t, key_container_type&& key_cont, mapped_contain
 \begin{itemdescr}
 \pnum
 \effects Initializes \tcode{c.keys} with
-\tcode{std::forward<key_container_type>(key_cont)} and \tcode{c.values} with
-\tcode{std::forward<mapped_container_type>(mapped_cont)}.
+\tcode{std::move(key_cont)} and \tcode{c.values} with
+\tcode{std::move(mapped_cont)}.
 
 \pnum
 \complexity
@@ -11487,7 +11487,7 @@ for (; first != last; ++last) {
   c.values.insert(c.values.end(), first->second);
 }
 \end{codeblock}
-and finally sorts the range \range{begin()}{end()}.
+and finally sorts the range \range{begin()}{end()} with \tcode{compare}.
 \end{itemdescr}
 
 \indexlibrary{\idxcode{flatmultimap}!constructor}%
