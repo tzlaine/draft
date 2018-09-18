@@ -10161,9 +10161,9 @@ namespace std {
 
       void swap(flat_map& fm)
         noexcept(
-          noexcept(declval<key_container_type>().swap(declval<key_container_type&>())) &&
-          noexcept(declval<mapped_container_type>().swap(declval<mapped_container_type&>()) &&
-          noexcept(declval<key_compare>().swap(declval<key_compare&>()))
+          is_nothrow_swappable_v<key_container_type> &&
+          is_nothrow_swappable_v<mapped_container_type> &&
+          is_nothrow_swappable_v<key_compare>
         );
       void clear() noexcept;
 
@@ -11192,9 +11192,9 @@ namespace std {
 
       void swap(flat_multimap& fm)
         noexcept(
-          noexcept(declval<key_container_type>().swap(declval<key_container_type&>())) &&
-          noexcept(declval<mapped_container_type>().swap(declval<mapped_container_type&>()) &&
-          noexcept(declval<key_compare>().swap(declval<key_compare&>()))
+          is_nothrow_swappable_v<key_container_type> &&
+          is_nothrow_swappable_v<mapped_container_type> &&
+          is_nothrow_swappable_v<key_compare>
         );
       void clear() noexcept;
 
