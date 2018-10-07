@@ -10369,6 +10369,26 @@ key value) and provides for fast retrieval of values of another type \tcode{T}
 based on the keys. The \tcode{flat_map} class supports random access
 iterators.
 
+TODO: [[nodiscard]] on empty().
+
+TODO: Front matter should say that it's an invariant that keys and values are
+the same size.  See first part of array overview. time.zone.overview too?
+Also, that the elements are sroted w.r.t. compare.
+
+TODO: Consistently say what happens to keys, values, compare in ctors.
+
+TODO: size() equivalent to keys.size()
+
+TODO: 3) unordered associative container table 72
+
+TODO: 4) say in fron matter that emplace will be used if the underlying containers have them.  Maybe put a paragraph before the modifiers section that says what happens; this an be in terms of a word of power ``INSERT_OR_EMPLACE''  NO! Explain what try_emplace does, though,
+
+TODO: 5) Taken care of by front matter invariants.
+
+TODO: 6) See try_emplace in map.modifiers
+
+
+
 \pnum
 A \tcode{flat_map} satisfies all of the requirements of a container, of a
 reversible container\iref{container.requirements}, and of an associative
@@ -10637,9 +10657,6 @@ namespace std {
       const mapped_container_type& values() const { return c.values; }
 
       // map operations
-      bool contains(const key_type& x) const;
-      template <class K> bool contains(const K& x) const;
-
       iterator find(const key_type& x);
       const_iterator find(const key_type& x) const;
       template <class K> iterator find(const K& x);
@@ -10647,6 +10664,9 @@ namespace std {
 
       size_type count(const key_type& x) const;
       template <class K> size_type count(const K& x) const;
+
+      bool contains(const key_type& x) const;
+      template <class K> bool contains(const K& x) const;
 
       iterator lower_bound(const key_type& x);
       const_iterator lower_bound(const key_type& x) const;
@@ -11647,9 +11667,6 @@ namespace std {
       const mapped_container_type& values() const { return c.values; }
 
       // map operations
-      bool contains(const key_type& x) const;
-      template <class K> bool contains(const K& x) const;
-
       iterator find(const key_type& x);
       const_iterator find(const key_type& x) const;
       template <class K> iterator find(const K& x);
@@ -11657,6 +11674,9 @@ namespace std {
 
       size_type count(const key_type& x) const;
       template <class K> size_type count(const K& x) const;
+
+      bool contains(const key_type& x) const;
+      template <class K> bool contains(const K& x) const;
 
       iterator lower_bound(const key_type& x);
       const_iterator lower_bound(const key_type& x) const;
