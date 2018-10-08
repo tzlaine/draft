@@ -9913,10 +9913,6 @@ key value) and provides for fast retrieval of values of another type \tcode{T}
 based on the keys. The \tcode{flat_map} class supports random access
 iterators.
 
-%TODO: Front matter should say that it's an invariant that keys and values are
-%the same size.  See first part of array overview. time.zone.overview too?
-%Also, that the elements are sroted w.r.t. compare.
-
 \pnum
 A \tcode{flat_map} satisfies all of the requirements of a container, of a
 reversible container\iref{container.requirements}, and of an associative
@@ -9935,9 +9931,17 @@ a \tcode{flat_map<Key,T>} the \tcode{key_type} is \tcode{Key} and the
 \tcode{value_type} is \tcode{pair<const Key,T>}.
 
 \pnum
-Descriptions are provided here only for operations on \tcode{flat_map}
-that are not described in one of those tables or for operations where
-there is additional semantic information.
+A \tcode{flat_map} \tcode{m} maintains these invariants: it contains the same
+number of keys and values; the keys are sorted with respect to the its
+comparison object; and the value at offset \tcode{o} within the value
+container is the value associated with the key at offset \tcode{o} within the
+key container.  That is, this key-value pair is used to form the
+value \tcode{*(m.begin() + o)}.
+
+\pnum
+Descriptions are provided here only for operations on \tcode{flat_map} that
+are not described in one of those tables or for operations where there is
+additional semantic information.
 
 \pnum
 Any sequence container supporting random access iteration can be used to
@@ -11014,6 +11018,14 @@ in~\ref{associative.reqmts} for equal keys.  This means that a
 in~\ref{associative.reqmts} but not the \tcode{a_uniq} operations.  For
 a \tcode{flat_multimap<Key,T>} the \tcode{key_type} is \tcode{Key} and the
 \tcode{value_type} is \tcode{pair<const Key,T>}.
+
+\pnum
+A \tcode{flat_multimap} \tcode{m} maintains these invariants: it contains the
+same number of keys and values; the keys are sorted with respect to the its
+comparison object; and the value at offset \tcode{o} within the value
+container is the value associated with the key at offset \tcode{o} within the
+key container.  That is, this key-value pair is used to form the
+value \tcode{*(m.begin() + o)}.
 
 \pnum
 Descriptions are provided here only for operations on \tcode{flat_multimap}
