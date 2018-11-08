@@ -10069,30 +10069,30 @@ namespace std {
               mapped_container_type(m.c.values, a)}
         { }
 
-      flat_map(initializer_list<pair<key_type, mapped_type>>&& il,
+      flat_map(initializer_list<value_type>&& il,
                const key_compare& comp = key_compare())
           : flat_map(il, comp) { }
       template <class Alloc>
-        flat_map(initializer_list<pair<key_type, mapped_type>>&& il,
+        flat_map(initializer_list<value_type>&& il,
                  const key_compare& comp, const Alloc& a)
           : flat_map(il, comp, a) { }
       template <class Alloc>
-        flat_map(initializer_list<pair<key_type, mapped_type>>&& il, const Alloc& a)
+        flat_map(initializer_list<value_type>&& il, const Alloc& a)
           : flat_map(il, key_compare(), a) { }
 
-      flat_map(sorted_unique_t s, initializer_list<pair<key_type, mapped_type>>&& il,
+      flat_map(sorted_unique_t s, initializer_list<value_type>&& il,
                const key_compare& comp = key_compare())
           : flat_map(s ,il, comp) { }
       template <class Alloc>
-        flat_map(sorted_unique_t s, initializer_list<pair<key_type, mapped_type>>&& il,
+        flat_map(sorted_unique_t s, initializer_list<value_type>&& il,
                  const key_compare& comp, const Alloc& a)
           : flat_map(s, il, comp, a) { }
       template <class Alloc>
-        flat_map(sorted_unique_t s, initializer_list<pair<key_type, mapped_type>>&& il,
+        flat_map(sorted_unique_t s, initializer_list<value_type>&& il,
                  const Alloc& a)
           : flat_map(s, il, key_compare(), a) { }
 
-      flat_map& operator=(initializer_list<pair<key_type, mapped_type>> il);
+      flat_map& operator=(initializer_list<value_type> il);
 
       // iterators
       iterator                begin() noexcept;
@@ -10136,8 +10136,8 @@ namespace std {
         void insert(InputIterator first, InputIterator last);
       template <class InputIterator>
         void insert(sorted_unique_t, InputIterator first, InputIterator last);
-      void insert(initializer_list<pair<key_type, mapped_type>>);
-      void insert(sorted_unique_t, initializer_list<pair<key_type, mapped_type>> il);
+      void insert(initializer_list<value_type>);
+      void insert(sorted_unique_t, initializer_list<value_type> il);
 
       containers extract() &&;
       void replace(key_container_type&& key_cont, mapped_container_type&& mapped_cont);
@@ -10595,7 +10595,7 @@ no such element is present.
 
 \indexlibrarymember{operator=}{flatmap}%
 \begin{itemdecl}
-flat_map& operator=(initializer_list<pair<key_type, mapped_type>> il);
+flat_map& operator=(initializer_list<value_type> il);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -10834,7 +10834,7 @@ to \tcode{compare}.
 
 \indexlibrarymember{flatmap}{insert}%
 \begin{itemdecl}
-void insert(sorted_unique_t, initializer_list<pair<key_type, mapped_type>> il);
+void insert(sorted_unique_t, initializer_list<value_type> il);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -11157,30 +11157,30 @@ namespace std {
           , c{key_container_type(m.c.keys, a), mapped_container_type(m.c.values, a)}
         { }
 
-      flat_multimap(initializer_list<pair<key_type, mapped_type>>&& il,
+      flat_multimap(initializer_list<value_type>&& il,
                     const key_compare& comp = key_compare())
           : flat_multimap(il, comp) { }
       template <class Alloc>
-        flat_multimap(initializer_list<pair<key_type, mapped_type>>&& il,
+        flat_multimap(initializer_list<value_type>&& il,
                       const key_compare& comp, const Alloc& a)
           : flat_multimap(il, comp, a) { }
       template <class Alloc>
-        flat_multimap(initializer_list<pair<key_type, mapped_type>>&& il, const Alloc& a)
+        flat_multimap(initializer_list<value_type>&& il, const Alloc& a)
           : flat_multimap(il, key_compare(), a) { }
 
-      flat_multimap(sorted_equivalent_t s, initializer_list<pair<key_type, mapped_type>>&& il,
+      flat_multimap(sorted_equivalent_t s, initializer_list<value_type>&& il,
                     const key_compare& comp = key_compare())
           : flat_multimap(s, il, comp) { }
       template <class Alloc>
-        flat_multimap(sorted_equivalent_t s, initializer_list<pair<key_type, mapped_type>>&& il,
+        flat_multimap(sorted_equivalent_t s, initializer_list<value_type>&& il,
                       const key_compare& comp, const Alloc& a)
           : flat_multimap(s, il, comp, a) { }
       template <class Alloc>
-        flat_multimap(sorted_equivalent_t s, initializer_list<pair<key_type, mapped_type>>&& il,
+        flat_multimap(sorted_equivalent_t s, initializer_list<value_type>&& il,
                       const Alloc& a)
           : flat_multimap(s, il, key_compare(), a) { }
 
-      flat_multimap& operator=(initializer_list<pair<key_type, mapped_type>> il);
+      flat_multimap& operator=(initializer_list<value_type> il);
 
       // iterators
       iterator                begin() noexcept;
@@ -11218,8 +11218,8 @@ namespace std {
         void insert(InputIterator first, InputIterator last);
       template <class InputIterator>
         void insert(sorted_equivalent_t, InputIterator first, InputIterator last);
-      void insert(initializer_list<pair<key_type, mapped_type>>);
-      void insert(sorted_equivalent_t, initializer_list<pair<key_type, mapped_type>> il);
+      void insert(initializer_list<value_type>);
+      void insert(sorted_equivalent_t, initializer_list<value_type> il);
 
       containers extract() &&;
       void replace(key_container_type&& key_cont, mapped_container_type&& mapped_cont);
@@ -11577,7 +11577,7 @@ Linear.
 
 \indexlibrarymember{operator=}{flatmap}%
 \begin{itemdecl}
-flat_map& operator=(initializer_list<pair<key_type, mapped_type>> il);
+flat_map& operator=(initializer_list<value_type> il);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -11662,7 +11662,7 @@ to \tcode{compare}.
 
 \indexlibrarymember{flatmultimap}{insert}%
 \begin{itemdecl}
-void insert(sorted_unique_t, initializer_list<pair<key_type, mapped_type>> il);
+void insert(sorted_unique_t, initializer_list<value_type> il);
 \end{itemdecl}
 
 \begin{itemdescr}
