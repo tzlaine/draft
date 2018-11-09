@@ -10610,7 +10610,9 @@ template <class... Args> pair<iterator, bool> emplace(Args&&... args);
 \begin{itemdescr}
 \pnum
 \requires
-\tcode{value_type} shall be \tcode{EmplaceConstructible} into \tcode{map} from \tcode{args}.
+\tcode{value_type} shall be contructible from \tcode{args...}, so that the
+following expression is well-formed: \tcode{pair<key_type,
+  mapped_type>(std::forward<Args>(args)...)}.
 
 \pnum
 \effects
@@ -10663,9 +10665,9 @@ template<class... Args>
 \begin{itemdescr}
 \pnum
 \requires
-\tcode{key_type} shall be \tcode{CopyInsertable} into \tcode{key_container_type}, and
-\tcode{mapped_type} shall be \tcode{EmplaceConstructible} into \tcode{mapped_container_type}
-from \tcode{args...}.
+\tcode{mapped_type} shall be contructible from \tcode{args...}, so that the
+following expression is well-formed:
+\tcode{mapped_type(std::forward<Args>(args)...)}.
 
 \pnum
 \effects
@@ -10701,9 +10703,9 @@ template<class... Args>
 \begin{itemdescr}
 \pnum
 \requires
-\tcode{key_type} shall be \tcode{MoveInsertable} into \tcode{key_container_type}, and
-\tcode{mapped_type}  shall be \tcode{EmplaceConstructible} into \tcode{mapped_container_type}
-from \tcode{args...}.
+\tcode{mapped_type} shall be contructible from \tcode{args...}, so that the
+following expression is well-formed:
+\tcode{mapped_type(std::forward<Args>(args)...)}.
 
 \pnum
 \effects
@@ -10742,9 +10744,9 @@ template<class M>
 \pnum
 \requires
 \tcode{is_assignable_v<mapped_type\&, M>} shall be \tcode{true}.
-\tcode{key_type} shall be \tcode{CopyInsertable} into \tcode{key_container_type}, and
-\tcode{mapped_type}  shall be \tcode{EmplaceConstructible} into \tcode{mapped_container_type}
-from \tcode{obj}.
+\tcode{mapped_type} shall be contructible from \tcode{obj}, so that the
+following expression is well-formed:
+\tcode{mapped_type(std::forward<Args>(obj))}.
 
 \pnum
 \effects
@@ -10780,9 +10782,9 @@ template<class M>
 \pnum
 \requires
 \tcode{is_assignable_v<mapped_type\&, M>} shall be \tcode{true}.
-\tcode{key_type} shall be \tcode{MoveInsertable} into \tcode{key_container_type}, and
-\tcode{mapped_type}  shall be \tcode{EmplaceConstructible} into \tcode{mapped_container_type}
-from \tcode{obj}.
+\tcode{mapped_type} shall be contructible from \tcode{obj}, so that the
+following expression is well-formed:
+\tcode{mapped_type(std::forward<Args>(obj))}.
 
 \pnum
 \effects
@@ -11584,7 +11586,9 @@ template <class... Args> pair<iterator, bool> emplace(Args&&... args);
 \begin{itemdescr}
 \pnum
 \requires
-\tcode{value_type} shall be \tcode{EmplaceConstructible} into \tcode{map} from \tcode{args}.
+\tcode{value_type} shall be contructible from \tcode{args...}, so that the
+following expression is well-formed:
+\tcode{value_type(std::forward<Args>(args)...)}.
 
 \pnum
 \effects
@@ -11661,9 +11665,9 @@ template<class... Args>
 \begin{itemdescr}
 \pnum
 \requires
-\tcode{key_type} shall be \tcode{CopyInsertable} into \tcode{key_container_type}, and
-\tcode{mapped_type} shall be \tcode{EmplaceConstructible} into \tcode{mapped_container_type}
-from \tcode{args...}.
+\tcode{mapped_type} shall be contructible from \tcode{args...}, so that the
+following expression is well-formed:
+\tcode{mapped_type(std::forward<Args>(args)...)}.
 
 \pnum
 \effects
@@ -11699,9 +11703,9 @@ template<class... Args>
 \begin{itemdescr}
 \pnum
 \requires
-\tcode{key_type} shall be \tcode{MoveInsertable} into \tcode{key_container_type}, and
-\tcode{mapped_type}  shall be \tcode{EmplaceConstructible} into \tcode{mapped_container_type}
-from \tcode{args...}.
+\tcode{mapped_type} shall be contructible from \tcode{args...}, so that the
+following expression is well-formed:
+\tcode{mapped_type(std::forward<Args>(args)...)}.
 
 \pnum
 \effects
