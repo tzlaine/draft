@@ -11047,10 +11047,9 @@ template <class... Args> pair<iterator, bool> emplace(Args&&... args);
 
 \begin{itemdescr}
 \pnum
-\requires
-\tcode{value_type} shall be contructible from \tcode{args...}, so that the
-following expression is well-formed: \tcode{pair<key_type,
-  mapped_type>(std::forward<Args>(args)...)}.
+\constraints
+The \tcode{pair<key_type, mapped_type>(std::forward<Args>(args)...)} is
+well-formed.
 
 \pnum
 \effects
@@ -11102,10 +11101,9 @@ template<class... Args>
 
 \begin{itemdescr}
 \pnum
-\requires
-\tcode{mapped_type} shall be contructible from \tcode{args...}, so that the
-following expression is well-formed:
-\tcode{mapped_type(std::forward<Args>(args)...)}.
+\constraints
+The expression \tcode{mapped_type(std::forward<Args>(args)...)} is
+well-formed.
 
 \pnum
 \effects
@@ -11140,10 +11138,9 @@ template<class... Args>
 
 \begin{itemdescr}
 \pnum
-\requires
-\tcode{mapped_type} shall be contructible from \tcode{args...}, so that the
-following expression is well-formed:
-\tcode{mapped_type(std::forward<Args>(args)...)}.
+\constraints
+The expression \tcode{mapped_type(std::forward<Args>(args)...)} is
+well-formed.
 
 \pnum
 \effects
@@ -11180,11 +11177,9 @@ template<class M>
 
 \begin{itemdescr}
 \pnum
-\requires
-\tcode{is_assignable_v<mapped_type\&, M>} shall be \tcode{true}.
-\tcode{mapped_type} shall be contructible from \tcode{obj}, so that the
-following expression is well-formed:
-\tcode{mapped_type(std::forward<Args>(obj))}.
+\constraints
+\tcode{is_assignable_v<mapped_type\&, M>}, and the expresion
+\tcode{mapped_type(std::forward<M>(obj))} is well-formed.
 
 \pnum
 \effects
@@ -11218,11 +11213,9 @@ template<class M>
 
 \begin{itemdescr}
 \pnum
-\requires
-\tcode{is_assignable_v<mapped_type\&, M>} shall be \tcode{true}.
-\tcode{mapped_type} shall be contructible from \tcode{obj}, so that the
-following expression is well-formed:
-\tcode{mapped_type(std::forward<Args>(obj))}.
+\constraints
+\tcode{is_assignable_v<mapped_type\&, M>}, and the expression
+\tcode{mapped_type(std::forward<M>(obj))} is well-formed.
 
 \pnum
 \effects
@@ -11253,8 +11246,8 @@ template <class InputIterator>
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \requires The range \range{first}{last} shall be sorted with respect
-to \tcode{compare}.
+\pnum \expects
+The range \range{first}{last} is sorted with respect to \tcode{compare}.
 
 \pnum \effects Equivalent to: \tcode{insert(first, last)}.
 
@@ -11315,8 +11308,9 @@ void replace(key_container_type&& key_cont, mapped_container_type&& mapped_cont)
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \requires \tcode{key_cont.size() == mapped_cont.size()}, and that
-the elements of \tcode{key_cont} are sorted with respect to \tcode{compare}.
+\pnum \expects
+\tcode{key_cont.size() == mapped_cont.size()}, and the elements of
+\tcode{key_cont} are sorted with respect to \tcode{compare}.
 
 \pnum
 \effects Equivalent to:
@@ -12008,10 +12002,8 @@ template <class... Args> pair<iterator, bool> emplace(Args&&... args);
 
 \begin{itemdescr}
 \pnum
-\requires
-\tcode{value_type} shall be contructible from \tcode{args...}, so that the
-following expression is well-formed:
-\tcode{value_type(std::forward<Args>(args)...)}.
+\constraints
+The expression \tcode{value_type(std::forward<Args>(args)...)} is well-formed.
 
 \pnum
 \effects
@@ -12060,8 +12052,8 @@ template <class InputIterator>
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \requires The range \range{first}{last} shall be sorted with respect
-to \tcode{compare}.
+\pnum \expects
+The range \range{first}{last} is sorted with respect to \tcode{compare}.
 
 \pnum \effects Equivalent to: \tcode{insert(first, last)}.
 
@@ -12087,10 +12079,9 @@ template<class... Args>
 
 \begin{itemdescr}
 \pnum
-\requires
-\tcode{mapped_type} shall be contructible from \tcode{args...}, so that the
-following expression is well-formed:
-\tcode{mapped_type(std::forward<Args>(args)...)}.
+\constraints
+The expression \tcode{mapped_type(std::forward<Args>(args)...)} is
+well-formed.
 
 \pnum
 \effects
@@ -12125,10 +12116,9 @@ template<class... Args>
 
 \begin{itemdescr}
 \pnum
-\requires
-\tcode{mapped_type} shall be contructible from \tcode{args...}, so that the
-following expression is well-formed:
-\tcode{mapped_type(std::forward<Args>(args)...)}.
+\constraints
+The expression \tcode{mapped_type(std::forward<Args>(args)...)} is
+well-formed.
 
 \pnum
 \effects
@@ -12199,8 +12189,9 @@ void replace(key_container_type&& key_cont, mapped_container_type&& mapped_cont)
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \requires \tcode{key_cont.size() == mapped_cont.size()}, and that
-the elements of \tcode{key_cont} are sorted with respect to \tcode{compare}.
+\pnum \expects
+\tcode{key_cont.size() == mapped_cont.size()}, and the elements of
+\tcode{key_cont} are sorted with respect to \tcode{compare}.
 
 \pnum
 \effects Equivalent to:
