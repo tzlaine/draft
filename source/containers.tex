@@ -9950,6 +9950,31 @@ The template parameters \tcode{Key} and \tcode{T} of \tcode{flat_map} shall
 denote the same type as \tcode{KeyContainer::value_type}
 and \tcode{MappedContainer::value_type}, respectively.
 
+\pnum
+The effect of calling a constructor that takes both \tcode{key_container_type}
+and \tcode{mapped_container_type} arguments with containers of different sizes is
+undefined.
+
+\pnum
+Constructors that take a \tcode{Container} argument \tcode{cont} shall
+participate in overload resolution only if both \tcode{std::begin(cont)} and
+\tcode{std::end(cont)} are well-formed expressions.
+
+\pnum
+The effect of calling a constructor that takes a \tcode{sorted_unique_t}
+argument with a range that is not sorted with respect to \tcode{compare} is
+undefined.
+
+\pnum
+Constructors that take a \tcode{Alloc} argument shall participate in overload
+resolution only if \tcode{uses_allocator_v<key_container_type, Alloc> ||
+  uses_allocator_v<mapped_container_type, Alloc>} is \tcode{true}.
+
+\pnum
+Constructors that take an \tcode{Alloc} argument shall participate in overload
+resolution only if \tcode{Alloc} meets the allocator requirements as described
+in \iref{container.requirements.general}.
+
 \rSec3[flatmap.defn]{Definition}
 
 \begin{codeblock}
@@ -10342,22 +10367,6 @@ namespace std {
 
 \rSec3[flatmap.cons]{Constructors}
 
-\pnum
-The effect of calling a constructor that takes both \tcode{key_container_type}
-and \tcode{mapped_container_type} arguments with containers of different sizes is
-undefined.
-
-\pnum
-Constructors in this subclause that take a \tcode{Container}
-argument \tcode{cont} shall participate in overload resolution only if
-both \tcode{std::begin(cont)} and \tcode{std::end(cont)} are well-formed
-expressions.
-
-\pnum
-The effect of calling a constructor that takes a \tcode{sorted_unique_t}
-argument with a range that is not sorted with respect
-to \tcode{compare} is undefined.
-
 \indexlibrary{\idxcode{flatmap}!constructor}%
 \begin{itemdecl}
 flat_map(key_container_type&& key_cont, mapped_container_type&& mapped_cont);
@@ -10430,22 +10439,6 @@ Linear.
 \end{itemdescr}
 
 \rSec3[flatmap.cons.alloc]{Constructors with allocators}
-
-\pnum
-If \tcode{uses_allocator_v<key_container_type, Alloc> \&\&
-uses_allocator_v<mapped_container_type, Alloc>} is \tcode{false} the
-constructors in this subclause shall not participate in overload resolution.
-
-\pnum
-Constructors in this subclause that take an \tcode{Alloc} argument shall
-participate in overload resolution only if \tcode{Alloc} meets the allocator
-requirements as described in \iref{container.requirements.general}.
-
-\pnum
-Constructors in this subclause that take a \tcode{Container}
-argument \tcode{cont} shall participate in overload resolution only if
-both \tcode{std::begin(cont)} and \tcode{std::end(cont)} are well-formed
-expressions.
 
 \indexlibrary{\idxcode{flatmap}!constructor}%
 \begin{itemdecl}
@@ -11021,6 +11014,32 @@ The template parameters \tcode{Key} and \tcode{T} of \tcode{flat_multimap}
 shall denote the same type as \tcode{KeyContainer::value_type}
 and \tcode{MappedContainer::value_type}, respectively.
 
+\pnum
+The effect of calling a constructor that takes both \tcode{key_container_type}
+and \tcode{mapped_container_type} arguments with containers of different sizes is
+undefined.
+
+\pnum
+Constructors in this subclause that take a \tcode{Container}
+argument \tcode{cont} shall participate in overload resolution only if
+both \tcode{std::begin(cont)} and \tcode{std::end(cont)} are well-formed
+expressions.
+
+\pnum
+The effect of calling a constructor that takes a \tcode{sorted_equivalent_t}
+argument with a container or containers that are not sorted with respect
+to \tcode{key_compare} is undefined.
+
+\pnum
+Constructors that take an \tcode{Alloc} argument shall participate in overload
+resolution only if \tcode{uses_allocator_v<key_container_type, Alloc> ||
+  uses_allocator_v<mapped_container_type, Alloc>} is \tcode{true}.
+
+\pnum
+Constructors that take an \tcode{Alloc} argument shall participate in overload
+resolution only if \tcode{Alloc} meets the allocator requirements as described
+in \iref{container.requirements.general}.
+
 \rSec3[flatmultimap.defn]{Definition}
 
 \begin{codeblock}
@@ -11389,22 +11408,6 @@ namespace std {
 
 \rSec3[flatmultimap.cons]{Constructors}
 
-\pnum
-The effect of calling a constructor that takes both \tcode{key_container_type}
-and \tcode{mapped_container_type} arguments with containers of different sizes is
-undefined.
-
-\pnum
-Constructors in this subclause that take a \tcode{Container}
-argument \tcode{cont} shall participate in overload resolution only if
-both \tcode{std::begin(cont)} and \tcode{std::end(cont)} are well-formed
-expressions.
-
-\pnum
-The effect of calling a constructor that takes a \tcode{sorted_equivalent_t}
-argument with a container or containers that are not sorted with respect
-to \tcode{key_compare} is undefined.
-
 \indexlibrary{\idxcode{flatmultimap}!constructor}%
 \begin{itemdecl}
 flat_multimap(key_container_type&& key_cont, mapped_container_type&& mapped_cont);
@@ -11464,22 +11467,6 @@ Linear.
 \end{itemdescr}
 
 \rSec3[flatmultimap.cons.alloc]{Constructors with allocators}
-
-\pnum
-If \tcode{uses_allocator_v<key_container_type, Alloc> \&\&
-uses_allocator_v<mapped_container_type, Alloc>} is \tcode{false} the
-constructors in this subclause shall not participate in overload resolution.
-
-\pnum
-Constructors in this subclause that take an \tcode{Alloc} argument shall
-participate in overload resolution only if \tcode{Alloc} meets the allocator
-requirements as described in \iref{container.requirements.general}.
-
-\pnum
-Constructors in this subclause that take a \tcode{Container}
-argument \tcode{cont} shall participate in overload resolution only if
-both \tcode{std::begin(cont)} and \tcode{std::end(cont)} are well-formed
-expressions.
 
 \indexlibrary{\idxcode{flatmultimap}!constructor}%
 \begin{itemdecl}
