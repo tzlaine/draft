@@ -11081,8 +11081,8 @@ namespace std {
       template <class Alloc>
       flat_multimap(key_container_type&& key_cont, mapped_container_type&& mapped_cont,
                     const Alloc& a)
-          : flat_map(key_container_type(std::move(key_cont), a),
-                     mapped_container_type(std::move(mapped_cont), a))
+          : flat_multimap(key_container_type(std::move(key_cont), a),
+                          mapped_container_type(std::move(mapped_cont), a))
         { }
       template <class Container>
         explicit flat_multimap(const Container& cont)
@@ -11096,8 +11096,8 @@ namespace std {
       template <class Alloc>
       flat_multimap(sorted_equivalent_t, key_container_type&& key_cont,
                     mapped_container_type&& mapped_cont, const Alloc& a)
-          : flat_map(key_container_type(std::move(key_cont), a),
-                     mapped_container_type(std::move(mapped_cont), a))
+          : flat_multimap(key_container_type(std::move(key_cont), a),
+                          mapped_container_type(std::move(mapped_cont), a))
         { }
       template <class Container>
         flat_multimap(sorted_equivalent_t s, const Container& cont)
