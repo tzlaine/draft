@@ -10020,9 +10020,9 @@ namespace std {
       // \ref{flatmap.cons}, construct/copy/destroy
       flat_map();
 
-      flat_map(key_container_type&& key_cont, mapped_container_type&& mapped_cont);
+      flat_map(key_container_type key_cont, mapped_container_type mapped_cont);
       template <class Alloc>
-      flat_map(key_container_type&& key_cont, mapped_container_type&& mapped_cont,
+      flat_map(key_container_type key_cont, mapped_container_type mapped_cont,
                const Alloc& a)
           : flat_map(key_container_type(std::move(key_cont), a),
                      mapped_container_type(std::move(mapped_cont), a))
@@ -10035,10 +10035,10 @@ namespace std {
           : flat_map(cont.begin(), cont.end(), key_compare(), a) { }
 
       flat_map(sorted_unique_t,
-               key_container_type&& key_cont, mapped_container_type&& mapped_cont);
+               key_container_type key_cont, mapped_container_type mapped_cont);
       template <class Alloc>
-      flat_map(sorted_unique_t s, key_container_type&& key_cont,
-               mapped_container_type&& mapped_cont, const Alloc& a)
+      flat_map(sorted_unique_t s, key_container_type key_cont,
+               mapped_container_type mapped_cont, const Alloc& a)
           : flat_map(s, key_container_type(std::move(key_cont), a),
                      mapped_container_type(std::move(mapped_cont), a))
         { }
@@ -10369,7 +10369,7 @@ namespace std {
 
 \indexlibrary{\idxcode{flatmap}!constructor}%
 \begin{itemdecl}
-flat_map(key_container_type&& key_cont, mapped_container_type&& mapped_cont);
+flat_map(key_container_type key_cont, mapped_container_type mapped_cont);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -10388,7 +10388,7 @@ is \tcode{key_cont.size()}.
 
 \indexlibrary{\idxcode{flatmap}!constructor}%
 \begin{itemdecl}
-flat_map(sorted_unique_t, key_container_type&& key_cont, mapped_container_type&& mapped_cont);
+flat_map(sorted_unique_t, key_container_type key_cont, mapped_container_type mapped_cont);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -11079,9 +11079,9 @@ namespace std {
       // \ref{flatmultimap.cons}, construct/copy/destroy
       flat_multimap();
 
-      flat_multimap(key_container_type&& key_cont, mapped_container_type&& mapped_cont);
+      flat_multimap(key_container_type key_cont, mapped_container_type mapped_cont);
       template <class Alloc>
-      flat_multimap(key_container_type&& key_cont, mapped_container_type&& mapped_cont,
+      flat_multimap(key_container_type key_cont, mapped_container_type mapped_cont,
                     const Alloc& a)
           : flat_multimap(key_container_type(std::move(key_cont), a),
                           mapped_container_type(std::move(mapped_cont), a))
@@ -11094,10 +11094,10 @@ namespace std {
           : flat_multimap(cont.begin(), cont.end(), key_compare(), a) { }
 
       flat_multimap(sorted_equivalent_t,
-                    key_container_type&& key_cont, mapped_container_type&& mapped_cont);
+                    key_container_type key_cont, mapped_container_type mapped_cont);
       template <class Alloc>
-      flat_multimap(sorted_equivalent_t, key_container_type&& key_cont,
-                    mapped_container_type&& mapped_cont, const Alloc& a)
+      flat_multimap(sorted_equivalent_t, key_container_type key_cont,
+                    mapped_container_type mapped_cont, const Alloc& a)
           : flat_multimap(key_container_type(std::move(key_cont), a),
                           mapped_container_type(std::move(mapped_cont), a))
         { }
@@ -11404,7 +11404,7 @@ namespace std {
 
 \indexlibrary{\idxcode{flatmultimap}!constructor}%
 \begin{itemdecl}
-flat_multimap(key_container_type&& key_cont, mapped_container_type&& mapped_cont);
+flat_multimap(key_container_type key_cont, mapped_container_type mapped_cont);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -11423,7 +11423,7 @@ is \tcode{key_cont.size()}.
 
 \indexlibrary{\idxcode{flatmultimap}!constructor}%
 \begin{itemdecl}
-flat_multimap(sorted_equivalent_t, key_container_type&& key_cont, mapped_container_type&& mapped_cont);
+flat_multimap(sorted_equivalent_t, key_container_type key_cont, mapped_container_type mapped_cont);
 \end{itemdecl}
 
 \begin{itemdescr}
