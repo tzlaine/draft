@@ -10536,15 +10536,15 @@ namespace std {
 
       template <class Alloc>
         flat_map(flat_map&& m, const Alloc& a)
-          : compare{std::move(m.compare)}
-          , c{key_container_type(std::move(m.c.keys), a),
+          : c{key_container_type(std::move(m.c.keys), a),
               mapped_container_type(std::move(m.c.values), a)}
+          , compare{std::move(m.compare)}
         { }
       template<class Alloc>
         flat_map(const flat_map& m, const Alloc& a)
-          : compare{m.compare}
-          , c{key_container_type(m.c.keys, a),
+          : c{key_container_type(m.c.keys, a),
               mapped_container_type(m.c.values, a)}
+          , compare{m.compare}
         { }
 
       flat_map(initializer_list<value_type>&& il,
@@ -11595,14 +11595,14 @@ namespace std {
 
       template <class Alloc>
         flat_multimap(flat_multimap&& m, const Alloc& a)
-          : compare{std::move(m.compare)}
-          , c{key_container_type(std::move(m.c.keys), a),
+          : c{key_container_type(std::move(m.c.keys), a),
               mapped_container_type(std::move(m.c.values), a)}
+          , compare{std::move(m.compare)}
         { }
       template<class Alloc>
         flat_multimap(const flat_multimap& m, const Alloc& a)
-          : compare{m.compare}
-          , c{key_container_type(m.c.keys, a), mapped_container_type(m.c.values, a)}
+          : c{key_container_type(m.c.keys, a), mapped_container_type(m.c.values, a)}
+          , compare{m.compare}
         { }
 
       flat_multimap(initializer_list<value_type>&& il,
