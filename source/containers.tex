@@ -12033,9 +12033,7 @@ namespace std {
     size_type erase(const key_type& x);
     iterator erase(const_iterator first, const_iterator last);
 
-    void swap(flat_set& fs) noexcept(
-      is_nothrow_swappable_v<container_type> && is_nothrow_swappable_v<key_compare>
-    );
+    void swap(flat_set& fs) noexcept;
     void clear() noexcept;
 
     // observers
@@ -12287,7 +12285,205 @@ Linear.
 
 \rSec3[flatset.modifiers]{Modifiers}
 
-TODO
+\indexlibrarymember{operator=}{flatset}%
+\begin{itemdecl}
+flat_set& operator=(initializer_list<value_type> il);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum
+\effects Equivalent to:
+\begin{codeblock}
+clear();
+insert(il);
+\end{codeblock}
+\end{itemdescr}
+
+\indexlibrarymember{emplace}{flatset}%
+\begin{itemdecl}
+template <class... Args> pair<iterator, bool> emplace(Args&&... args);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \constraints \tcode{key_type(std::forward<Args>(args)...)} is well-formed.
+
+\pnum
+\effects
+First, constructs a \tcode{key_type} object \tcode{t} constructed
+with \tcode{std::forward<Args>(args)...}.  If the set already contains an
+element whose key is equivalent to \tcode{t}, there is no effect.  Otherwise,
+equivalent to:
+\begin{codeblock}
+auto it = lower_bound(c.begin(), c.end(), t);
+c.emplace(it, std::move(t));
+\end{codeblock}
+
+\pnum
+\returns
+The \tcode{bool} component of the returned pair is \tcode{true} if and only if
+the insertion took place, and the iterator component of the pair points to the
+element with key equivalent to the key of \tcode{t}.
+\end{itemdescr}
+
+\indexlibrarymember{flatset}{insert}%
+\begin{itemdecl}
+template <class InputIterator>
+  void insert(sorted_unique_t, InputIterator first, InputIterator last);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \expects
+The range \range{first}{last} is sorted with respect to \tcode{compare}.
+
+\pnum \effects Equivalent to: \tcode{insert(first, last)}.
+
+\pnum \complexity Linear.
+\end{itemdescr}
+
+\indexlibrarymember{flatset}{insert}%
+\begin{itemdecl}
+void insert(sorted_unique_t, initializer_list<value_type> il);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \effects Equivalent to \tcode{insert(sorted_unique_t{}, il.begin(), il.end())}.
+\end{itemdescr}
+
+\indexlibrarymember{flatset}{swap}%
+\begin{itemdecl}
+void swap(flat_set& fs) noexcept;
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \constraints \tcode{is_nothrow_swappable_v<container_type> \&\&
+is_nothrow_swappable_v<key_compare>}
+
+\pnum \effects Equivalent to:
+\begin{codeblock}
+using std::swap;
+swap(c, fs.c);
+swap(c.compare, fs.compare);
+\end{codeblock}
+\end{itemdescr}
+
+\indexlibrarymember{flatset}{extract}%
+\begin{itemdecl}
+container_type extract() &&;
+\end{itemdecl}
+
+\begin{itemdescr}
+\effects Equivalent to:
+\begin{codeblock}
+container_type temp;
+temp.swap(c);
+return temp;
+\end{codeblock}
+\end{itemdescr}
+
+\indexlibrarymember{flatset}{replace}%
+\begin{itemdecl}
+void replace(container_type&& cont);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \expects
+The elements of \tcode{cont} are sorted with respect to \tcode{compare}.
+
+\pnum
+\effects Equivalent to:
+\begin{codeblock}
+c = std::move(cont);
+\end{codeblock}
+\end{itemdescr}
+
+\rSec3[flatset.ops]{Operators}
+
+\indexlibrary{\idxcode{operator==}!\idxcode{flatset}}%
+\begin{itemdecl}
+template<class Key, class Compare, class Container>
+  bool operator==(const flat_set<Key, Compare, Container>& x,
+                  const flat_set<Key, Compare, Container>& y);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum
+\effects Equivalent to:
+\tcode{return std::equal(x.begin(), x.end(), y.begin(), y.end());}
+\end{itemdescr}
+
+\indexlibrary{\idxcode{operator!=}!\idxcode{flatset}}%
+\begin{itemdecl}
+template<class Key, class Compare, class Container>
+  bool operator!=(const flat_set<Key, Compare, Container>& x,
+                  const flat_set<Key, Compare, Container>& y);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \returns \tcode{!(x == y)}.
+\end{itemdescr}
+
+\indexlibrary{\idxcode{operator<}!\idxcode{flatset}}%
+\begin{itemdecl}
+template<class Key, class Compare, class Container>
+  bool operator< (const flat_set<Key, Compare, Container>& x,
+                  const flat_set<Key, Compare, Container>& y);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum
+\effects Equivalent to:
+\tcode{return std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());}
+\end{itemdescr}
+
+\indexlibrary{\idxcode{operator>}!\idxcode{flatset}}%
+\begin{itemdecl}
+template<class Key, class Compare, class Container>
+  bool operator> (const flat_set<Key, Compare, Container>& x,
+                  const flat_set<Key, Compare, Container>& y);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \returns \tcode{y < x}.
+\end{itemdescr}
+
+\indexlibrary{\idxcode{operator<=}!\idxcode{flatset}}%
+\begin{itemdecl}
+template<class Key, class Compare, class Container>
+  bool operator<=(const flat_set<Key, Compare, Container>& x,
+                  const flat_set<Key, Compare, Container>& y);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \returns \tcode{!(y < x)}.
+\end{itemdescr}
+
+\indexlibrary{\idxcode{operator>=}!\idxcode{flatset}}%
+\begin{itemdecl}
+template<class Key, class Compare, class Container>
+  bool operator>=(const flat_set<Key, Compare, Container>& x,
+                  const flat_set<Key, Compare, Container>& y);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \returns \tcode{!(x < y)}.
+\end{itemdescr}
+
+\rSec3[flatset.special]{Specialized algorithms}
+
+\indexlibrarymember{swap}{flatset}%
+\begin{itemdecl}
+template<class Key, class Compare, class Container>
+  void swap(flat_set<Key, Compare, Container>& x,
+            flat_set<Key, Compare, Container>& y) noexcept;
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \constraints \tcode{is_nothrow_swappable_v<Container> \&\&
+is_nothrow_swappable_v<Compare>}
+
+\pnum
+\effects Equivalent to: \tcode{x.swap(y)}.
+\end{itemdescr}
 
 \rSec2[flatmultiset]{Class template \tcode{flat_multiset}}
 
@@ -12508,9 +12704,7 @@ class flat_multiset {
     size_type erase(const key_type& x);
     iterator erase(const_iterator first, const_iterator last);
 
-    void swap(flat_multiset& fms) noexcept(
-        is_nothrow_swappable_v<container_type> && is_nothrow_swappable_v<key_compare>
-    );
+    void swap(flat_multiset& fms) noexcept;
     void clear() noexcept;
 
     // observers
@@ -12764,7 +12958,201 @@ Linear.
 
 \rSec3[flatmultiset.modifiers]{Modifiers}
 
-TODO
+\indexlibrarymember{operator=}{flatmultiset}%
+\begin{itemdecl}
+flat_multiset& operator=(initializer_list<value_type> il);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum
+\effects Equivalent to:
+\begin{codeblock}
+clear();
+insert(il);
+\end{codeblock}
+\end{itemdescr}
+
+\indexlibrarymember{emplace}{flatmultiset}%
+\begin{itemdecl}
+template <class... Args> iterator emplace(Args&&... args);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \constraints \tcode{key_type(std::forward<Args>(args)...)} is well-formed.
+
+\pnum
+\effects
+First, constructs a \tcode{key_type} object \tcode{t} constructed
+with \tcode{std::forward<Args>(args)...}, then inserts \tcode{t} as if by:
+\begin{codeblock}
+auto it = upper_bound(c.begin(), c.end(), t);
+c.emplace(it, std::move(t));
+\end{codeblock}
+
+\pnum
+\returns
+An iterator that points to the inserted element.
+\end{itemdescr}
+
+\indexlibrarymember{flatmultiset}{insert}%
+\begin{itemdecl}
+template <class InputIterator>
+  void insert(sorted_unique_t, InputIterator first, InputIterator last);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \expects
+The range \range{first}{last} is sorted with respect to \tcode{compare}.
+
+\pnum \effects Equivalent to: \tcode{insert(first, last)}.
+
+\pnum \complexity Linear.
+\end{itemdescr}
+
+\indexlibrarymember{flatmultiset}{insert}%
+\begin{itemdecl}
+void insert(sorted_unique_t, initializer_list<value_type> il);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \effects Equivalent to \tcode{insert(sorted_unique_t{}, il.begin(), il.end())}.
+\end{itemdescr}
+
+\indexlibrarymember{flatmultiset}{swap}%
+\begin{itemdecl}
+void swap(flat_multiset& fms) noexcept;
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \constraints \tcode{is_nothrow_swappable_v<container_type> \&\&
+is_nothrow_swappable_v<key_compare>}
+
+\pnum \effects Equivalent to:
+\begin{codeblock}
+using std::swap;
+swap(c, fms.c);
+swap(c.compare, fms.compare);
+\end{codeblock}
+\end{itemdescr}
+
+\indexlibrarymember{flatmultiset}{extract}%
+\begin{itemdecl}
+container_type extract() &&;
+\end{itemdecl}
+
+\begin{itemdescr}
+\effects Equivalent to:
+\begin{codeblock}
+container_type temp;
+temp.swap(c);
+return temp;
+\end{codeblock}
+\end{itemdescr}
+
+\indexlibrarymember{flatmultiset}{replace}%
+\begin{itemdecl}
+void replace(container_type&& cont);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \expects
+The elements of \tcode{cont} are sorted with respect to \tcode{compare}.
+
+\pnum
+\effects Equivalent to:
+\begin{codeblock}
+c = std::move(cont);
+\end{codeblock}
+\end{itemdescr}
+
+\rSec3[flatmultiset.ops]{Operators}
+
+\indexlibrary{\idxcode{operator==}!\idxcode{flatmultiset}}%
+\begin{itemdecl}
+template<class Key, class Compare, class Container>
+  bool operator==(const flat_multiset<Key, Compare, Container>& x,
+                  const flat_multiset<Key, Compare, Container>& y);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum
+\effects Equivalent to:
+\tcode{return std::equal(x.begin(), x.end(), y.begin(), y.end());}
+\end{itemdescr}
+
+\indexlibrary{\idxcode{operator!=}!\idxcode{flatmultiset}}%
+\begin{itemdecl}
+template<class Key, class Compare, class Container>
+  bool operator!=(const flat_multiset<Key, Compare, Container>& x,
+                  const flat_multiset<Key, Compare, Container>& y);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \returns \tcode{!(x == y)}.
+\end{itemdescr}
+
+\indexlibrary{\idxcode{operator<}!\idxcode{flatmultiset}}%
+\begin{itemdecl}
+template<class Key, class Compare, class Container>
+  bool operator< (const flat_multiset<Key, Compare, Container>& x,
+                  const flat_multiset<Key, Compare, Container>& y);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum
+\effects Equivalent to:
+\tcode{return std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());}
+\end{itemdescr}
+
+\indexlibrary{\idxcode{operator>}!\idxcode{flatmultiset}}%
+\begin{itemdecl}
+template<class Key, class Compare, class Container>
+  bool operator> (const flat_multiset<Key, Compare, Container>& x,
+                  const flat_multiset<Key, Compare, Container>& y);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \returns \tcode{y < x}.
+\end{itemdescr}
+
+\indexlibrary{\idxcode{operator<=}!\idxcode{flatmultiset}}%
+\begin{itemdecl}
+template<class Key, class Compare, class Container>
+  bool operator<=(const flat_multiset<Key, Compare, Container>& x,
+                  const flat_multiset<Key, Compare, Container>& y);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \returns \tcode{!(y < x)}.
+\end{itemdescr}
+
+\indexlibrary{\idxcode{operator>=}!\idxcode{flatmultiset}}%
+\begin{itemdecl}
+template<class Key, class Compare, class Container>
+  bool operator>=(const flat_multiset<Key, Compare, Container>& x,
+                  const flat_multiset<Key, Compare, Container>& y);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \returns \tcode{!(x < y)}.
+\end{itemdescr}
+
+\rSec3[flatmultiset.special]{Specialized algorithms}
+
+\indexlibrarymember{swap}{flatmultiset}%
+\begin{itemdecl}
+template<class Key, class Compare, class Container>
+  void swap(flat_multiset<Key, Compare, Container>& x,
+            flat_multiset<Key, Compare, Container>& y) noexcept;
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum \constraints \tcode{is_nothrow_swappable_v<Container> \&\&
+is_nothrow_swappable_v<Compare>}
+
+\pnum
+\effects Equivalent to: \tcode{x.swap(y)}.
+\end{itemdescr}
 \end{addedblock}
 
 \rSec1[views]{Views}
