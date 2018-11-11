@@ -12294,7 +12294,7 @@ A \tcode{flat_set} also provides most operations described
 in~\ref{associative.reqmts} for unique keys.  This means that a
 \tcode{flat_set} supports the \tcode{a_uniq} operations
 in~\ref{associative.reqmts} but not the \tcode{a_eq} operations.  For a
-\tcode{flat_set<Key,T>} both the \tcode{key_type} and \tcode{key_type} are
+\tcode{flat_set<Key>} both the \tcode{key_type} and \tcode{mapped_type} are
 \tcode{Key}.
 
 \pnum
@@ -12318,11 +12318,11 @@ participate in overload resolution only if both \tcode{std::begin(cont)} and
 
 \pnum
 The effect of calling a constructor that takes a \tcode{sorted_unique_t}
-argument with a range that is not sorted with respect to \tcode{compare} is
-undefined.
+argument with a range that is not sorted with respect to \tcode{compare}, or
+that contains equal elements, is undefined.
 
 \pnum
-Constructors that take a \tcode{Alloc} argument shall participate in overload
+Constructors that take an \tcode{Alloc} argument shall participate in overload
 resolution only if \tcode{uses_allocator_v<container_type, Alloc>} is
 \tcode{true}.
 
@@ -12629,8 +12629,8 @@ flat_set(container_type cont);
 
 \begin{itemdescr}
 \pnum
-\effects Initializes \tcode{c} with \tcode{std::move(cont)}; value-initializes
-\tcode{compare}; and sorts the range \range{begin()}{end()} with
+\effects Initializes \tcode{c} with \tcode{std::move(cont)}, value-initializes
+\tcode{compare}, and sorts the range \range{begin()}{end()} with
 \tcode{compare}.
 
 \pnum
@@ -12648,12 +12648,12 @@ template <class InputIterator>
 \begin{itemdescr}
 \pnum
 \effects Initializes \tcode{compare} with \tcode{comp}, initializes \tcode{c}
-with \range{first}{last}, and finally sorts the range \range{begin()}{end()}
+with \range{first}{last}, and sorts the range \range{begin()}{end()}
 with \tcode{compare}.
 
 \pnum
 \complexity
-Linear in $N$ if \tcode{cont} is already sorted as if with \tcode{compare} and
+Linear in $N$ if \range{first}{last} is already sorted as if with \tcode{compare} and
 otherwise $N \log N$, where $N$ is \tcode{distance(first, last)}.
 \end{itemdescr}
 
@@ -12667,7 +12667,7 @@ template <class InputIterator>
 \begin{itemdescr}
 \pnum
 \effects Initializes \tcode{compare} with \tcode{comp}, and initializes
-\tcode{c} from \range{first}{last}.
+\tcode{c} with \range{first}{last}.
 
 \pnum
 \complexity
@@ -12714,7 +12714,7 @@ and finally sorts the range \range{begin()}{end()} with \tcode{compare}.
 
 \pnum
 \complexity
-Linear in $N$ if \tcode{cont} is sorted as if with \tcode{compare} and
+Linear in $N$ if \range{first}{last} is sorted as if with \tcode{compare} and
 otherwise $N \log N$, where $N$ is \tcode{distance(first, last)}.
 \end{itemdescr}
 
@@ -12742,6 +12742,71 @@ Linear.
 \end{itemdescr}
 
 \rSec3[flatset.modifiers]{Modifiers}
+
+TODO
+
+\rSec2[flatmultiset]{Class template \tcode{flat_multiset}}
+
+\pnum
+\indexlibrary{\idxcode{flatmultiset}}%
+A \tcode{flat_multiset} is a container adaptor that provides an associative
+container interface that supports equivalent keys (possibly containing
+multiple copies of the same key value) and provides for fast retrieval of the
+keys themselves. The \tcode{flat_multiset} class supports random access
+iterators.
+
+\pnum
+A \tcode{flat_multiset} satisfies all of the requirements of a container, of a
+reversible container\iref{container.requirements}, and of an associative
+container\iref{associative.reqmts}, except for the requirements related to
+node handles\iref{container.node} and iterator
+invalidation\iref{container.adaptors.general}.  A \tcode{flat_multiset} does
+not meet the additional requirements of an allocator-aware container, as
+described in \tref{containers.allocatoraware}.
+
+\pnum
+A \tcode{flat_multiset} also provides most operations described
+in~\ref{associative.reqmts} for equal keys.  This means that a
+\tcode{flat_multiset} supports the \tcode{a_eq} operations
+in~\ref{associative.reqmts} but not the \tcode{a_uniq} operations.  For a
+\tcode{flat_multiset<Key>} both the \tcode{key_type} and \tcode{mapped_type} are
+\tcode{Key}.
+
+\pnum
+Descriptions are provided here only for operations on \tcode{flat_multiset} that
+are not described in one of those tables or for operations where there is
+additional semantic information.
+
+\pnum
+Any sequence container supporting random access iteration can be used to
+instantiate \tcode{flat_multiset}. In particular, \tcode{vector}\iref{vector}
+and \tcode{deque}\iref{deque} can be used.
+
+\pnum
+The template parameter \tcode{Key} shall denote the same type as
+\tcode{Container::value_type}.
+
+\pnum
+Constructors that take a \tcode{Container} argument \tcode{cont} shall
+participate in overload resolution only if both \tcode{std::begin(cont)} and
+\tcode{std::end(cont)} are well-formed expressions.
+
+\pnum
+The effect of calling a constructor that takes a \tcode{sorted_equivalent_t}
+argument with a range that is not sorted with respect to \tcode{compare} is
+undefined.
+
+\pnum
+Constructors that take an \tcode{Alloc} argument shall participate in overload
+resolution only if \tcode{uses_allocator_v<container_type, Alloc>} is
+\tcode{true}.
+
+\pnum
+Constructors that take an \tcode{Alloc} argument shall participate in overload
+resolution only if \tcode{Alloc} meets the allocator requirements as described
+in \iref{container.requirements.general}.
+
+\rSec3[flatmultiset.defn]{Definition}
 
 \begin{codeblock}
 template <class Key, class Compare = less<Key>, class Container = vector<Key>>
@@ -12782,10 +12847,10 @@ class flat_multiset {
       flat_multiset(sorted_equivalent_t, container_type, const Alloc&)
         : flat_multiset(s, container_type(std::move(cont), a)) { }
     template <class Container>
-      flat_multiset(sorted_unique_t s, const Container& cont)
+      flat_multiset(sorted_equivalent_t s, const Container& cont)
         : flat_multiset(s, cont.begin(), cont.end(), key_compare()) { }
     template <class Container, class Alloc>
-      flat_multiset(sorted_unique_t s, const Container& cont, const Alloc& a)
+      flat_multiset(sorted_equivalent_t s, const Container& cont, const Alloc& a)
         : flat_multiset(s, cont.begin(), cont.end(), key_compare(), a) { }
 
     explicit flat_multiset(const key_compare& comp)
