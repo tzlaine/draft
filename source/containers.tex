@@ -10018,7 +10018,7 @@ namespace std {
     };
 
     // \ref{flatmap.cons}, construct/copy/destroy
-    flat_map() : compare(key_compare()) { }
+    flat_map() : flat_map(key_compare()) { }
 
     flat_map(key_container_type key_cont, mapped_container_type mapped_cont);
     template <class Alloc>
@@ -11100,7 +11100,7 @@ namespace std {
     };
 
     // \ref{flatmultimap.cons}, construct/copy/destroy
-    flat_multimap() : compare(key_compare()) { }
+    flat_multimap() : flat_multimap(key_compare()) { }
 
     flat_multimap(key_container_type key_cont, mapped_container_type mapped_cont);
     template <class Alloc>
