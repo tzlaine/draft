@@ -9966,7 +9966,7 @@ argument with a range that is not sorted with respect to \tcode{compare} is
 undefined.
 
 \pnum
-Constructors that take a \tcode{Alloc} argument shall participate in overload
+Constructors that take an \tcode{Alloc} argument shall participate in overload
 resolution only if \tcode{uses_allocator_v<key_container_type, Alloc> ||
   uses_allocator_v<mapped_container_type, Alloc>} is \tcode{true}.
 
@@ -10984,7 +10984,6 @@ is \tcode{true}.
 
 \pnum
 \indexlibrary{\idxcode{flatmultimap}}%
-\pnum
 A \tcode{flat_multimap} is a container adaptor that provides an associative
 container interface that supports equivalent keys (possibly containing
 multiple copies of the same key value) and provides for fast retrieval of
@@ -10996,10 +10995,9 @@ A \tcode{flat_multimap} satisfies all of the requirements of a container, of a
 reversible container\iref{container.requirements}, and of an associative
 container\iref{associative.reqmts}, except for the requirements related to
 node handles\iref{container.node} and iterator
-invalidation\iref{container.adaptors.general}.  A \tcode{flat_multimap}
-does not meet the additional requirements of an allocator-aware container, as
-described in
-\tref{containers.allocatoraware}.
+invalidation\iref{container.adaptors.general}.  A \tcode{flat_multimap} does
+not meet the additional requirements of an allocator-aware container, as
+described in \tref{containers.allocatoraware}.
 
 \pnum
 A \tcode{flat_multimap} also provides most operations described
@@ -11037,10 +11035,9 @@ and \tcode{mapped_container_type} arguments with containers of different sizes i
 undefined.
 
 \pnum
-Constructors in this subclause that take a \tcode{Container}
-argument \tcode{cont} shall participate in overload resolution only if
-both \tcode{std::begin(cont)} and \tcode{std::end(cont)} are well-formed
-expressions.
+Constructors that take a \tcode{Container} argument \tcode{cont} shall
+participate in overload resolution only if both \tcode{std::begin(cont)}
+and \tcode{std::end(cont)} are well-formed expressions.
 
 \pnum
 The effect of calling a constructor that takes a \tcode{sorted_equivalent_t}
