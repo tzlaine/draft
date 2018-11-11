@@ -9962,8 +9962,8 @@ participate in overload resolution only if both \tcode{std::begin(cont)} and
 
 \pnum
 The effect of calling a constructor that takes a \tcode{sorted_unique_t}
-argument with a range that is not sorted with respect to \tcode{compare} is
-undefined.
+argument with a range that is not sorted with respect to \tcode{compare}, or
+that contains equal elements, is undefined.
 
 \pnum
 Constructors that take an \tcode{Alloc} argument shall participate in overload
