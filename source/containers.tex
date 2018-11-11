@@ -12338,198 +12338,198 @@ namespace std {
   template <class Key, class Compare = less<Key>, class Container = vector<Key>>
   class flat_set {
   public:
-      // types:
-      using key_type                  = Key;
-      using key_compare               = Compare;
-      using value_type                = Key;
-      using value_compare             = Compare;
-      using reference                 = value_type&;
-      using const_reference           = const value_type&;
-      using size_type                 = size_t;
-      using difference_type           = ptrdiff_t;
-      using iterator                  = @\impdefx{type of \tcode{flat_set::iterator}}@; // see \ref{container.requirements}
-      using const_iterator            = @\impdefx{type of \tcode{flat_set::const_iterator}}@; // see \ref{container.requirements}
-      using reverse_iterator          = std::reverse_iterator<iterator>;
-      using const_reverse_iterator    = std::reverse_iterator<const_iterator>;
-      using container_type            = Container;
+    // types:
+    using key_type                  = Key;
+    using key_compare               = Compare;
+    using value_type                = Key;
+    using value_compare             = Compare;
+    using reference                 = value_type&;
+    using const_reference           = const value_type&;
+    using size_type                 = size_t;
+    using difference_type           = ptrdiff_t;
+    using iterator                  = @\impdefx{type of \tcode{flat_set::iterator}}@; // see \ref{container.requirements}
+    using const_iterator            = @\impdefx{type of \tcode{flat_set::const_iterator}}@; // see \ref{container.requirements}
+    using reverse_iterator          = std::reverse_iterator<iterator>;
+    using const_reverse_iterator    = std::reverse_iterator<const_iterator>;
+    using container_type            = Container;
 
-      // \ref{flatset.cons}, construct/copy/destroy
-      flat_set() : flat_set(key_compare()) { }
+    // \ref{flatset.cons}, construct/copy/destroy
+    flat_set() : flat_set(key_compare()) { }
 
-      explicit flat_set(container_type);
-      template <class Alloc>
-        flat_set(container_type cont, const Alloc& a)
-          : flat_set(container_type(std::move(key), a)) { }
-      template <class Container>
-        explicit flat_set(const Container& cont)
-          : flat_set(cont.begin(), cont.end(), key_compare()) { }
-      template <class Container, class Alloc>
-        flat_set(const Container& cont, const Alloc& a)
-          : flat_set(cont.begin(), cont.end(), key_compare(), a) { }
+    explicit flat_set(container_type);
+    template <class Alloc>
+      flat_set(container_type cont, const Alloc& a)
+        : flat_set(container_type(std::move(key), a)) { }
+    template <class Container>
+      explicit flat_set(const Container& cont)
+        : flat_set(cont.begin(), cont.end(), key_compare()) { }
+    template <class Container, class Alloc>
+      flat_set(const Container& cont, const Alloc& a)
+        : flat_set(cont.begin(), cont.end(), key_compare(), a) { }
 
-      flat_set(sorted_unique_t, container_type cont)
-        : c(std::move(cont)), compare(key_compare()) { }
-      template <class Alloc>
-        flat_set(sorted_unique_t s, container_type cont, const Alloc& a)
-          : flat_set(s, key_container_type(std::move(key_cont), a)) { }
-      template <class Container>
-        flat_set(sorted_unique_t s, const Container& cont)
-          : flat_set(s, cont.begin(), cont.end(), key_compare()) { }
-      template <class Container, class Alloc>
-        flat_set(sorted_unique_t s, const Container& cont, const Alloc& a)
-          : flat_set(s, cont.begin(), cont.end(), key_compare(), a) { }
+    flat_set(sorted_unique_t, container_type cont)
+      : c(std::move(cont)), compare(key_compare()) { }
+    template <class Alloc>
+      flat_set(sorted_unique_t s, container_type cont, const Alloc& a)
+        : flat_set(s, key_container_type(std::move(key_cont), a)) { }
+    template <class Container>
+      flat_set(sorted_unique_t s, const Container& cont)
+        : flat_set(s, cont.begin(), cont.end(), key_compare()) { }
+    template <class Container, class Alloc>
+      flat_set(sorted_unique_t s, const Container& cont, const Alloc& a)
+        : flat_set(s, cont.begin(), cont.end(), key_compare(), a) { }
 
-      explicit flat_set(const key_compare& comp)
-        : c(container_type()), compare(comp) { }
-      template <class Alloc>
-        flat_set(const key_compare& comp, const Alloc&);
-      template <class Alloc>
-        explicit flat_set(const Alloc&) 
-          : flat_set(key_compare(), a) { }
+    explicit flat_set(const key_compare& comp)
+      : c(container_type()), compare(comp) { }
+    template <class Alloc>
+      flat_set(const key_compare& comp, const Alloc&);
+    template <class Alloc>
+      explicit flat_set(const Alloc&) 
+        : flat_set(key_compare(), a) { }
 
-      template <class InputIterator>
-        flat_set(InputIterator first, InputIterator last,
-                 const key_compare& comp = key_compare());
-      template <class InputIterator, class Alloc>
-        flat_set(InputIterator first, InputIterator last,
-                 const key_compare& comp, const Alloc&);
-      template <class InputIterator, class Alloc>
-        flat_set(InputIterator first, InputIterator last, const Alloc& a)
-          : flat_set(first, last, key_compare(), a) { }
+    template <class InputIterator>
+      flat_set(InputIterator first, InputIterator last,
+               const key_compare& comp = key_compare());
+    template <class InputIterator, class Alloc>
+      flat_set(InputIterator first, InputIterator last,
+               const key_compare& comp, const Alloc&);
+    template <class InputIterator, class Alloc>
+      flat_set(InputIterator first, InputIterator last, const Alloc& a)
+        : flat_set(first, last, key_compare(), a) { }
 
-      template <class InputIterator>
-        flat_set(sorted_unique_t, InputIterator first, InputIterator last,
-                 const key_compare& comp = key_compare())
-          : c(first, last), compare(comp) { }
-      template <class InputIterator, class Alloc>
-        flat_set(sorted_unique_t, InputIterator first, InputIterator last,
-                 const key_compare& comp, const Alloc&);
-      template <class InputIterator, class Alloc>
-        flat_set(sorted_unique_t s, InputIterator first, InputIterator last,
-                 const Alloc& a)
-          : flat_set(s, first, last, key_compare(), a) { }
-
-      template <class Alloc>
-        flat_set(flat_set&& m, const Alloc& a)
-          : c{container_type(std::move(m.c), a)}
-          , compare{std::move(m.compare)}
-        { }
-      template<class Alloc>
-        flat_set(const flat_set& m, const Alloc& a)
-          : c{container_type(m.c, a)}
-          , compare{m.compare}
-        { }
-
-      flat_set(initializer_list<key_type>&& il,
+    template <class InputIterator>
+      flat_set(sorted_unique_t, InputIterator first, InputIterator last,
                const key_compare& comp = key_compare())
-          : flat_set(il, comp) { }
-      template <class Alloc>
-        flat_set(initializer_list<key_type>&& il,
-                 const key_compare& comp, const Alloc& a)
-          : flat_set(il, comp, a) { }
-      template <class Alloc>
-        flat_set(initializer_list<key_type>&& il, const Alloc& a)
-          : flat_set(il, key_compare(), a) { }
+        : c(first, last), compare(comp) { }
+    template <class InputIterator, class Alloc>
+      flat_set(sorted_unique_t, InputIterator first, InputIterator last,
+               const key_compare& comp, const Alloc&);
+    template <class InputIterator, class Alloc>
+      flat_set(sorted_unique_t s, InputIterator first, InputIterator last,
+               const Alloc& a)
+        : flat_set(s, first, last, key_compare(), a) { }
 
+    template <class Alloc>
+      flat_set(flat_set&& m, const Alloc& a)
+        : c{container_type(std::move(m.c), a)}
+        , compare{std::move(m.compare)}
+      { }
+    template<class Alloc>
+      flat_set(const flat_set& m, const Alloc& a)
+        : c{container_type(m.c, a)}
+        , compare{m.compare}
+      { }
+
+    flat_set(initializer_list<key_type>&& il,
+             const key_compare& comp = key_compare())
+        : flat_set(il, comp) { }
+    template <class Alloc>
+      flat_set(initializer_list<key_type>&& il,
+               const key_compare& comp, const Alloc& a)
+        : flat_set(il, comp, a) { }
+    template <class Alloc>
+      flat_set(initializer_list<key_type>&& il, const Alloc& a)
+        : flat_set(il, key_compare(), a) { }
+
+    flat_set(sorted_unique_t s, initializer_list<key_type>&& il,
+             const key_compare& comp = key_compare()) 
+        : flat_set(s ,il, comp) { }
+    template <class Alloc>
       flat_set(sorted_unique_t s, initializer_list<key_type>&& il,
-               const key_compare& comp = key_compare()) 
-          : flat_set(s ,il, comp) { }
-      template <class Alloc>
-        flat_set(sorted_unique_t s, initializer_list<key_type>&& il,
-                 const key_compare& comp, const Alloc& a) 
-          : flat_set(s, il, comp, a) { }
-      template <class Alloc>
-        flat_set(sorted_unique_t s, initializer_list<key_type>&& il,
-                 const Alloc& a)
-          : flat_set(s, il, key_compare(), a) { }
+               const key_compare& comp, const Alloc& a) 
+        : flat_set(s, il, comp, a) { }
+    template <class Alloc>
+      flat_set(sorted_unique_t s, initializer_list<key_type>&& il,
+               const Alloc& a)
+        : flat_set(s, il, key_compare(), a) { }
 
-      flat_set& operator=(initializer_list<key_type>);
-  
-      // iterators
-      iterator               begin() noexcept;
-      const_iterator         begin() const noexcept;
-      iterator               end() noexcept;
-      const_iterator         end() const noexcept;
+    flat_set& operator=(initializer_list<key_type>);
 
-      reverse_iterator       rbegin() noexcept;
-      const_reverse_iterator rbegin() const noexcept;
-      reverse_iterator       rend() noexcept;
-      const_reverse_iterator rend() const noexcept;
+    // iterators
+    iterator               begin() noexcept;
+    const_iterator         begin() const noexcept;
+    iterator               end() noexcept;
+    const_iterator         end() const noexcept;
 
-      const_iterator         cbegin() const noexcept;
-      const_iterator         cend() const noexcept;
-      const_reverse_iterator crbegin() const noexcept;
-      const_reverse_iterator crend() const noexcept;
+    reverse_iterator       rbegin() noexcept;
+    const_reverse_iterator rbegin() const noexcept;
+    reverse_iterator       rend() noexcept;
+    const_reverse_iterator rend() const noexcept;
 
-      // \ref{flatset.capacity}, capacity
-      [[nodiscard]] bool empty() const noexcept;
-      size_type size() const noexcept;
-      size_type max_size() const noexcept;
+    const_iterator         cbegin() const noexcept;
+    const_iterator         cend() const noexcept;
+    const_reverse_iterator crbegin() const noexcept;
+    const_reverse_iterator crend() const noexcept;
 
-      // \ref{flatset.modifiers}, modifiers
-      template <class... Args> pair<iterator, bool> emplace(Args&&... args);
-      template <class... Args>
-        iterator emplace_hint(const_iterator position, Args&&... args);
-      pair<iterator, bool> insert(const value_type& x);
-      pair<iterator, bool> insert(value_type&& x);
-      iterator insert(const_iterator position, const value_type& x);
-      iterator insert(const_iterator position, value_type&& x);
-      template <class InputIterator>
-        void insert(InputIterator first, InputIterator last);
-      template <class InputIterator>
-        void insert(sorted_unique_t, InputIterator first, InputIterator last);
-      void insert(initializer_list<key_type>);
-      void insert(sorted_unique_t, initializer_list<key_type>);
+    // \ref{flatset.capacity}, capacity
+    [[nodiscard]] bool empty() const noexcept;
+    size_type size() const noexcept;
+    size_type max_size() const noexcept;
 
-      container_type extract() &&;
-      void replace(container_type&&);
+    // \ref{flatset.modifiers}, modifiers
+    template <class... Args> pair<iterator, bool> emplace(Args&&... args);
+    template <class... Args>
+      iterator emplace_hint(const_iterator position, Args&&... args);
+    pair<iterator, bool> insert(const value_type& x);
+    pair<iterator, bool> insert(value_type&& x);
+    iterator insert(const_iterator position, const value_type& x);
+    iterator insert(const_iterator position, value_type&& x);
+    template <class InputIterator>
+      void insert(InputIterator first, InputIterator last);
+    template <class InputIterator>
+      void insert(sorted_unique_t, InputIterator first, InputIterator last);
+    void insert(initializer_list<key_type>);
+    void insert(sorted_unique_t, initializer_list<key_type>);
 
-      iterator erase(iterator position);
-      iterator erase(const_iterator position);
-      size_type erase(const key_type& x);
-      iterator erase(const_iterator first, const_iterator last);
+    container_type extract() &&;
+    void replace(container_type&&);
 
-      void swap(flat_set& fs) noexcept(
-        is_nothrow_swappable_v<container_type> && is_nothrow_swappable_v<key_compare>
-      );
-      void clear() noexcept;
+    iterator erase(iterator position);
+    iterator erase(const_iterator position);
+    size_type erase(const key_type& x);
+    iterator erase(const_iterator first, const_iterator last);
 
-      // observers
-      key_compare key_comp() const;
-      value_compare value_comp() const;
-  
-      // set operations
-      iterator find(const key_type& x);
-      const_iterator find(const key_type& x) const;
-      template <class K> iterator find(const K& x);
-      template <class K> const_iterator find(const K& x) const;
+    void swap(flat_set& fs) noexcept(
+      is_nothrow_swappable_v<container_type> && is_nothrow_swappable_v<key_compare>
+    );
+    void clear() noexcept;
 
-      size_type count(const key_type& x) const;
-      template <class K> size_type count(const K& x) const;
+    // observers
+    key_compare key_comp() const;
+    value_compare value_comp() const;
 
-      bool contains(const key_type& x) const;
-      template <class K> bool contains(const K& x) const;
+    // set operations
+    iterator find(const key_type& x);
+    const_iterator find(const key_type& x) const;
+    template <class K> iterator find(const K& x);
+    template <class K> const_iterator find(const K& x) const;
 
-      iterator lower_bound(const key_type& x);
-      const_iterator lower_bound(const key_type& x) const;
-      template <class K> iterator lower_bound(const K& x);
-      template <class K> const_iterator lower_bound(const K& x) const;
+    size_type count(const key_type& x) const;
+    template <class K> size_type count(const K& x) const;
 
-      iterator upper_bound(const key_type& x);
-      const_iterator upper_bound(const key_type& x) const;
-      template <class K> iterator upper_bound(const K& x);
-      template <class K> const_iterator upper_bound(const K& x) const;
+    bool contains(const key_type& x) const;
+    template <class K> bool contains(const K& x) const;
 
-      pair<iterator, iterator> equal_range(const key_type& x);
-      pair<const_iterator, const_iterator> equal_range(const key_type& x) const;
-      template <class K>
-        pair<iterator, iterator> equal_range(const K& x);
-      template <class K>
-        pair<const_iterator, const_iterator> equal_range(const K& x) const;
+    iterator lower_bound(const key_type& x);
+    const_iterator lower_bound(const key_type& x) const;
+    template <class K> iterator lower_bound(const K& x);
+    template <class K> const_iterator lower_bound(const K& x) const;
 
-    private:
-        container_type c;    // \expos
-        key_compare compare; // \expos
+    iterator upper_bound(const key_type& x);
+    const_iterator upper_bound(const key_type& x) const;
+    template <class K> iterator upper_bound(const K& x);
+    template <class K> const_iterator upper_bound(const K& x) const;
+
+    pair<iterator, iterator> equal_range(const key_type& x);
+    pair<const_iterator, const_iterator> equal_range(const key_type& x) const;
+    template <class K>
+      pair<iterator, iterator> equal_range(const K& x);
+    template <class K>
+      pair<const_iterator, const_iterator> equal_range(const K& x) const;
+
+  private:
+      container_type c;    // \expos
+      key_compare compare; // \expos
   };
 
   template <class Container>
@@ -12747,199 +12747,199 @@ Linear.
 template <class Key, class Compare = less<Key>, class Container = vector<Key>>
 class flat_multiset {
   public:
-      // types
-      using key_type                  = Key;
-      using key_compare               = Compare;
-      using value_type                = Key;
-      using value_compare             = Compare;
-      using reference                 = value_type&;
-      using const_reference           = const value_type&;
-      using size_type                 = size_t;
-      using difference_type           = ptrdiff_t;
-      using iterator                  = @\impdefx{type of \tcode{flat_multiset::iterator}}@; // see \ref{container.requirements}
-      using const_iterator            = @\impdefx{type of \tcode{flat_multiset::const_iterator}}@; // see \ref{container.requirements}
-      using reverse_iterator          = std::reverse_iterator<iterator>;
-      using const_reverse_iterator    = std::reverse_iterator<const_iterator>;
-      using container_type            = Container;
+    // types
+    using key_type                  = Key;
+    using key_compare               = Compare;
+    using value_type                = Key;
+    using value_compare             = Compare;
+    using reference                 = value_type&;
+    using const_reference           = const value_type&;
+    using size_type                 = size_t;
+    using difference_type           = ptrdiff_t;
+    using iterator                  = @\impdefx{type of \tcode{flat_multiset::iterator}}@; // see \ref{container.requirements}
+    using const_iterator            = @\impdefx{type of \tcode{flat_multiset::const_iterator}}@; // see \ref{container.requirements}
+    using reverse_iterator          = std::reverse_iterator<iterator>;
+    using const_reverse_iterator    = std::reverse_iterator<const_iterator>;
+    using container_type            = Container;
 
-      // \ref{flatmultiset.cons}, construct/copy/destroy
-      flat_multiset() : flat_multiset(key_compare()) { }
+    // \ref{flatmultiset.cons}, construct/copy/destroy
+    flat_multiset() : flat_multiset(key_compare()) { }
 
-      explicit flat_multiset(container_type cont);
-      template <class Alloc>
-        flat_multiset(container_type cont, const Alloc& a)
-          : flat_multiset(container_type(std::move(key), a)) { }
-      template <class Container>
-        explicit flat_multiset(const Container& cont)
-          : flat_multiset(cont.begin(), cont.end(), key_compare()) { }
-      template <class Container, class Alloc>
-        flat_multiset(const Container& cont, const Alloc& a)
-          : flat_multiset(cont.begin(), cont.end(), key_compare(), a) { }
+    explicit flat_multiset(container_type cont);
+    template <class Alloc>
+      flat_multiset(container_type cont, const Alloc& a)
+        : flat_multiset(container_type(std::move(key), a)) { }
+    template <class Container>
+      explicit flat_multiset(const Container& cont)
+        : flat_multiset(cont.begin(), cont.end(), key_compare()) { }
+    template <class Container, class Alloc>
+      flat_multiset(const Container& cont, const Alloc& a)
+        : flat_multiset(cont.begin(), cont.end(), key_compare(), a) { }
 
-      flat_multiset(sorted_equivalent_t, container_type cont)
-        : c(std::move(cont)), compare(key_compare()) { }
-      template <class Alloc>
-        flat_multiset(sorted_equivalent_t, container_type, const Alloc&)
-          : flat_multiset(s, container_type(std::move(cont), a)) { }
-      template <class Container>
-        flat_multiset(sorted_unique_t s, const Container& cont)
-          : flat_multiset(s, cont.begin(), cont.end(), key_compare()) { }
-      template <class Container, class Alloc>
-        flat_multiset(sorted_unique_t s, const Container& cont, const Alloc& a)
-          : flat_multiset(s, cont.begin(), cont.end(), key_compare(), a) { }
+    flat_multiset(sorted_equivalent_t, container_type cont)
+      : c(std::move(cont)), compare(key_compare()) { }
+    template <class Alloc>
+      flat_multiset(sorted_equivalent_t, container_type, const Alloc&)
+        : flat_multiset(s, container_type(std::move(cont), a)) { }
+    template <class Container>
+      flat_multiset(sorted_unique_t s, const Container& cont)
+        : flat_multiset(s, cont.begin(), cont.end(), key_compare()) { }
+    template <class Container, class Alloc>
+      flat_multiset(sorted_unique_t s, const Container& cont, const Alloc& a)
+        : flat_multiset(s, cont.begin(), cont.end(), key_compare(), a) { }
 
-      explicit flat_multiset(const key_compare& comp)
-        : c(container_type()), compare(comp) { }
-      template <class Alloc>
-        flat_multiset(const key_compare& comp, const Alloc&);
-      template <class Alloc>
-        explicit flat_multiset(const Alloc& a)
-          : flat_multiset(key_compare(), a) { }
+    explicit flat_multiset(const key_compare& comp)
+      : c(container_type()), compare(comp) { }
+    template <class Alloc>
+      flat_multiset(const key_compare& comp, const Alloc&);
+    template <class Alloc>
+      explicit flat_multiset(const Alloc& a)
+        : flat_multiset(key_compare(), a) { }
 
-      template <class InputIterator>
-        flat_multiset(InputIterator first, InputIterator last,
-                      const key_compare& comp = key_compare());
-      template <class InputIterator, class Alloc>
-        flat_multiset(InputIterator first, InputIterator last,
-                      const key_compare& comp, const Alloc&);
-      template <class InputIterator, class Alloc>
-        flat_multiset(InputIterator first, InputIterator last,
-                      const Alloc& a)
-          : flat_multiset(first, last, key_compare(), a) { }
+    template <class InputIterator>
+      flat_multiset(InputIterator first, InputIterator last,
+                    const key_compare& comp = key_compare());
+    template <class InputIterator, class Alloc>
+      flat_multiset(InputIterator first, InputIterator last,
+                    const key_compare& comp, const Alloc&);
+    template <class InputIterator, class Alloc>
+      flat_multiset(InputIterator first, InputIterator last,
+                    const Alloc& a)
+        : flat_multiset(first, last, key_compare(), a) { }
 
-      template <class InputIterator>
-        flat_multiset(sorted_equivalent_t, InputIterator first, InputIterator last,
-                      const key_compare& comp = key_compare())
-          : c(first, last), compare(comp) { }
-      template <class InputIterator, class Alloc>
-        flat_multiset(sorted_equivalent_t, InputIterator first, InputIterator last,
-                      const key_compare& comp, const Alloc&);
-      template <class InputIterator, class Alloc>
-        flat_multiset(sorted_equivalent_t s, InputIterator first, InputIterator last,
-                      const Alloc& a)
-          : flat_multiset(s, first, last, key_compare(), a) { }
+    template <class InputIterator>
+      flat_multiset(sorted_equivalent_t, InputIterator first, InputIterator last,
+                    const key_compare& comp = key_compare())
+        : c(first, last), compare(comp) { }
+    template <class InputIterator, class Alloc>
+      flat_multiset(sorted_equivalent_t, InputIterator first, InputIterator last,
+                    const key_compare& comp, const Alloc&);
+    template <class InputIterator, class Alloc>
+      flat_multiset(sorted_equivalent_t s, InputIterator first, InputIterator last,
+                    const Alloc& a)
+        : flat_multiset(s, first, last, key_compare(), a) { }
 
-      template <class Alloc>
-       flat_multiset(flat_multiset&& m, const Alloc& a)
-         : c{container_type(std::move(m.c), a)}
-         , compare{std::move(m.compare)}
-       { }
-     template<class Alloc>
-       flat_multiset(const flat_multiset& m, const Alloc& a)
-         : c{container_type(m.c, a)}
-         , compare{m.compare}
-       { }
+    template <class Alloc>
+     flat_multiset(flat_multiset&& m, const Alloc& a)
+       : c{container_type(std::move(m.c), a)}
+       , compare{std::move(m.compare)}
+     { }
+   template<class Alloc>
+     flat_multiset(const flat_multiset& m, const Alloc& a)
+       : c{container_type(m.c, a)}
+       , compare{m.compare}
+     { }
 
+    flat_multiset(initializer_list<key_type>&& il,
+                  const key_compare& comp = key_compare())
+      : flat_multiset(il, comp) { }
+    template <class Alloc>
       flat_multiset(initializer_list<key_type>&& il,
-                    const key_compare& comp = key_compare())
-        : flat_multiset(il, comp) { }
-      template <class Alloc>
-        flat_multiset(initializer_list<key_type>&& il,
-                      const key_compare& comp, const Alloc& a)
-          : flat_multiset(il, comp, a) { }
-      template <class Alloc>
-        flat_multiset(initializer_list<key_type>&& il, const Alloc& a)
-          : flat_multiset(il, key_compare(), a) { }
+                    const key_compare& comp, const Alloc& a)
+        : flat_multiset(il, comp, a) { }
+    template <class Alloc>
+      flat_multiset(initializer_list<key_type>&& il, const Alloc& a)
+        : flat_multiset(il, key_compare(), a) { }
 
+    flat_multiset(sorted_equivalent_t s, initializer_list<key_type>&& il,
+                  const key_compare& comp = key_compare())
+        : flat_multiset(s, il, comp) { }
+    template <class Alloc>
       flat_multiset(sorted_equivalent_t s, initializer_list<key_type>&& il,
-                    const key_compare& comp = key_compare())
-          : flat_multiset(s, il, comp) { }
-      template <class Alloc>
-        flat_multiset(sorted_equivalent_t s, initializer_list<key_type>&& il,
-                      const key_compare& comp, const Alloc& a)
-          : flat_multiset(s, il, comp, a) { }
-      template <class Alloc>
-        flat_multiset(sorted_equivalent_t s, initializer_list<key_type>&& il,
-                      const Alloc& a)
-          : flat_multiset(s, il, key_compare(), a) { }
+                    const key_compare& comp, const Alloc& a)
+        : flat_multiset(s, il, comp, a) { }
+    template <class Alloc>
+      flat_multiset(sorted_equivalent_t s, initializer_list<key_type>&& il,
+                    const Alloc& a)
+        : flat_multiset(s, il, key_compare(), a) { }
 
-      flat_multiset& operator=(initializer_list<key_type>);
+    flat_multiset& operator=(initializer_list<key_type>);
 
-      // iterators
-      iterator               begin() noexcept;
-      const_iterator         begin() const noexcept;
-      iterator               end() noexcept;
-      const_iterator         end() const noexcept;
+    // iterators
+    iterator               begin() noexcept;
+    const_iterator         begin() const noexcept;
+    iterator               end() noexcept;
+    const_iterator         end() const noexcept;
 
-      reverse_iterator       rbegin() noexcept;
-      const_reverse_iterator rbegin() const noexcept;
-      reverse_iterator       rend() noexcept;
-      const_reverse_iterator rend() const noexcept;
+    reverse_iterator       rbegin() noexcept;
+    const_reverse_iterator rbegin() const noexcept;
+    reverse_iterator       rend() noexcept;
+    const_reverse_iterator rend() const noexcept;
 
-      const_iterator         cbegin() const noexcept;
-      const_iterator         cend() const noexcept;
-      const_reverse_iterator crbegin() const noexcept;
-      const_reverse_iterator crend() const noexcept;
+    const_iterator         cbegin() const noexcept;
+    const_iterator         cend() const noexcept;
+    const_reverse_iterator crbegin() const noexcept;
+    const_reverse_iterator crend() const noexcept;
 
-      // \ref{flatmultiset.capacity}, capacity
-      [[nodiscard]] bool empty() const noexcept;
-      size_type size() const noexcept;
-      size_type max_size() const noexcept;
+    // \ref{flatmultiset.capacity}, capacity
+    [[nodiscard]] bool empty() const noexcept;
+    size_type size() const noexcept;
+    size_type max_size() const noexcept;
 
-      // \ref{flatmultiset.modifiers}, modifiers
-      template <class... Args> iterator emplace(Args&&... args);
-      template <class... Args>
-        iterator emplace_hint(const_iterator position, Args&&... args);
-      iterator insert(const value_type& x);
-      iterator insert(value_type&& x);
-      iterator insert(const_iterator position, const value_type& x);
-      iterator insert(const_iterator position, value_type&& x);
-      template <class InputIterator>
-        void insert(InputIterator first, InputIterator last);
-      template <class InputIterator>
-        void insert(sorted_equivalent_t, InputIterator first, InputIterator last);
-      void insert(initializer_list<key_type>);
-      void insert(sorted_equivalent_t, initializer_list<key_type>);
+    // \ref{flatmultiset.modifiers}, modifiers
+    template <class... Args> iterator emplace(Args&&... args);
+    template <class... Args>
+      iterator emplace_hint(const_iterator position, Args&&... args);
+    iterator insert(const value_type& x);
+    iterator insert(value_type&& x);
+    iterator insert(const_iterator position, const value_type& x);
+    iterator insert(const_iterator position, value_type&& x);
+    template <class InputIterator>
+      void insert(InputIterator first, InputIterator last);
+    template <class InputIterator>
+      void insert(sorted_equivalent_t, InputIterator first, InputIterator last);
+    void insert(initializer_list<key_type>);
+    void insert(sorted_equivalent_t, initializer_list<key_type>);
 
-      container_type extract() &&;
-      void replace(container_type&&);
+    container_type extract() &&;
+    void replace(container_type&&);
 
-      iterator erase(iterator position);
-      iterator erase(const_iterator position);
-      size_type erase(const key_type& x);
-      iterator erase(const_iterator first, const_iterator last);
+    iterator erase(iterator position);
+    iterator erase(const_iterator position);
+    size_type erase(const key_type& x);
+    iterator erase(const_iterator first, const_iterator last);
 
-      void swap(flat_multiset& fms) noexcept(
-          is_nothrow_swappable_v<container_type> && is_nothrow_swappable_v<key_compare>
-      );
-      void clear() noexcept;
+    void swap(flat_multiset& fms) noexcept(
+        is_nothrow_swappable_v<container_type> && is_nothrow_swappable_v<key_compare>
+    );
+    void clear() noexcept;
 
-      // observers
-      key_compare key_comp() const;
-      value_compare value_comp() const;
+    // observers
+    key_compare key_comp() const;
+    value_compare value_comp() const;
 
-      // set operations
-      iterator find(const key_type& x);
-      const_iterator find(const key_type& x) const;
-      template <class K> iterator find(const K& x);
-      template <class K> const_iterator find(const K& x) const;
+    // set operations
+    iterator find(const key_type& x);
+    const_iterator find(const key_type& x) const;
+    template <class K> iterator find(const K& x);
+    template <class K> const_iterator find(const K& x) const;
 
-      size_type count(const key_type& x) const;
-      template <class K> size_type count(const K& x) const;
+    size_type count(const key_type& x) const;
+    template <class K> size_type count(const K& x) const;
 
-      bool contains(const key_type& x) const;
-      template <class K> bool contains(const K& x) const;
+    bool contains(const key_type& x) const;
+    template <class K> bool contains(const K& x) const;
 
-      iterator lower_bound(const key_type& x);
-      const_iterator lower_bound(const key_type& x) const;
-      template <class K> iterator lower_bound(const K& x);
-      template <class K> const_iterator lower_bound(const K& x) const;
+    iterator lower_bound(const key_type& x);
+    const_iterator lower_bound(const key_type& x) const;
+    template <class K> iterator lower_bound(const K& x);
+    template <class K> const_iterator lower_bound(const K& x) const;
 
-      iterator upper_bound(const key_type& x);
-      const_iterator upper_bound(const key_type& x) const;
-      template <class K> iterator upper_bound(const K& x);
-      template <class K> const_iterator upper_bound(const K& x) const;
+    iterator upper_bound(const key_type& x);
+    const_iterator upper_bound(const key_type& x) const;
+    template <class K> iterator upper_bound(const K& x);
+    template <class K> const_iterator upper_bound(const K& x) const;
 
-      pair<iterator, iterator> equal_range(const key_type& x);
-      pair<const_iterator, const_iterator> equal_range(const key_type& x) const;
-      template <class K>
-        pair<iterator, iterator> equal_range(const K& x);
-      template <class K>
-        pair<const_iterator, const_iterator> equal_range(const K& x) const;
+    pair<iterator, iterator> equal_range(const key_type& x);
+    pair<const_iterator, const_iterator> equal_range(const key_type& x) const;
+    template <class K>
+      pair<iterator, iterator> equal_range(const K& x);
+    template <class K>
+      pair<const_iterator, const_iterator> equal_range(const K& x) const;
 
-    private:
-        container_type c;    // \expos
-        key_compare compare; // \expos
+  private:
+      container_type c;    // \expos
+      key_compare compare; // \expos
   };
 
   template <class Container>
