@@ -13097,6 +13097,129 @@ class flat_multiset {
 }
 \end{codeblock}
 
+\rSec3[flatmultiset.cons]{Constructors}
+
+\indexlibrary{\idxcode{flatmultiset}!constructor}%
+\begin{itemdecl}
+flat_multiset(container_type cont);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum
+\effects Initializes \tcode{c} with \tcode{std::move(cont)}, value-initializes
+\tcode{compare}, and sorts the range \range{begin()}{end()} with
+\tcode{compare}.
+
+\pnum
+\complexity
+Linear in $N$ if \tcode{cont} is sorted as if with \tcode{compare} and
+otherwise $N \log N$, where $N$ is \tcode{cont.size()}.
+\end{itemdescr}
+
+\indexlibrary{\idxcode{flatmultiset}!constructor}%
+\begin{itemdecl}
+template <class InputIterator>
+  flat_multiset(InputIterator first, InputIterator last, const key_compare& comp);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum
+\effects Initializes \tcode{compare} with \tcode{comp}, initializes \tcode{c}
+with \range{first}{last}, and sorts the range \range{begin()}{end()}
+with \tcode{compare}.
+
+\pnum
+\complexity
+Linear in $N$ if \range{first}{last} is already sorted as if with \tcode{compare} and
+otherwise $N \log N$, where $N$ is \tcode{distance(first, last)}.
+\end{itemdescr}
+
+\indexlibrary{\idxcode{flatmultiset}!constructor}%
+\begin{itemdecl}
+template <class InputIterator>
+  flat_multiset(sorted_equivalent_t, InputIterator first, InputIterator last,
+                const key_compare& comp = key_compare());
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum
+\effects Initializes \tcode{compare} with \tcode{comp}, and initializes
+\tcode{c} with \range{first}{last}.
+
+\pnum
+\complexity
+Linear.
+\end{itemdescr}
+
+\rSec3[flatmultiset.cons.alloc]{Constructors with allocators}
+
+\indexlibrary{\idxcode{flatmultiset}!constructor}%
+\begin{itemdecl}
+template <class Alloc>
+  flat_multiset(const key_compare& comp, const Alloc& a);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum
+\effects Initializes \tcode{compare} with \tcode{comp}, and performs
+uses-allocator construction\iref{allocator.uses.construction} of
+\tcode{c} with \tcode{a}.
+
+\pnum
+\complexity
+Constant.
+\end{itemdescr}
+
+\indexlibrary{\idxcode{flatmultiset}!constructor}%
+\begin{itemdecl}
+template <class InputIterator, class Alloc>
+  flat_multiset(InputIterator first, InputIterator last,
+                const key_compare& comp, const Alloc& a);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum
+\effects Initializes \tcode{compare} with \tcode{comp}, and performs
+uses-allocator construction\iref{allocator.uses.construction} of \tcode{c}
+with \tcode{a}; adds elements to \tcode{c} as if by:
+\begin{codeblock}
+for (; first != last; ++first) {
+  c.insert(c.end(), *first);
+}
+\end{codeblock}
+and finally sorts the range \range{begin()}{end()} with \tcode{compare}.
+
+\pnum
+\complexity
+Linear in $N$ if \range{first}{last} is sorted as if with \tcode{compare} and
+otherwise $N \log N$, where $N$ is \tcode{distance(first, last)}.
+\end{itemdescr}
+
+\indexlibrary{\idxcode{flatmultiset}!constructor}%
+\begin{itemdecl}
+template <class InputIterator, class Alloc>
+  flat_multiset(sorted_equivalent_t, InputIterator first, InputIterator last,
+                const key_compare& comp, const Alloc& a);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum
+\effects Initializes \tcode{compare} with \tcode{comp}, and performs
+uses-allocator construction\iref{allocator.uses.construction} of \tcode{c}
+with \tcode{a}; adds elements to \tcode{c} as if by:
+\begin{codeblock}
+for (; first != last; ++first) {
+  c.insert(c.end(), *first);
+}
+\end{codeblock}
+
+\pnum
+\complexity
+Linear.
+\end{itemdescr}
+
+\rSec3[flatmultiset.modifiers]{Modifiers}
+
 TODO
 \end{addedblock}
 
