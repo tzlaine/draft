@@ -10474,7 +10474,7 @@ namespace std {
       };
 
       // \ref{flatmap.cons}, construct/copy/destroy
-      flat_map();
+      flat_map() : compare(key_compare()) { }
 
       flat_map(key_container_type key_cont, mapped_container_type mapped_cont);
       template <class Alloc>
@@ -10505,7 +10505,8 @@ namespace std {
         flat_map(sorted_unique_t s, const Container& cont, const Alloc& a)
           : flat_map(s, cont.begin(), cont.end(), key_compare(), a) { }
 
-      explicit flat_map(const key_compare& comp);
+      explicit flat_map(const key_compare& comp)
+        : c(containers()), compare(comp) { }
       template <class Alloc>
         flat_map(const key_compare& comp, const Alloc& a);
       template <class Alloc>
@@ -10830,10 +10831,10 @@ flat_map(key_container_type key_cont, mapped_container_type mapped_cont);
 
 \begin{itemdescr}
 \pnum
-\effects Initializes \tcode{c.keys} with
-\tcode{std::move(key_cont)} and \tcode{c.values} with
-\tcode{std::move(mapped_cont)}; value-initializes \tcode{compare}; and sorts the range
-\range{begin()}{end()} with \tcode{compare}.
+\effects Initializes \tcode{c.keys} with \tcode{std::move(key_cont)} and
+\tcode{c.values} with \tcode{std::move(mapped_cont)}; value-initializes
+\tcode{compare}; and sorts the range \range{begin()}{end()} with
+\tcode{compare}.
 
 \pnum
 \complexity
@@ -10858,17 +10859,29 @@ flat_map(sorted_unique_t, key_container_type key_cont, mapped_container_type map
 Constant.
 \end{itemdescr}
 
+\indexlibrary{\idxcode{flatmap}!constructor}%
 \begin{itemdecl}
-explicit flat_map(const key_compare& comp);
+template <class InputIterator>
+  flat_map(InputIterator first, InputIterator last, const key_compare& comp);
 \end{itemdecl}
 
 \begin{itemdescr}
 \pnum
-\effects Initializes \tcode{compare} with \tcode{comp}; value-initializes \tcode{c}.
+\effects Initializes \tcode{compare} with \tcode{comp}, adds elements to
+\tcode{c} as if by:
+\begin{codeblock}
+for (; first != last; ++first) {
+  c.keys.insert(c.keys.end(), first->first); 
+  c.values.insert(c.values.end(), first->second); 
+}
+\end{codeblock}
+and finally sorts the range \range{begin()}{end()} with \tcode{compare}.
 
 \pnum
 \complexity
-Constant.
+Linear in $N$ if the container arguments are already sorted as if with
+\tcode{compare} and otherwise $N \log N$, where $N$ is
+\tcode{key_cont.size()}.
 \end{itemdescr}
 
 \indexlibrary{\idxcode{flatmap}!constructor}%
@@ -10880,8 +10893,8 @@ template <class InputIterator>
 
 \begin{itemdescr}
 \pnum
-\effects Initializes \tcode{compare} with
-\tcode{comp}, and adds elements to \tcode{c.keys} and \tcode{c.values} as if by:
+\effects Initializes \tcode{compare} with \tcode{comp}, and adds elements to
+\tcode{c.keys} and \tcode{c.values} as if by:
 \begin{codeblock}
 for (; first != last; ++first) {
   c.keys.insert(c.keys.end(), first->first);
@@ -10907,6 +10920,10 @@ template <class Alloc>
 \effects Initializes \tcode{compare} with \tcode{comp}, and performs
 uses-allocator construction\iref{allocator.uses.construction} of both
 \tcode{c.keys} and \tcode{c.values} with \tcode{a}.
+
+\pnum
+\complexity
+Constant.
 \end{itemdescr}
 
 \indexlibrary{\idxcode{flatmap}!constructor}%
@@ -10923,12 +10940,18 @@ uses-allocator construction\iref{allocator.uses.construction} of both
 \tcode{c.keys} and \tcode{c.values} with \tcode{a}; adds elements to
 \tcode{c.keys} and \tcode{c.values} as if by:
 \begin{codeblock}
-for (; first != last; ++last) {
+for (; first != last; ++first) {
   c.keys.insert(c.keys.end(), first->first);
   c.values.insert(c.values.end(), first->second);
 }
 \end{codeblock}
 and finally sorts the range \range{begin()}{end()} with \tcode{compare}.
+
+\pnum
+\complexity
+Linear in $N$ if the container arguments are already sorted as if with
+\tcode{compare} and otherwise $N \log N$, where $N$ is
+\tcode{distance(first, last)}.
 \end{itemdescr}
 
 \indexlibrary{\idxcode{flatmap}!constructor}%
@@ -10945,7 +10968,7 @@ uses-allocator construction\iref{allocator.uses.construction} of both
 \tcode{c.keys} and \tcode{c.values} with \tcode{a}; adds elements to
 \tcode{c.keys} and \tcode{c.values} as if by:
 \begin{codeblock}
-for (; first != last; ++last) {
+for (; first != last; ++first) {
   c.keys.insert(c.keys.end(), first->first);
   c.values.insert(c.values.end(), first->second);
 }
@@ -11533,7 +11556,7 @@ namespace std {
       };
 
       // \ref{flatmultimap.cons}, construct/copy/destroy
-      flat_multimap();
+      flat_multimap() : compare(key_compare()) { }
 
       flat_multimap(key_container_type key_cont, mapped_container_type mapped_cont);
       template <class Alloc>
@@ -11564,7 +11587,8 @@ namespace std {
         flat_multimap(sorted_equivalent_t s, const Container& cont, const Alloc& a)
           : flat_multimap(s, cont.begin(), cont.end(), key_compare(), a) { }
 
-      explicit flat_multimap(const key_compare& comp);
+      explicit flat_multimap(const key_compare& comp)
+        : c(containers()), compare(comp) { }
       template <class Alloc>
         flat_multimap(const key_compare& comp, const Alloc& a);
       template <class Alloc>
@@ -11865,10 +11889,10 @@ flat_multimap(key_container_type key_cont, mapped_container_type mapped_cont);
 
 \begin{itemdescr}
 \pnum
-\effects Initializes \tcode{c.keys} with
-\tcode{std::move(key_cont)} and \tcode{c.values} with
-\tcode{std::move(mapped_cont)}; value-initializes \tcode{compare}; and sorts the range
-\range{begin()}{end()} with \tcode{compare}.
+\effects Initializes \tcode{c.keys} with \tcode{std::move(key_cont)} and
+\tcode{c.values} with \tcode{std::move(mapped_cont)}; value-initializes
+\tcode{compare}; and sorts the range \range{begin()}{end()} with
+\tcode{compare}.
 
 \pnum
 \complexity
@@ -11891,6 +11915,31 @@ flat_multimap(sorted_equivalent_t, key_container_type key_cont, mapped_container
 \pnum
 \complexity
 Constant.
+\end{itemdescr}
+
+\indexlibrary{\idxcode{flatmultimap}!constructor}%
+\begin{itemdecl}
+template <class InputIterator>
+  flat_multimap(InputIterator first, InputIterator last, const key_compare& comp);
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum
+\effects Initializes \tcode{compare} with \tcode{comp}, adds elements to
+\tcode{c} as if by:
+\begin{codeblock}
+for (; first != last; ++first) {
+  c.keys.insert(c.keys.end(), first->first); 
+  c.values.insert(c.values.end(), first->second); 
+}
+\end{codeblock}
+and finally sorts the range \range{begin()}{end()} with \tcode{compare}.
+
+\pnum
+\complexity
+Linear in $N$ if the container arguments are already sorted as if with
+\tcode{compare} and otherwise $N \log N$, where $N$ is
+\tcode{key_cont.size()}.
 \end{itemdescr}
 
 \indexlibrary{\idxcode{flatmultimap}!constructor}%
@@ -11945,12 +11994,18 @@ uses-allocator construction\iref{allocator.uses.construction} of both
 \tcode{c.keys} and \tcode{c.values} with \tcode{a}; adds elements to
 \tcode{c.keys} and \tcode{c.values} as if by:
 \begin{codeblock}
-for (; first != last; ++last) {
+for (; first != last; ++first) {
   c.keys.insert(c.keys.end(), first->first);
   c.values.insert(c.values.end(), first->second);
 }
 \end{codeblock}
 and finally sorts the range \range{begin()}{end()} with \tcode{compare}.
+
+\pnum
+\complexity
+Linear in $N$ if the container arguments are already sorted as if with
+\tcode{compare} and otherwise $N \log N$, where $N$ is
+\tcode{key_cont.size()}.
 \end{itemdescr}
 
 \indexlibrary{\idxcode{flatmultimap}!constructor}%
@@ -11967,7 +12022,7 @@ uses-allocator construction\iref{allocator.uses.construction} of both
 \tcode{c.keys} and \tcode{c.values} with \tcode{a}; adds elements to
 \tcode{c.keys} and \tcode{c.values} as if by:
 \begin{codeblock}
-for (; first != last; ++last) {
+for (; first != last; ++first) {
   c.keys.insert(c.keys.end(), first->first);
   c.values.insert(c.values.end(), first->second);
 }
