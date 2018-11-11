@@ -10525,7 +10525,7 @@ Linear.
 
 \rSec3[flatmap.capacity]{Capacity}
 
-\indexlibrary{\idxcode{max_size}!\idxcode{flatmap}}%
+\indexlibrarymember{size}{flatmap}%
 \begin{itemdecl}
 size_type size() const noexcept;
 \end{itemdecl}
@@ -10536,7 +10536,7 @@ size_type size() const noexcept;
 Equivalent to: \tcode{return c.keys.size();}
 \end{itemdescr}
 
-\indexlibrary{\idxcode{max_size}!\idxcode{flatmap}}%
+\indexlibrarymember{max_size}{flatmap}%
 \begin{itemdecl}
 size_type max_size() const noexcept;
 \end{itemdecl}
@@ -11141,7 +11141,7 @@ namespace std {
                     const key_compare& comp = key_compare());
     template <class InputIterator, class Alloc>
       flat_multimap(InputIterator first, InputIterator last,
-                   const key_compare& comp, const Alloc& a);
+                    const key_compare& comp, const Alloc& a);
     template <class InputIterator, class Alloc>
       flat_multimap(InputIterator first, InputIterator last,
                     const Alloc& a)
@@ -11444,7 +11444,8 @@ is \tcode{key_cont.size()}.
 
 \indexlibrary{\idxcode{flatmultimap}!constructor}%
 \begin{itemdecl}
-flat_multimap(sorted_equivalent_t, key_container_type key_cont, mapped_container_type mapped_cont);
+flat_multimap(sorted_equivalent_t, key_container_type key_cont,
+              mapped_container_type mapped_cont);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -11492,8 +11493,8 @@ template <class InputIterator>
 
 \begin{itemdescr}
 \pnum
-\effects Initializes \tcode{compare} with
-\tcode{comp}, and adds elements to \tcode{c.keys} and \tcode{c.values} as if by:
+\effects Initializes \tcode{compare} with \tcode{comp}, and adds elements to
+\tcode{c.keys} and \tcode{c.values} as if by:
 \begin{codeblock}
 for (; first != last; ++first) {
   c.keys.insert(c.keys.end(), first->first);
@@ -11519,6 +11520,10 @@ template <class Alloc>
 \effects Initializes \tcode{compare} with \tcode{comp}, and performs
 uses-allocator construction\iref{allocator.uses.construction} of both
 \tcode{c.keys} and \tcode{c.values} with \tcode{a}.
+
+\pnum
+\complexity
+Constant.
 \end{itemdescr}
 
 \indexlibrary{\idxcode{flatmultimap}!constructor}%
@@ -11546,7 +11551,7 @@ and finally sorts the range \range{begin()}{end()} with \tcode{compare}.
 \complexity
 Linear in $N$ if the container arguments are already sorted as if with
 \tcode{compare} and otherwise $N \log N$, where $N$ is
-\tcode{key_cont.size()}.
+\tcode{distance(first, last)}.
 \end{itemdescr}
 
 \indexlibrary{\idxcode{flatmultimap}!constructor}%
@@ -11574,15 +11579,38 @@ for (; first != last; ++first) {
 Linear.
 \end{itemdescr}
 
-\rSec3[flatmultimap.modifiers]{Modifiers}
+\rSec3[flatmultimap.capacity]{Capacity}
 
-\indexlibrarymember{operator=}{flatmap}%
+\indexlibrarymember{size}{flatmultimap}%
 \begin{itemdecl}
-flat_map& operator=(initializer_list<value_type> il);
+size_type size() const noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
+\pnum
+\effects
+Equivalent to: \tcode{return c.keys.size();}
+\end{itemdescr}
 
+\indexlibrarymember{max_size}{flatmultimap}%
+\begin{itemdecl}
+size_type max_size() const noexcept;
+\end{itemdecl}
+
+\begin{itemdescr}
+\pnum
+\effects
+Equivalent to: \tcode{return std::min<size_type>(c.keys.max_size(), c.values.max_size());}
+\end{itemdescr}
+
+\rSec3[flatmultimap.modifiers]{Modifiers}
+
+\indexlibrarymember{operator=}{flatmultimap}%
+\begin{itemdecl}
+flat_multimap& operator=(initializer_list<value_type> il);
+\end{itemdecl}
+
+\begin{itemdescr}
 \pnum
 \effects Equivalent to:
 \begin{codeblock}
@@ -11599,7 +11627,8 @@ template <class... Args> pair<iterator, bool> emplace(Args&&... args);
 \begin{itemdescr}
 \pnum
 \constraints
-The expression \tcode{value_type(std::forward<Args>(args)...)} is well-formed.
+The \tcode{pair<key_type, mapped_type>(std::forward<Args>(args)...)} is
+well-formed.
 
 \pnum
 \effects
@@ -11658,87 +11687,11 @@ The range \range{first}{last} is sorted with respect to \tcode{compare}.
 
 \indexlibrarymember{flatmultimap}{insert}%
 \begin{itemdecl}
-void insert(sorted_unique_t, initializer_list<value_type> il);
+void insert(sorted_equivalent_t, initializer_list<value_type> il);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum Effects: Equivalent to \tcode{insert(sorted_unique_t{}, il.begin(), il.end())}.
-\end{itemdescr}
-
-\indexlibrarymember{try_emplace}{flatmultimap}%
-\begin{itemdecl}
-template<class... Args>
-  pair<iterator, bool> try_emplace(const key_type& k, Args&&... args);
-template<class... Args>
-  iterator try_emplace(const_iterator hint, const key_type& k, Args&&... args);
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum
-\constraints
-The expression \tcode{mapped_type(std::forward<Args>(args)...)} is
-well-formed.
-
-\pnum
-\effects
-If the map already contains an element whose key is equivalent to \tcode{k},
-there is no effect.  Otherwise equivalent to:
-\begin{codeblock}
-auto key_it = upper_bound(c.keys.begin(), c.keys.end(), k);
-auto value_it = c.values.begin() + distance(c.keys.begin(), key_it);
-c.keys.insert(key_it, k);
-c.values.emplace(value_it, std::forward<Args>(args)...);
-\end{codeblock}
-
-\pnum
-\returns
-In the first overload, the \tcode{bool} component of the returned pair
-is \tcode{true} if and only if the insertion took place.  The returned
-iterator points to the map element whose key is equivalent to \tcode{k}.
-
-\pnum
-\complexity
-The same as \tcode{emplace} and \tcode{emplace_hint},
-respectively.
-\end{itemdescr}
-
-\indexlibrarymember{try_emplace}{flatmultimap}%
-\begin{itemdecl}
-template<class... Args>
-  pair<iterator, bool> try_emplace(key_type&& k, Args&&... args);
-template<class... Args>
-  iterator try_emplace(const_iterator hint, key_type&& k, Args&&... args);
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum
-\constraints
-The expression \tcode{mapped_type(std::forward<Args>(args)...)} is
-well-formed.
-
-\pnum
-\effects
-If the map already contains an element whose key is equivalent to \tcode{k},
-there is no effect.  Otherwise equivalent to:
-\begin{codeblock}
-auto key_it = upper_bound(c.keys.begin(), c.keys.end(), k);
-auto value_it = c.values.begin() + distance(c.keys.begin(), key_it);
-c.keys.emplace(key_it, std::move(k));
-c.values.emplace(value_it, std::forward<Args>(args)...);
-\end{codeblock}
-
-\pnum
-\returns
-In the first overload,
-the \tcode{bool} component of the returned pair is \tcode{true}
-if and only if the insertion took place.
-The returned iterator points to the map element
-whose key is equivalent to \tcode{k}.
-
-\pnum
-\complexity
-The same as \tcode{emplace} and \tcode{emplace_hint},
-respectively.
+\pnum Effects: Equivalent to \tcode{insert(sorted_equivalent_t{}, il.begin(), il.end())}.
 \end{itemdescr}
 
 \indexlibrarymember{flatmultimap}{swap}%
