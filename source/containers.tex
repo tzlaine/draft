@@ -10613,10 +10613,7 @@ template <class... Args> pair<iterator, bool> emplace(Args&&... args);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum
-\constraints
-The \tcode{pair<key_type, mapped_type>(std::forward<Args>(args)...)} is
-well-formed.
+\pnum \constraints \tcode{pair<key_type, mapped_type>(std::forward<Args>(args)...)} is well-formed.
 
 \pnum
 \effects
@@ -10645,17 +10642,13 @@ template<class P> iterator insert(const_iterator position, P&& x);
 \end{itemdecl}
 
 \begin{itemdescr}
+\pnum \constraints \tcode{pair<key_type, mapped_type>(std::forward<P>(x))} is well-formed.
+
 \pnum
 \effects
 The first form is equivalent to
 \tcode{return emplace(std::forward<P>(x))}. The second form is
 equivalent to \tcode{return emplace_hint(position, std::forward<P>(x))}.
-
-\pnum
-\remarks
-These signatures shall not participate in overload resolution
-unless \tcode{is_constructible_v<pair<key_type, mapped_type>, P>} is
-\tcode{true}.
 \end{itemdescr}
 
 \indexlibrarymember{try_emplace}{flatmap}%
@@ -10667,10 +10660,7 @@ template<class... Args>
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum
-\constraints
-The expression \tcode{mapped_type(std::forward<Args>(args)...)} is
-well-formed.
+\pnum \constraints \tcode{mapped_type(std::forward<Args>(args)...)} is well-formed.
 
 \pnum
 \effects
@@ -10704,10 +10694,7 @@ template<class... Args>
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum
-\constraints
-The expression \tcode{mapped_type(std::forward<Args>(args)...)} is
-well-formed.
+\pnum \constraints \tcode{mapped_type(std::forward<Args>(args)...)} is well-formed.
 
 \pnum
 \effects
@@ -10743,16 +10730,13 @@ template<class M>
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum
-\constraints
-\tcode{is_assignable_v<mapped_type\&, M>}, and the expresion
+\pnum \constraints \tcode{is_assignable_v<mapped_type\&, M>}, and
 \tcode{mapped_type(std::forward<M>(obj))} is well-formed.
 
 \pnum
 \effects
-If the map already contains an element \tcode{e}
-whose key is equivalent to \tcode{k},
-assigns \tcode{std::for\-ward<M>(obj)} to \tcode{e.second}.
+If the map already contains an element \tcode{e} whose key is equivalent
+to \tcode{k}, assigns \tcode{std::for\-ward<M>(obj)} to \tcode{e.second}.
 Otherwise equivalent to \tcode{insert(k, std::forward<M>(obj))} or
 \tcode{emplace(hint, k, std::forward<M>(obj))} respectively.
 
@@ -10821,14 +10805,13 @@ The range \range{first}{last} is sorted with respect to \tcode{compare}.
 \pnum \complexity Linear.
 \end{itemdescr}
 
-
 \indexlibrarymember{flatmap}{insert}%
 \begin{itemdecl}
 void insert(sorted_unique_t, initializer_list<value_type> il);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum Effects: Equivalent to \tcode{insert(sorted_unique_t{}, il.begin(), il.end())}.
+\pnum \effects Equivalent to \tcode{insert(sorted_unique_t{}, il.begin(), il.end())}.
 \end{itemdescr}
 
 \indexlibrarymember{flatmap}{swap}%
@@ -10837,21 +10820,17 @@ void swap(flat_map& fm) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum Effects: Equivalent to:
+\pnum \constraints \tcode{is_nothrow_swappable_v<key_container_type> \&\&
+is_nothrow_swappable_v<mapped_container_type> \&\&
+is_nothrow_swappable_v<key_compare>}
+
+\pnum \effects Equivalent to:
 \begin{codeblock}
 using std::swap;
 swap(c.keys, fm.c.keys);
 swap(c.values, fm.c.values);
 swap(c.compare, fm.compare);
 \end{codeblock}
-
-\pnum
-\remarks
-This function shall not participate in overload resolution
-unless \tcode{is_nothrow_swappable_v<key_container_type> \&\&
-is_nothrow_swappable_v<mapped_container_type> \&\&
-is_nothrow_swappable_v<key_compare>} is
-\tcode{true}.
 \end{itemdescr}
 
 \indexlibrarymember{flatmap}{extract}%
@@ -10969,12 +10948,8 @@ template<class Key, class T, class Compare, class KeyContainer, class MappedCont
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum
-\remarks
-This function shall not participate in overload resolution
-unless \tcode{is_nothrow_swappable_v<KeyContainer> \&\&
+\pnum \constraints \tcode{is_nothrow_swappable_v<KeyContainer> \&\&
 is_nothrow_swappable_v<MappedContainer> \&\& is_nothrow_swappable_v<Compare>}
-is \tcode{true}.
 
 \pnum
 \effects Equivalent to: \tcode{x.swap(y)}.
@@ -11625,17 +11600,14 @@ template <class... Args> pair<iterator, bool> emplace(Args&&... args);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum
-\constraints
-The \tcode{pair<key_type, mapped_type>(std::forward<Args>(args)...)} is
-well-formed.
+\pnum \constraints \tcode{pair<key_type,
+mapped_type>(std::forward<Args>(args)...)} is well-formed.
 
 \pnum
 \effects
 First, constructs a \tcode{pair<key_type, value_type>} object \tcode{t}
-constructed with \tcode{std::forward<Args>(args)...}.  If the map already
-contains an element whose key is equivalent to the key of \tcode{t}, there is
-no effect.  Otherwise, equivalent to:
+constructed with \tcode{std::forward<Args>(args)...}, then inserts \tcode{t}
+as if by:
 \begin{codeblock}
 auto key_it = upper_bound(c.keys.begin(), c.keys.end(), t.first);
 auto value_it = c.values.begin() + distance(c.keys.begin(), key_it);
@@ -11645,9 +11617,7 @@ c.values.emplace(value_it, std::move(t.second));
 
 \pnum
 \returns
-The \tcode{bool} component of the returned pair is \tcode{true} if and only if
-the insertion took place, and the iterator component of the pair points to the
-element with key equivalent to the key of \tcode{t}.
+An iterator that points to the inserted element.
 \end{itemdescr}
 
 \indexlibrarymember{insert}{flatmultimap}%
@@ -11657,17 +11627,13 @@ template<class P> iterator insert(const_iterator position, P&& x);
 \end{itemdecl}
 
 \begin{itemdescr}
+\pnum \constraints \tcode{pair<key_type, mapped_type>(std::forward<P>(x))} is well-formed.
+
 \pnum
 \effects
 The first form is equivalent to
 \tcode{return emplace(std::forward<P>(x))}. The second form is
 equivalent to \tcode{return emplace_hint(position, std::forward<P>(x))}.
-
-\pnum
-\remarks
-These signatures shall not participate in overload resolution
-unless \tcode{is_constructible_v<pair<key_type, mapped_type>, P>} is
-\tcode{true}.
 \end{itemdescr}
 
 \indexlibrarymember{flatmultimap}{insert}%
@@ -11691,7 +11657,7 @@ void insert(sorted_equivalent_t, initializer_list<value_type> il);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum Effects: Equivalent to \tcode{insert(sorted_equivalent_t{}, il.begin(), il.end())}.
+\pnum \effects Equivalent to \tcode{insert(sorted_equivalent_t{}, il.begin(), il.end())}.
 \end{itemdescr}
 
 \indexlibrarymember{flatmultimap}{swap}%
@@ -11700,21 +11666,17 @@ void swap(flat_multimap& fm) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum Effects: Equivalent to:
+\pnum \constraints \tcode{is_nothrow_swappable_v<key_container_type> \&\&
+is_nothrow_swappable_v<mapped_container_type> \&\&
+is_nothrow_swappable_v<key_compare>}
+
+\pnum \effects Equivalent to:
 \begin{codeblock}
 using std::swap;
 swap(c.keys, fm.c.keys);
 swap(c.values, fm.c.values);
 swap(c.compare, fm.compare);
 \end{codeblock}
-
-\pnum
-\remarks
-This function shall not participate in overload resolution
-unless \tcode{is_nothrow_swappable_v<key_container_type> \&\&
-is_nothrow_swappable_v<mapped_container_type> \&\&
-is_nothrow_swappable_v<key_compare>} is
-\tcode{true}.
 \end{itemdescr}
 
 \indexlibrarymember{flatmultimap}{extract}%
@@ -11832,12 +11794,8 @@ template<class Key, class T, class Compare, class KeyContainer, class MappedCont
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum
-\remarks
-This function shall not participate in overload resolution
-unless \tcode{is_nothrow_swappable_v<KeyContainer> \&\&
+\pnum \constraints \tcode{is_nothrow_swappable_v<KeyContainer> \&\&
 is_nothrow_swappable_v<MappedContainer> \&\& is_nothrow_swappable_v<Compare>}
-is \tcode{true}.
 
 \pnum
 \effects Equivalent to: \tcode{x.swap(y)}.
