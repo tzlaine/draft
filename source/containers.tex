@@ -11160,7 +11160,7 @@ template<class M>
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{is_assignable_v<mapped_type\&, M>}, and
+\pnum \constraints \tcode{is_assignable_v<mapped_type\&, M>} is \tcode{true}, and
 \tcode{mapped_type(std::forward<M>(obj))} is well-formed.
 
 \pnum
@@ -11195,7 +11195,7 @@ template<class M>
 \begin{itemdescr}
 \pnum
 \constraints
-\tcode{is_assignable_v<mapped_type\&, M>}, and the expression
+\tcode{is_assignable_v<mapped_type\&, M>} is \tcode{true}, and the expression
 \tcode{mapped_type(std::forward<M>(obj))} is well-formed.
 
 \pnum
@@ -11252,7 +11252,7 @@ void swap(flat_map& fm) noexcept;
 \begin{itemdescr}
 \pnum \constraints \tcode{is_nothrow_swappable_v<key_container_type> \&\&
 is_nothrow_swappable_v<mapped_container_type> \&\&
-is_nothrow_swappable_v<key_compare>}
+is_nothrow_swappable_v<key_compare>} is \tcode{true}.
 
 \pnum \effects Equivalent to:
 \begin{codeblock}
@@ -11285,7 +11285,7 @@ void replace(key_container_type&& key_cont, mapped_container_type&& mapped_cont)
 
 \begin{itemdescr}
 \pnum \expects
-\tcode{key_cont.size() == mapped_cont.size()}, and the elements of
+\tcode{key_cont.size() == mapped_cont.size()} is \tcode{true}, and the elements of
 \tcode{key_cont} are sorted with respect to \tcode{compare}.
 
 \pnum
@@ -11380,6 +11380,7 @@ template<class Key, class T, class Compare, class KeyContainer, class MappedCont
 \begin{itemdescr}
 \pnum \constraints \tcode{is_nothrow_swappable_v<KeyContainer> \&\&
 is_nothrow_swappable_v<MappedContainer> \&\& is_nothrow_swappable_v<Compare>}
+is \tcode{true}.
 
 \pnum
 \effects Equivalent to: \tcode{x.swap(y)}.
@@ -12072,7 +12073,7 @@ void swap(flat_multimap& fm) noexcept;
 \begin{itemdescr}
 \pnum \constraints \tcode{is_nothrow_swappable_v<key_container_type> \&\&
 is_nothrow_swappable_v<mapped_container_type> \&\&
-is_nothrow_swappable_v<key_compare>}
+is_nothrow_swappable_v<key_compare>} is \tcode{true}.
 
 \pnum \effects Equivalent to:
 \begin{codeblock}
@@ -12105,7 +12106,7 @@ void replace(key_container_type&& key_cont, mapped_container_type&& mapped_cont)
 
 \begin{itemdescr}
 \pnum \expects
-\tcode{key_cont.size() == mapped_cont.size()}, and the elements of
+\tcode{key_cont.size() == mapped_cont.size()} is \tcode{true}, and the elements of
 \tcode{key_cont} are sorted with respect to \tcode{compare}.
 
 \pnum
@@ -12200,6 +12201,7 @@ template<class Key, class T, class Compare, class KeyContainer, class MappedCont
 \begin{itemdescr}
 \pnum \constraints \tcode{is_nothrow_swappable_v<KeyContainer> \&\&
 is_nothrow_swappable_v<MappedContainer> \&\& is_nothrow_swappable_v<Compare>}
+is \tcode{true}.
 
 \pnum
 \effects Equivalent to: \tcode{x.swap(y)}.
