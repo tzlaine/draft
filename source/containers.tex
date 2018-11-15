@@ -12796,7 +12796,7 @@ void swap(flat_set& fs) noexcept;
 
 \begin{itemdescr}
 \pnum \constraints \tcode{is_nothrow_swappable_v<container_type> \&\&
-is_nothrow_swappable_v<key_compare>}
+is_nothrow_swappable_v<key_compare>} is \tcode{true}.
 
 \pnum \effects Equivalent to:
 \begin{codeblock}
@@ -12919,7 +12919,7 @@ template<class Key, class Compare, class Container>
 
 \begin{itemdescr}
 \pnum \constraints \tcode{is_nothrow_swappable_v<Container> \&\&
-is_nothrow_swappable_v<Compare>}
+is_nothrow_swappable_v<Compare>} is \tcode{true}.
 
 \pnum
 \effects Equivalent to: \tcode{x.swap(y)}.
@@ -13447,7 +13447,7 @@ void swap(flat_multiset& fms) noexcept;
 
 \begin{itemdescr}
 \pnum \constraints \tcode{is_nothrow_swappable_v<container_type> \&\&
-is_nothrow_swappable_v<key_compare>}
+is_nothrow_swappable_v<key_compare>} is \tcode{true}.
 
 \pnum \effects Equivalent to:
 \begin{codeblock}
@@ -13570,7 +13570,7 @@ template<class Key, class Compare, class Container>
 
 \begin{itemdescr}
 \pnum \constraints \tcode{is_nothrow_swappable_v<Container> \&\&
-is_nothrow_swappable_v<Compare>}
+is_nothrow_swappable_v<Compare>} is \tcode{true}.
 
 \pnum
 \effects Equivalent to: \tcode{x.swap(y)}.
