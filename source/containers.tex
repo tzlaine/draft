@@ -10314,27 +10314,27 @@ namespace std {
       -> flat_map<@\placeholder{iter-mapped-type}@<InputIterator>, @\placeholder{iter-mapped-type}@<InputIterator>>;
 
   template<class Key, class T, class Compare = less<Key>>
-    flat_map(initializer_list<pair<const Key, T>>, Compare = Compare())
+    flat_map(initializer_list<pair<Key, T>>, Compare = Compare())
       -> flat_map<Key, T, Compare>;
 
   template<class Key, class T, class Compare, class Alloc>
-    flat_map(initializer_list<pair<const Key, T>>, Compare, Alloc)
+    flat_map(initializer_list<pair<Key, T>>, Compare, Alloc)
       -> flat_map<Key, T, Compare>;
 
   template<class Key, class T, class Alloc>
-    flat_map(initializer_list<pair<const Key, T>>, Alloc)
+    flat_map(initializer_list<pair<Key, T>>, Alloc)
       -> flat_map<Key, T>;
 
   template<class Key, class T, class Compare = less<Key>>
-  flat_map(sorted_unique_t, initializer_list<pair<const Key, T>>, Compare = Compare())
+  flat_map(sorted_unique_t, initializer_list<pair<Key, T>>, Compare = Compare())
       -> flat_map<Key, T, Compare>;
 
   template<class Key, class T, class Compare, class Alloc>
-    flat_map(sorted_unique_t, initializer_list<pair<const Key, T>>, Compare, Alloc)
+    flat_map(sorted_unique_t, initializer_list<pair<Key, T>>, Compare, Alloc)
       -> flat_map<Key, T, Compare>;
 
   template<class Key, class T, class Alloc>
-    flat_map(sorted_unique_t, initializer_list<pair<const Key, T>>, Alloc)
+    flat_map(sorted_unique_t, initializer_list<pair<Key, T>>, Alloc)
       -> flat_map<Key, T>;
 }
 \end{codeblock}
@@ -11318,28 +11318,28 @@ namespace std {
       -> flat_multimap<@\placeholder{iter-key-type}@<InputIterator>, @\placeholder{iter-mapped-type}@<InputIterator>>;
 
   template<class Key, class T, class Compare = less<Key>>
-    flat_multimap(initializer_list<pair<const Key, T>>, Compare = Compare())
+    flat_multimap(initializer_list<pair<Key, T>>, Compare = Compare())
       -> flat_multimap<Key, T, Compare>;
 
   template<class Key, class T, class Compare, class Alloc>
-    flat_multimap(initializer_list<pair<const Key, T>>, Compare, Alloc)
+    flat_multimap(initializer_list<pair<Key, T>>, Compare, Alloc)
       -> flat_multimap<Key, T, Compare>;
 
   template<class Key, class T, class Alloc>
-    flat_multimap(initializer_list<pair<const Key, T>>, Alloc)
+    flat_multimap(initializer_list<pair<Key, T>>, Alloc)
       -> flat_multimap<Key, T>;
 
   template<class Key, class T, class Compare = less<Key>>
-  flat_multimap(sorted_equivalent_t, initializer_list<pair<const Key, T>>,
+  flat_multimap(sorted_equivalent_t, initializer_list<pair<Key, T>>,
                 Compare = Compare())
       -> flat_multimap<Key, T, Compare>;
 
   template<class Key, class T, class Compare, class Alloc>
-    flat_multimap(sorted_equivalent_t, initializer_list<pair<const Key, T>>, Compare, Alloc)
+    flat_multimap(sorted_equivalent_t, initializer_list<pair<Key, T>>, Compare, Alloc)
       -> flat_multimap<Key, T, Compare>;
 
   template<class Key, class T, class Alloc>
-    flat_multimap(sorted_equivalent_t, initializer_list<pair<const Key, T>>, Alloc)
+    flat_multimap(sorted_equivalent_t, initializer_list<pair<Key, T>>, Alloc)
       -> flat_multimap<Key, T>;
 }
 \end{codeblock}
