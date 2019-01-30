@@ -11269,13 +11269,7 @@ containers extract() &&;
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \effects Equivalent to:
-\begin{codeblock}
-containers temp;
-temp.keys.swap(c.keys);
-temp.values.swap(c.values);
-return temp;
-\end{codeblock}
+\pnum \effects Equivalent to \tcode{return std::move(c);}
 \end{itemdescr}
 
 \indexlibrarymember{flatmap}{replace}%
@@ -12090,13 +12084,7 @@ containers extract() &&;
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \effects Equivalent to:
-\begin{codeblock}
-containers temp;
-temp.keys.swap(c.keys);
-temp.values.swap(c.values);
-return temp;
-\end{codeblock}
+\pnum \effects Equivalent to \tcode{return std::move(c);}
 \end{itemdescr}
 
 \indexlibrarymember{flatmultimap}{replace}%
