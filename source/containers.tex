@@ -12021,7 +12021,7 @@ namespace std {
         : flat_set(std::begin(cont), std::end(cont), comp, a) { }
 
     flat_set(sorted_unique_t, container_type cont)
-      : c(std::move(cont)), compare(key_compare()) { }
+      : c(std::move(cont)), compare() { }
     template <class Alloc>
       flat_set(sorted_unique_t s, container_type cont, const Alloc& a)
         : flat_set(s, container_type(std::move(cont), a)) { }
@@ -12039,7 +12039,7 @@ namespace std {
         : flat_set(s, std::begin(cont), std::end(cont), comp, a) { }
 
     explicit flat_set(const key_compare& comp)
-      : c(container_type()), compare(comp) { }
+      : c(), compare(comp) { }
     template <class Alloc>
       flat_set(const key_compare& comp, const Alloc&);
     template <class Alloc>
@@ -12070,13 +12070,13 @@ namespace std {
 
     template <class Alloc>
       flat_set(flat_set&& m, const Alloc& a)
-        : c{container_type(std::move(m.c), a)}
-        , compare{std::move(m.compare)}
+        : c(std::move(m.c), a)
+        , compare(std::move(m.compare))
       { }
     template<class Alloc>
       flat_set(const flat_set& m, const Alloc& a)
-        : c{container_type(m.c, a)}
-        , compare{m.compare}
+        : c(m.c, a)
+        , compare(m.compare)
       { }
 
     flat_set(initializer_list<key_type>&& il,
@@ -12642,7 +12642,7 @@ class flat_multiset {
         : flat_multiset(std::begin(cont), std::end(cont), comp, a) { }
 
     flat_multiset(sorted_equivalent_t, container_type cont)
-      : c(std::move(cont)), compare(key_compare()) { }
+      : c(std::move(cont)), compare() { }
     template <class Alloc>
       flat_multiset(sorted_equivalent_t, container_type, const Alloc&)
         : flat_multiset(s, container_type(std::move(cont), a)) { }
@@ -12661,7 +12661,7 @@ class flat_multiset {
         : flat_multiset(s, std::begin(cont), std::end(cont), comp, a) { }
 
     explicit flat_multiset(const key_compare& comp)
-      : c(container_type()), compare(comp) { }
+      : c(), compare(comp) { }
     template <class Alloc>
       flat_multiset(const key_compare& comp, const Alloc&);
     template <class Alloc>
@@ -12693,13 +12693,13 @@ class flat_multiset {
 
     template <class Alloc>
      flat_multiset(flat_multiset&& m, const Alloc& a)
-       : c{container_type(std::move(m.c), a)}
-       , compare{std::move(m.compare)}
+       : c(std::move(m.c), a)
+       , compare(std::move(m.compare))
      { }
    template<class Alloc>
      flat_multiset(const flat_multiset& m, const Alloc& a)
-       : c{container_type(m.c, a)}
-       , compare{m.compare}
+       : c(m.c, a)
+       , compare(m.compare)
      { }
 
     flat_multiset(initializer_list<key_type>&& il,
