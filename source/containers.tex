@@ -11865,16 +11865,6 @@ The effect of calling a constructor that takes a \tcode{sorted_unique_t}
 argument with a range that is not sorted with respect to \tcode{compare}, or
 that contains equal elements, is undefined.
 
-\pnum
-Constructors that take an \tcode{Alloc} argument shall participate in overload
-resolution only if \tcode{uses_allocator_v<container_type, Alloc>} is
-\tcode{true}.
-
-\pnum
-Constructors that take an \tcode{Alloc} argument shall participate in overload
-resolution only if \tcode{Alloc} meets the allocator requirements as described
-in \iref{container.requirements.general}.
-
 \rSec3[flatset.defn]{Definition}
 
 \begin{codeblock}
@@ -12202,6 +12192,10 @@ Linear.
 
 \rSec3[flatset.cons.alloc]{Constructors with allocators}
 
+\pnum
+If \tcode{uses_allocator_v<container_type, Alloc>} is \tcode{false}
+the constructors in this subclause shall not participate in overload resolution.
+
 \indexlibrary{\idxcode{flatset}!constructor}%
 \begin{itemdecl}
 template <class Alloc>
@@ -12519,16 +12513,6 @@ participate in overload resolution only if both \tcode{std::begin(cont)} and
 The effect of calling a constructor that takes a \tcode{sorted_equivalent_t}
 argument with a range that is not sorted with respect to \tcode{compare} is
 undefined.
-
-\pnum
-Constructors that take an \tcode{Alloc} argument shall participate in overload
-resolution only if \tcode{uses_allocator_v<container_type, Alloc>} is
-\tcode{true}.
-
-\pnum
-Constructors that take an \tcode{Alloc} argument shall participate in overload
-resolution only if \tcode{Alloc} meets the allocator requirements as described
-in \iref{container.requirements.general}.
 
 \rSec3[flatmultiset.defn]{Definition}
 
@@ -12856,6 +12840,10 @@ Linear.
 \end{itemdescr}
 
 \rSec3[flatmultiset.cons.alloc]{Constructors with allocators}
+
+\pnum
+If \tcode{uses_allocator_v<container_type, Alloc>} is \tcode{false}
+the constructors in this subclause shall not participate in overload resolution.
 
 \indexlibrary{\idxcode{flatmultiset}!constructor}%
 \begin{itemdecl}
