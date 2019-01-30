@@ -10877,13 +10877,7 @@ containers extract() &&;
 \end{itemdecl}
 
 \begin{itemdescr}
-\effects Equivalent to:
-\begin{codeblock}
-containers temp;
-temp.keys.swap(c.keys);
-temp.values.swap(c.values);
-return temp;
-\end{codeblock}
+\effects Equivalent to \tcode{return std::move(c);}
 \end{itemdescr}
 
 \indexlibrarymember{flatmap}{replace}%
@@ -11698,13 +11692,7 @@ containers extract() &&;
 \end{itemdecl}
 
 \begin{itemdescr}
-\effects Equivalent to:
-\begin{codeblock}
-containers temp;
-temp.keys.swap(c.keys);
-temp.values.swap(c.values);
-return temp;
-\end{codeblock}
+\effects Equivalent to \tcode{return std::move(c);}
 \end{itemdescr}
 
 \indexlibrarymember{flatmultimap}{replace}%
@@ -12356,12 +12344,7 @@ container_type extract() &&;
 \end{itemdecl}
 
 \begin{itemdescr}
-\effects Equivalent to:
-\begin{codeblock}
-container_type temp;
-temp.swap(c);
-return temp;
-\end{codeblock}
+\effects Equivalent to \tcode{return std::move(c);}
 \end{itemdescr}
 
 \indexlibrarymember{flatset}{replace}%
@@ -13007,12 +12990,7 @@ container_type extract() &&;
 \end{itemdecl}
 
 \begin{itemdescr}
-\effects Equivalent to:
-\begin{codeblock}
-container_type temp;
-temp.swap(c);
-return temp;
-\end{codeblock}
+\effects Equivalent to \tcode{return std::move(c);}
 \end{itemdescr}
 
 \indexlibrarymember{flatmultiset}{replace}%
