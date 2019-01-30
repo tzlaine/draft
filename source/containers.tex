@@ -11052,7 +11052,7 @@ constructed with \tcode{std::forward<Args>(args)...}.  If the map already
 contains an element whose key is equivalent to the key of \tcode{t}, there is
 no effect.  Otherwise, equivalent to:
 \begin{codeblock}
-auto key_it = lower_bound(c.keys.begin(), c.keys.end(), t.first);
+auto key_it = std::lower_bound(c.keys.begin(), c.keys.end(), t.first, compare);
 auto value_it = c.values.begin() + distance(c.keys.begin(), key_it);
 c.keys.emplace(key_it, std::move(t.first));
 c.values.emplace(value_it, std::move(t.second));
@@ -11097,7 +11097,7 @@ template<class... Args>
 If the map already contains an element whose key is equivalent to \tcode{k},
 there is no effect.  Otherwise equivalent to:
 \begin{codeblock}
-auto key_it = lower_bound(c.keys.begin(), c.keys.end(), k);
+auto key_it = std::lower_bound(c.keys.begin(), c.keys.end(), k, compare);
 auto value_it = c.values.begin() + distance(c.keys.begin(), key_it);
 c.keys.insert(key_it, k);
 c.values.emplace(value_it, std::forward<Args>(args)...);
@@ -11131,7 +11131,7 @@ template<class... Args>
 If the map already contains an element whose key is equivalent to \tcode{k},
 there is no effect.  Otherwise equivalent to:
 \begin{codeblock}
-auto key_it = lower_bound(c.keys.begin(), c.keys.end(), k);
+auto key_it = std::lower_bound(c.keys.begin(), c.keys.end(), k, compare);
 auto value_it = c.values.begin() + distance(c.keys.begin(), key_it);
 c.keys.emplace(key_it, std::move(k));
 c.values.emplace(value_it, std::forward<Args>(args)...);
