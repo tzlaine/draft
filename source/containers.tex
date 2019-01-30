@@ -11867,7 +11867,7 @@ in \iref{container.requirements.general}.
 
 \begin{codeblock}
 namespace std {
-  template <class Key, class Compare = less<Key>, class Container = vector<Key>>
+  template <class Key, class Compare = less<Key>, class KeyContainer = vector<Key>>
   class flat_set {
   public:
     // types:
@@ -11883,7 +11883,7 @@ namespace std {
     using const_iterator            = @\impdefx{type of \tcode{flat_set::const_iterator}}@; // see \ref{container.requirements}
     using reverse_iterator          = std::reverse_iterator<iterator>;
     using const_reverse_iterator    = std::reverse_iterator<const_iterator>;
-    using container_type            = Container;
+    using container_type            = KeyContainer;
 
     // \ref{flatset.cons}, construct/copy/destroy
     flat_set() : flat_set(key_compare()) { }
@@ -12379,9 +12379,9 @@ c = std::move(cont);
 
 \indexlibrary{\idxcode{operator==}!\idxcode{flatset}}%
 \begin{itemdecl}
-template<class Key, class Compare, class Container>
-  bool operator==(const flat_set<Key, Compare, Container>& x,
-                  const flat_set<Key, Compare, Container>& y);
+template<class Key, class Compare, class KeyContainer>
+  bool operator==(const flat_set<Key, Compare, KeyContainer>& x,
+                  const flat_set<Key, Compare, KeyContainer>& y);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -12392,9 +12392,9 @@ template<class Key, class Compare, class Container>
 
 \indexlibrary{\idxcode{operator!=}!\idxcode{flatset}}%
 \begin{itemdecl}
-template<class Key, class Compare, class Container>
-  bool operator!=(const flat_set<Key, Compare, Container>& x,
-                  const flat_set<Key, Compare, Container>& y);
+template<class Key, class Compare, class KeyContainer>
+  bool operator!=(const flat_set<Key, Compare, KeyContainer>& x,
+                  const flat_set<Key, Compare, KeyContainer>& y);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -12403,9 +12403,9 @@ template<class Key, class Compare, class Container>
 
 \indexlibrary{\idxcode{operator<}!\idxcode{flatset}}%
 \begin{itemdecl}
-template<class Key, class Compare, class Container>
-  bool operator< (const flat_set<Key, Compare, Container>& x,
-                  const flat_set<Key, Compare, Container>& y);
+template<class Key, class Compare, class KeyContainer>
+  bool operator< (const flat_set<Key, Compare, KeyContainer>& x,
+                  const flat_set<Key, Compare, KeyContainer>& y);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -12416,9 +12416,9 @@ template<class Key, class Compare, class Container>
 
 \indexlibrary{\idxcode{operator>}!\idxcode{flatset}}%
 \begin{itemdecl}
-template<class Key, class Compare, class Container>
-  bool operator> (const flat_set<Key, Compare, Container>& x,
-                  const flat_set<Key, Compare, Container>& y);
+template<class Key, class Compare, class KeyContainer>
+  bool operator> (const flat_set<Key, Compare, KeyContainer>& x,
+                  const flat_set<Key, Compare, KeyContainer>& y);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -12427,9 +12427,9 @@ template<class Key, class Compare, class Container>
 
 \indexlibrary{\idxcode{operator<=}!\idxcode{flatset}}%
 \begin{itemdecl}
-template<class Key, class Compare, class Container>
-  bool operator<=(const flat_set<Key, Compare, Container>& x,
-                  const flat_set<Key, Compare, Container>& y);
+template<class Key, class Compare, class KeyContainer>
+  bool operator<=(const flat_set<Key, Compare, KeyContainer>& x,
+                  const flat_set<Key, Compare, KeyContainer>& y);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -12438,9 +12438,9 @@ template<class Key, class Compare, class Container>
 
 \indexlibrary{\idxcode{operator>=}!\idxcode{flatset}}%
 \begin{itemdecl}
-template<class Key, class Compare, class Container>
-  bool operator>=(const flat_set<Key, Compare, Container>& x,
-                  const flat_set<Key, Compare, Container>& y);
+template<class Key, class Compare, class KeyContainer>
+  bool operator>=(const flat_set<Key, Compare, KeyContainer>& x,
+                  const flat_set<Key, Compare, KeyContainer>& y);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -12451,13 +12451,13 @@ template<class Key, class Compare, class Container>
 
 \indexlibrarymember{swap}{flatset}%
 \begin{itemdecl}
-template<class Key, class Compare, class Container>
-  void swap(flat_set<Key, Compare, Container>& x,
-            flat_set<Key, Compare, Container>& y) noexcept;
+template<class Key, class Compare, class KeyContainer>
+  void swap(flat_set<Key, Compare, KeyContainer>& x,
+            flat_set<Key, Compare, KeyContainer>& y) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{is_nothrow_swappable_v<Container> \&\&
+\pnum \constraints \tcode{is_nothrow_swappable_v<KeyContainer> \&\&
 is_nothrow_swappable_v<Compare>} is \tcode{true}.
 
 \pnum
@@ -12528,7 +12528,7 @@ in \iref{container.requirements.general}.
 \rSec3[flatmultiset.defn]{Definition}
 
 \begin{codeblock}
-template <class Key, class Compare = less<Key>, class Container = vector<Key>>
+template <class Key, class Compare = less<Key>, class KeyContainer = vector<Key>>
 class flat_multiset {
   public:
     // types
@@ -12544,7 +12544,7 @@ class flat_multiset {
     using const_iterator            = @\impdefx{type of \tcode{flat_multiset::const_iterator}}@; // see \ref{container.requirements}
     using reverse_iterator          = std::reverse_iterator<iterator>;
     using const_reverse_iterator    = std::reverse_iterator<const_iterator>;
-    using container_type            = Container;
+    using container_type            = KeyContainer;
 
     // \ref{flatmultiset.cons}, construct/copy/destroy
     flat_multiset() : flat_multiset(key_compare()) { }
@@ -13038,9 +13038,9 @@ c = std::move(cont);
 
 \indexlibrary{\idxcode{operator==}!\idxcode{flatmultiset}}%
 \begin{itemdecl}
-template<class Key, class Compare, class Container>
-  bool operator==(const flat_multiset<Key, Compare, Container>& x,
-                  const flat_multiset<Key, Compare, Container>& y);
+template<class Key, class Compare, class KeyContainer>
+  bool operator==(const flat_multiset<Key, Compare, KeyContainer>& x,
+                  const flat_multiset<Key, Compare, KeyContainer>& y);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -13051,9 +13051,9 @@ template<class Key, class Compare, class Container>
 
 \indexlibrary{\idxcode{operator!=}!\idxcode{flatmultiset}}%
 \begin{itemdecl}
-template<class Key, class Compare, class Container>
-  bool operator!=(const flat_multiset<Key, Compare, Container>& x,
-                  const flat_multiset<Key, Compare, Container>& y);
+template<class Key, class Compare, class KeyContainer>
+  bool operator!=(const flat_multiset<Key, Compare, KeyContainer>& x,
+                  const flat_multiset<Key, Compare, KeyContainer>& y);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -13062,9 +13062,9 @@ template<class Key, class Compare, class Container>
 
 \indexlibrary{\idxcode{operator<}!\idxcode{flatmultiset}}%
 \begin{itemdecl}
-template<class Key, class Compare, class Container>
-  bool operator< (const flat_multiset<Key, Compare, Container>& x,
-                  const flat_multiset<Key, Compare, Container>& y);
+template<class Key, class Compare, class KeyContainer>
+  bool operator< (const flat_multiset<Key, Compare, KeyContainer>& x,
+                  const flat_multiset<Key, Compare, KeyContainer>& y);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -13075,9 +13075,9 @@ template<class Key, class Compare, class Container>
 
 \indexlibrary{\idxcode{operator>}!\idxcode{flatmultiset}}%
 \begin{itemdecl}
-template<class Key, class Compare, class Container>
-  bool operator> (const flat_multiset<Key, Compare, Container>& x,
-                  const flat_multiset<Key, Compare, Container>& y);
+template<class Key, class Compare, class KeyContainer>
+  bool operator> (const flat_multiset<Key, Compare, KeyContainer>& x,
+                  const flat_multiset<Key, Compare, KeyContainer>& y);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -13086,9 +13086,9 @@ template<class Key, class Compare, class Container>
 
 \indexlibrary{\idxcode{operator<=}!\idxcode{flatmultiset}}%
 \begin{itemdecl}
-template<class Key, class Compare, class Container>
-  bool operator<=(const flat_multiset<Key, Compare, Container>& x,
-                  const flat_multiset<Key, Compare, Container>& y);
+template<class Key, class Compare, class KeyContainer>
+  bool operator<=(const flat_multiset<Key, Compare, KeyContainer>& x,
+                  const flat_multiset<Key, Compare, KeyContainer>& y);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -13097,9 +13097,9 @@ template<class Key, class Compare, class Container>
 
 \indexlibrary{\idxcode{operator>=}!\idxcode{flatmultiset}}%
 \begin{itemdecl}
-template<class Key, class Compare, class Container>
-  bool operator>=(const flat_multiset<Key, Compare, Container>& x,
-                  const flat_multiset<Key, Compare, Container>& y);
+template<class Key, class Compare, class KeyContainer>
+  bool operator>=(const flat_multiset<Key, Compare, KeyContainer>& x,
+                  const flat_multiset<Key, Compare, KeyContainer>& y);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -13110,13 +13110,13 @@ template<class Key, class Compare, class Container>
 
 \indexlibrarymember{swap}{flatmultiset}%
 \begin{itemdecl}
-template<class Key, class Compare, class Container>
-  void swap(flat_multiset<Key, Compare, Container>& x,
-            flat_multiset<Key, Compare, Container>& y) noexcept;
+template<class Key, class Compare, class KeyContainer>
+  void swap(flat_multiset<Key, Compare, KeyContainer>& x,
+            flat_multiset<Key, Compare, KeyContainer>& y) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{is_nothrow_swappable_v<Container> \&\&
+\pnum \constraints \tcode{is_nothrow_swappable_v<KeyContainer> \&\&
 is_nothrow_swappable_v<Compare>} is \tcode{true}.
 
 \pnum
