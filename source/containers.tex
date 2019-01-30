@@ -10093,10 +10093,10 @@ namespace std {
       { }
     template <class Container>
       explicit flat_map(const Container& cont)
-        : flat_map(cont.begin(), cont.end(), key_compare()) { }
+        : flat_map(std::begin(cont), std::end(cont), key_compare()) { }
     template <class Container, class Alloc>
       flat_map(const Container& cont, const Alloc& a)
-        : flat_map(cont.begin(), cont.end(), key_compare(), a) { }
+        : flat_map(std::begin(cont), std::end(cont), key_compare(), a) { }
 
     flat_map(sorted_unique_t,
              key_container_type key_cont, mapped_container_type mapped_cont);
@@ -10108,10 +10108,10 @@ namespace std {
       { }
     template <class Container>
       flat_map(sorted_unique_t s, const Container& cont)
-        : flat_map(s, cont.begin(), cont.end(), key_compare()) { }
+        : flat_map(s, std::begin(cont), std::end(cont), key_compare()) { }
     template <class Container, class Alloc>
       flat_map(sorted_unique_t s, const Container& cont, const Alloc& a)
-        : flat_map(s, cont.begin(), cont.end(), key_compare(), a) { }
+        : flat_map(s, std::begin(cont), std::end(cont), key_compare(), a) { }
 
     explicit flat_map(const key_compare& comp)
       : c(containers()), compare(comp) { }
@@ -11116,10 +11116,10 @@ namespace std {
       { }
     template <class Container>
       explicit flat_multimap(const Container& cont)
-        : flat_multimap(cont.begin(), cont.end(), key_compare()) { }
+        : flat_multimap(std::begin(cont), std::end(cont), key_compare()) { }
     template <class Container, class Alloc>
       flat_multimap(const Container& cont, const Alloc& a)
-        : flat_multimap(cont.begin(), cont.end(), key_compare(), a) { }
+        : flat_multimap(std::begin(cont), std::end(cont), key_compare(), a) { }
 
     flat_multimap(sorted_equivalent_t,
                   key_container_type key_cont, mapped_container_type mapped_cont);
@@ -11131,10 +11131,10 @@ namespace std {
       { }
     template <class Container>
       flat_multimap(sorted_equivalent_t s, const Container& cont)
-        : flat_multimap(s, cont.begin(), cont.end(), key_compare()) { }
+        : flat_multimap(s, std::begin(cont), std::end(cont), key_compare()) { }
     template <class Container, class Alloc>
       flat_multimap(sorted_equivalent_t s, const Container& cont, const Alloc& a)
-        : flat_multimap(s, cont.begin(), cont.end(), key_compare(), a) { }
+        : flat_multimap(s, std::begin(cont), std::end(cont), key_compare(), a) { }
 
     explicit flat_multimap(const key_compare& comp)
       : c(containers()), compare(comp) { }
@@ -11894,13 +11894,13 @@ namespace std {
         : flat_set(container_type(std::move(key), a)) { }
     template <class Container>
       explicit flat_set(const Container& cont)
-        : flat_set(cont.begin(), cont.end(), key_compare()) { }
+        : flat_set(std::begin(cont), std::end(cont), key_compare()) { }
     template<class Container>
     flat_set(const Container& cont, const key_compare& comp)
         : flat_set(std::begin(cont), std::end(cont), comp) { }
     template <class Container, class Alloc>
       flat_set(const Container& cont, const Alloc& a)
-        : flat_set(cont.begin(), cont.end(), key_compare(), a) { }
+        : flat_set(std::begin(cont), std::end(cont), key_compare(), a) { }
     template <class Container, class Alloc>
       flat_set(const Container& cont, const key_compare& comp, const Alloc& a)
         : flat_set(std::begin(cont), std::end(cont), comp, a) { }
@@ -11912,13 +11912,13 @@ namespace std {
         : flat_set(s, key_container_type(std::move(key_cont), a)) { }
     template <class Container>
       flat_set(sorted_unique_t s, const Container& cont)
-        : flat_set(s, cont.begin(), cont.end(), key_compare()) { }
+        : flat_set(s, std::begin(cont), std::end(cont), key_compare()) { }
     template<class Container>
     flat_set(sorted_unique_t s, const Container& cont, const key_compare& comp)
         : flat_set(s, std::begin(cont), std::end(cont), comp) { }
     template <class Container, class Alloc>
       flat_set(sorted_unique_t s, const Container& cont, const Alloc& a)
-        : flat_set(s, cont.begin(), cont.end(), key_compare(), a) { }
+        : flat_set(s, std::begin(cont), std::end(cont), key_compare(), a) { }
     template<class Container, class Alloc>
     flat_set(sorted_unique_t s, const Container& cont, const key_compare& comp, const Alloc& a)
         : flat_set(s, std::begin(cont), std::end(cont), comp, a) { }
@@ -12555,13 +12555,13 @@ class flat_multiset {
         : flat_multiset(container_type(std::move(key), a)) { }
     template <class Container>
       explicit flat_multiset(const Container& cont)
-        : flat_multiset(cont.begin(), cont.end(), key_compare()) { }
+        : flat_multiset(std::begin(cont), std::end(cont), key_compare()) { }
     template<class Container>
     flat_multiset(const Container& cont, const key_compare& comp)
         : flat_multiset(std::begin(cont), std::end(cont), comp) { }
     template <class Container, class Alloc>
       flat_multiset(const Container& cont, const Alloc& a)
-        : flat_multiset(cont.begin(), cont.end(), key_compare(), a) { }
+        : flat_multiset(std::begin(cont), std::end(cont), key_compare(), a) { }
     template<class Container>
     flat_multiset(const Container& cont, const key_compare& comp, const Alloc& a)
         : flat_multiset(std::begin(cont), std::end(cont), comp, a) { }
@@ -12573,14 +12573,14 @@ class flat_multiset {
         : flat_multiset(s, container_type(std::move(cont), a)) { }
     template <class Container>
       flat_multiset(sorted_equivalent_t s, const Container& cont)
-        : flat_multiset(s, cont.begin(), cont.end(), key_compare()) { }
+        : flat_multiset(s, std::begin(cont), std::end(cont), key_compare()) { }
 
     template<class Container>
     flat_multiset(sorted_equivalent_t s, const Container& cont, const key_compare& comp)
         : flat_multiset(s, std::begin(cont), std::end(cont), comp) { }
     template <class Container, class Alloc>
       flat_multiset(sorted_equivalent_t s, const Container& cont, const Alloc& a)
-        : flat_multiset(s, cont.begin(), cont.end(), key_compare(), a) { }
+        : flat_multiset(s, std::begin(cont), std::end(cont), key_compare(), a) { }
     template<class Container>
     flat_multiset(sorted_equivalent_t s, const Container& cont, const key_compare& comp, const Alloc& a)
         : flat_multiset(s, std::begin(cont), std::end(cont), comp, a) { }
