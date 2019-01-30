@@ -10485,10 +10485,10 @@ namespace std {
       { }
     template <class Container>
       explicit flat_map(const Container& cont)
-        : flat_map(cont.begin(), cont.end(), key_compare()) { }
+        : flat_map(std::begin(cont), std::end(cont), key_compare()) { }
     template <class Container, class Alloc>
       flat_map(const Container& cont, const Alloc& a)
-        : flat_map(cont.begin(), cont.end(), key_compare(), a) { }
+        : flat_map(std::begin(cont), std::end(cont), key_compare(), a) { }
 
     flat_map(sorted_unique_t,
              key_container_type key_cont, mapped_container_type mapped_cont);
@@ -10500,10 +10500,10 @@ namespace std {
       { }
     template <class Container>
       flat_map(sorted_unique_t s, const Container& cont)
-        : flat_map(s, cont.begin(), cont.end(), key_compare()) { }
+        : flat_map(s, std::begin(cont), std::end(cont), key_compare()) { }
     template <class Container, class Alloc>
       flat_map(sorted_unique_t s, const Container& cont, const Alloc& a)
-        : flat_map(s, cont.begin(), cont.end(), key_compare(), a) { }
+        : flat_map(s, std::begin(cont), std::end(cont), key_compare(), a) { }
 
     explicit flat_map(const key_compare& comp)
       : c(containers()), compare(comp) { }
@@ -10845,8 +10845,8 @@ template <class InputIterator>
 \tcode{c} as if by:
 \begin{codeblock}
 for (; first != last; ++first) {
-  c.keys.insert(c.keys.end(), first->first); 
-  c.values.insert(c.values.end(), first->second); 
+  c.keys.insert(std::end(c.keys), first->first);
+  c.values.insert(std::end(c.values), first->second);
 }
 \end{codeblock}
 and finally sorts the range \range{begin()}{end()} with \tcode{compare}.
@@ -10871,8 +10871,8 @@ template <class InputIterator>
 \tcode{c.keys} and \tcode{c.values} as if by:
 \begin{codeblock}
 for (; first != last; ++first) {
-  c.keys.insert(c.keys.end(), first->first);
-  c.values.insert(c.values.end(), first->second);
+  c.keys.insert(std::end(c.keys), first->first);
+  c.values.insert(std::end(c.values), first->second);
 }
 \end{codeblock}
 
@@ -10915,8 +10915,8 @@ uses-allocator construction\iref{allocator.uses.construction} of both
 \tcode{c.keys} and \tcode{c.values} as if by:
 \begin{codeblock}
 for (; first != last; ++first) {
-  c.keys.insert(c.keys.end(), first->first);
-  c.values.insert(c.values.end(), first->second);
+  c.keys.insert(std::end(c.keys), first->first);
+  c.values.insert(std::end(c.values), first->second);
 }
 \end{codeblock}
 and finally sorts the range \range{begin()}{end()} with \tcode{compare}.
@@ -10943,8 +10943,8 @@ uses-allocator construction\iref{allocator.uses.construction} of both
 \tcode{c.keys} and \tcode{c.values} as if by:
 \begin{codeblock}
 for (; first != last; ++first) {
-  c.keys.insert(c.keys.end(), first->first);
-  c.values.insert(c.values.end(), first->second);
+  c.keys.insert(std::end(c.keys), first->first);
+  c.values.insert(std::end(c.values), first->second);
 }
 \end{codeblock}
 
@@ -11052,8 +11052,8 @@ constructed with \tcode{std::forward<Args>(args)...}.  If the map already
 contains an element whose key is equivalent to the key of \tcode{t}, there is
 no effect.  Otherwise, equivalent to:
 \begin{codeblock}
-auto key_it = std::lower_bound(c.keys.begin(), c.keys.end(), t.first, compare);
-auto value_it = c.values.begin() + distance(c.keys.begin(), key_it);
+auto key_it = std::lower_bound(std::begin(c.keys), std::end(c.keys), t.first, compare);
+auto value_it = std::begin(c.values) + distance(std::begin(c.keys), key_it);
 c.keys.emplace(key_it, std::move(t.first));
 c.values.emplace(value_it, std::move(t.second));
 \end{codeblock}
@@ -11097,8 +11097,8 @@ template<class... Args>
 If the map already contains an element whose key is equivalent to \tcode{k},
 there is no effect.  Otherwise equivalent to:
 \begin{codeblock}
-auto key_it = std::lower_bound(c.keys.begin(), c.keys.end(), k, compare);
-auto value_it = c.values.begin() + distance(c.keys.begin(), key_it);
+auto key_it = std::lower_bound(std::begin(c.keys), std::end(c.keys), k, compare);
+auto value_it = std::begin(c.values) + distance(std::begin(c.keys), key_it);
 c.keys.insert(key_it, k);
 c.values.emplace(value_it, std::forward<Args>(args)...);
 \end{codeblock}
@@ -11131,8 +11131,8 @@ template<class... Args>
 If the map already contains an element whose key is equivalent to \tcode{k},
 there is no effect.  Otherwise equivalent to:
 \begin{codeblock}
-auto key_it = std::lower_bound(c.keys.begin(), c.keys.end(), k, compare);
-auto value_it = c.values.begin() + distance(c.keys.begin(), key_it);
+auto key_it = std::lower_bound(std::begin(c.keys), std::end(c.keys), k, compare);
+auto value_it = std::begin(c.values) + distance(std::begin(c.keys), key_it);
 c.keys.emplace(key_it, std::move(k));
 c.values.emplace(value_it, std::forward<Args>(args)...);
 \end{codeblock}
@@ -11508,10 +11508,10 @@ namespace std {
       { }
     template <class Container>
       explicit flat_multimap(const Container& cont)
-        : flat_multimap(cont.begin(), cont.end(), key_compare()) { }
+        : flat_multimap(std::begin(cont), std::end(cont), key_compare()) { }
     template <class Container, class Alloc>
       flat_multimap(const Container& cont, const Alloc& a)
-        : flat_multimap(cont.begin(), cont.end(), key_compare(), a) { }
+        : flat_multimap(std::begin(cont), std::end(cont), key_compare(), a) { }
 
     flat_multimap(sorted_equivalent_t,
                   key_container_type key_cont, mapped_container_type mapped_cont);
@@ -11523,10 +11523,10 @@ namespace std {
       { }
     template <class Container>
       flat_multimap(sorted_equivalent_t s, const Container& cont)
-        : flat_multimap(s, cont.begin(), cont.end(), key_compare()) { }
+        : flat_multimap(s, std::begin(cont), std::end(cont), key_compare()) { }
     template <class Container, class Alloc>
       flat_multimap(sorted_equivalent_t s, const Container& cont, const Alloc& a)
-        : flat_multimap(s, cont.begin(), cont.end(), key_compare(), a) { }
+        : flat_multimap(s, std::begin(cont), std::end(cont), key_compare(), a) { }
 
     explicit flat_multimap(const key_compare& comp)
       : c(containers()), compare(comp) { }
@@ -11845,8 +11845,8 @@ template <class InputIterator>
 \tcode{c} as if by:
 \begin{codeblock}
 for (; first != last; ++first) {
-  c.keys.insert(c.keys.end(), first->first); 
-  c.values.insert(c.values.end(), first->second); 
+  c.keys.insert(std::end(c.keys), first->first);
+  c.values.insert(std::end(c.values), first->second);
 }
 \end{codeblock}
 and finally sorts the range \range{begin()}{end()} with \tcode{compare}.
@@ -11871,8 +11871,8 @@ template <class InputIterator>
 \tcode{c.keys} and \tcode{c.values} as if by:
 \begin{codeblock}
 for (; first != last; ++first) {
-  c.keys.insert(c.keys.end(), first->first);
-  c.values.insert(c.values.end(), first->second);
+  c.keys.insert(std::end(c.keys), first->first);
+  c.values.insert(std::end(c.values), first->second);
 }
 \end{codeblock}
 
@@ -11915,8 +11915,8 @@ uses-allocator construction\iref{allocator.uses.construction} of both
 \tcode{c.keys} and \tcode{c.values} as if by:
 \begin{codeblock}
 for (; first != last; ++first) {
-  c.keys.insert(c.keys.end(), first->first);
-  c.values.insert(c.values.end(), first->second);
+  c.keys.insert(std::end(c.keys), first->first);
+  c.values.insert(std::end(c.values), first->second);
 }
 \end{codeblock}
 and finally sorts the range \range{begin()}{end()} with \tcode{compare}.
@@ -11943,8 +11943,8 @@ uses-allocator construction\iref{allocator.uses.construction} of both
 \tcode{c.keys} and \tcode{c.values} as if by:
 \begin{codeblock}
 for (; first != last; ++first) {
-  c.keys.insert(c.keys.end(), first->first);
-  c.values.insert(c.values.end(), first->second);
+  c.keys.insert(std::end(c.keys), first->first);
+  c.values.insert(std::end(c.values), first->second);
 }
 \end{codeblock}
 
@@ -12008,8 +12008,8 @@ First, constructs a \tcode{pair<key_type, value_type>} object \tcode{t}
 constructed with \tcode{std::forward<Args>(args)...}, then inserts \tcode{t}
 as if by:
 \begin{codeblock}
-auto key_it = upper_bound(c.keys.begin(), c.keys.end(), t.first);
-auto value_it = c.values.begin() + distance(c.keys.begin(), key_it);
+auto key_it = std::upper_bound(std::begin(c.keys), std::end(c.keys), t.first);
+auto value_it = std::begin(c.values) + distance(std::begin(c.keys), key_it);
 c.keys.emplace(key_it, std::move(t.first));
 c.values.emplace(value_it, std::move(t.second));
 \end{codeblock}
