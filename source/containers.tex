@@ -11907,9 +11907,15 @@ namespace std {
     template <class Container>
       explicit flat_set(const Container& cont)
         : flat_set(cont.begin(), cont.end(), key_compare()) { }
+    template<class Container>
+    flat_set(const Container& cont, const key_compare& comp)
+        : flat_set(std::begin(cont), std::end(cont), comp) { }
     template <class Container, class Alloc>
       flat_set(const Container& cont, const Alloc& a)
         : flat_set(cont.begin(), cont.end(), key_compare(), a) { }
+    template <class Container, class Alloc>
+      flat_set(const Container& cont, const key_compare& comp, const Alloc& a)
+        : flat_set(std::begin(cont), std::end(cont), comp, a) { }
 
     flat_set(sorted_unique_t, container_type cont)
       : c(std::move(cont)), compare(key_compare()) { }
@@ -11919,9 +11925,15 @@ namespace std {
     template <class Container>
       flat_set(sorted_unique_t s, const Container& cont)
         : flat_set(s, cont.begin(), cont.end(), key_compare()) { }
+    template<class Container>
+    flat_set(sorted_unique_t s, const Container& cont, const key_compare& comp)
+        : flat_set(s, std::begin(cont), std::end(cont), comp) { }
     template <class Container, class Alloc>
       flat_set(sorted_unique_t s, const Container& cont, const Alloc& a)
         : flat_set(s, cont.begin(), cont.end(), key_compare(), a) { }
+    template<class Container, class Alloc>
+    flat_set(sorted_unique_t s, const Container& cont, const key_compare& comp, const Alloc& a)
+        : flat_set(s, std::begin(cont), std::end(cont), comp, a) { }
 
     explicit flat_set(const key_compare& comp)
       : c(container_type()), compare(comp) { }
@@ -12561,9 +12573,15 @@ class flat_multiset {
     template <class Container>
       explicit flat_multiset(const Container& cont)
         : flat_multiset(cont.begin(), cont.end(), key_compare()) { }
+    template<class Container>
+    flat_multiset(const Container& cont, const key_compare& comp)
+        : flat_multiset(std::begin(cont), std::end(cont), comp) { }
     template <class Container, class Alloc>
       flat_multiset(const Container& cont, const Alloc& a)
         : flat_multiset(cont.begin(), cont.end(), key_compare(), a) { }
+    template<class Container>
+    flat_multiset(const Container& cont, const key_compare& comp, const Alloc& a)
+        : flat_multiset(std::begin(cont), std::end(cont), comp, a) { }
 
     flat_multiset(sorted_equivalent_t, container_type cont)
       : c(std::move(cont)), compare(key_compare()) { }
@@ -12573,9 +12591,16 @@ class flat_multiset {
     template <class Container>
       flat_multiset(sorted_equivalent_t s, const Container& cont)
         : flat_multiset(s, cont.begin(), cont.end(), key_compare()) { }
+
+    template<class Container>
+    flat_multiset(sorted_equivalent_t s, const Container& cont, const key_compare& comp)
+        : flat_multiset(s, std::begin(cont), std::end(cont), comp) { }
     template <class Container, class Alloc>
       flat_multiset(sorted_equivalent_t s, const Container& cont, const Alloc& a)
         : flat_multiset(s, cont.begin(), cont.end(), key_compare(), a) { }
+    template<class Container>
+    flat_multiset(sorted_equivalent_t s, const Container& cont, const key_compare& comp, const Alloc& a)
+        : flat_multiset(s, std::begin(cont), std::end(cont), comp, a) { }
 
     explicit flat_multiset(const key_compare& comp)
       : c(container_type()), compare(comp) { }
