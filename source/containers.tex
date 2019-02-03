@@ -9046,7 +9046,7 @@ namespace std {
   template<class Key, class T, class Compare,
            class KeyContainer, class MappedContainer>
     void swap(flat_map<Key, T, Compare, KeyContainer, MappedContainer>& x,
-              flat_map<Key, T, Compare, KeyContainer, MappedContainer>& y) noexcept;
+              flat_map<Key, T, Compare, KeyContainer, MappedContainer>& y) noexcept(noexcept(x.swap(y)));
 
   struct sorted_unique_t { explicit sorted_unique_t() = default; };
   inline constexpr sorted_unique_t sorted_unique {};
@@ -9084,7 +9084,7 @@ namespace std {
   template<class Key, class T, class Compare,
            class KeyContainer, class MappedContainer>
     void swap(flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& x,
-              flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& y) noexcept;
+              flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& y) noexcept(noexcept(x.swap(y)));
 
   struct sorted_equivalent_t { explicit sorted_equivalent_t() = default; };
   inline constexpr sorted_equivalent_t sorted_equivalent {};
@@ -9123,7 +9123,7 @@ namespace std {
 
   template<class Key, class Compare, class Container>
     void swap(flat_set<Key, Compare, Container>& x,
-              flat_set<Key, Compare, Container>& y) noexcept;
+              flat_set<Key, Compare, Container>& y) noexcept(noexcept(x.swap(y)));
 
   // \ref{flatmultiset}, class template \tcode{flat_multiset}
   template<class Key, class Compare = less<Key>, class Container = vector<Key>>
@@ -9150,7 +9150,7 @@ namespace std {
 
   template<class Key, class Compare, class Container>
     void swap(flat_multiset<Key, Compare, Container>& x,
-              flat_multiset<Key, Compare, Container>& y) noexcept;
+              flat_multiset<Key, Compare, Container>& y) noexcept(noexcept(x.swap(y)));
 }
 \end{codeblock}
 \end{addedblock}
@@ -10253,7 +10253,9 @@ namespace std {
     size_type erase(const key_type& x);
     iterator erase(const_iterator first, const_iterator last);
 
-    void swap(flat_map& fm) noexcept;
+    void swap(flat_map& fm) noexcept(is_nothrow_swappable_v<KeyContainer> &&
+                                     is_nothrow_swappable_v<MappedContainer> &&
+                                     is_nothrow_swappable_v<Compare>);
     void clear() noexcept;
 
     // observers
@@ -10854,14 +10856,12 @@ void insert(sorted_unique_t, initializer_list<value_type> il);
 
 \indexlibrarymember{flatmap}{swap}%
 \begin{itemdecl}
-void swap(flat_map& fm) noexcept;
+void swap(flat_map& fm) noexcept(is_nothrow_swappable_v<KeyContainer> &&
+                                 is_nothrow_swappable_v<MappedContainer> &&
+                                 is_nothrow_swappable_v<Compare>);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{is_nothrow_swappable_v<key_container_type> \&\&
-is_nothrow_swappable_v<mapped_container_type> \&\&
-is_nothrow_swappable_v<key_compare>} is \tcode{true}.
-
 \pnum \effects Equivalent to:
 \begin{codeblock}
 using std::swap;
@@ -10976,14 +10976,10 @@ template<class Key, class T, class Compare, class KeyContainer, class MappedCont
 \begin{itemdecl}
 template<class Key, class T, class Compare, class KeyContainer, class MappedContainer>
   void swap(flat_map<Key, T, Compare, KeyContainer, MappedContainer>& x,
-            flat_map<Key, T, Compare, KeyContainer, MappedContainer>& y) noexcept;
+            flat_map<Key, T, Compare, KeyContainer, MappedContainer>& y) noexcept(noexcept(x.swap(y)));
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{is_nothrow_swappable_v<KeyContainer> \&\&
-is_nothrow_swappable_v<MappedContainer> \&\& is_nothrow_swappable_v<Compare>}
-is \tcode{true}.
-
 \pnum
 \effects Equivalent to: \tcode{x.swap(y)}.
 \end{itemdescr}
@@ -11250,7 +11246,9 @@ namespace std {
     size_type erase(const key_type& x);
     iterator erase(const_iterator first, const_iterator last);
 
-    void swap(flat_multimap& fm) noexcept;
+    void swap(flat_multimap& fm) noexcept(is_nothrow_swappable_v<KeyContainer> &&
+                                          is_nothrow_swappable_v<MappedContainer> &&
+                                          is_nothrow_swappable_v<Compare>);
     void clear() noexcept;
 
     // observers
@@ -11669,14 +11667,12 @@ void insert(sorted_equivalent_t, initializer_list<value_type> il);
 
 \indexlibrarymember{flatmultimap}{swap}%
 \begin{itemdecl}
-void swap(flat_multimap& fm) noexcept;
+void swap(flat_multimap& fm) noexcept(is_nothrow_swappable_v<KeyContainer> &&
+                                      is_nothrow_swappable_v<MappedContainer> &&
+                                      is_nothrow_swappable_v<Compare>);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{is_nothrow_swappable_v<key_container_type> \&\&
-is_nothrow_swappable_v<mapped_container_type> \&\&
-is_nothrow_swappable_v<key_compare>} is \tcode{true}.
-
 \pnum \effects Equivalent to:
 \begin{codeblock}
 using std::swap;
@@ -11791,14 +11787,10 @@ template<class Key, class T, class Compare, class KeyContainer, class MappedCont
 \begin{itemdecl}
 template<class Key, class T, class Compare, class KeyContainer, class MappedContainer>
   void swap(flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& x,
-            flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& y) noexcept;
+            flat_multimap<Key, T, Compare, KeyContainer, MappedContainer>& y) noexcept(noexcept(x.swap(y)));
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{is_nothrow_swappable_v<KeyContainer> \&\&
-is_nothrow_swappable_v<MappedContainer> \&\& is_nothrow_swappable_v<Compare>}
-is \tcode{true}.
-
 \pnum
 \effects Equivalent to: \tcode{x.swap(y)}.
 \end{itemdescr}
@@ -12033,7 +12025,8 @@ namespace std {
     size_type erase(const key_type& x);
     iterator erase(const_iterator first, const_iterator last);
 
-    void swap(flat_set& fs) noexcept;
+    void swap(flat_set& fs) noexcept(is_nothrow_swappable_v<KeyContainer> &&
+                                     is_nothrow_swappable_v<Compare>);
     void clear() noexcept;
 
     // observers
@@ -12335,13 +12328,11 @@ void insert(sorted_unique_t, initializer_list<value_type> il);
 
 \indexlibrarymember{flatset}{swap}%
 \begin{itemdecl}
-void swap(flat_set& fs) noexcept;
+void swap(flat_set& fs) noexcept(is_nothrow_swappable_v<KeyContainer> &&
+                                 is_nothrow_swappable_v<Compare>);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{is_nothrow_swappable_v<container_type> \&\&
-is_nothrow_swappable_v<key_compare>} is \tcode{true}.
-
 \pnum \effects Equivalent to:
 \begin{codeblock}
 using std::swap;
@@ -12453,13 +12444,10 @@ template<class Key, class Compare, class KeyContainer>
 \begin{itemdecl}
 template<class Key, class Compare, class KeyContainer>
   void swap(flat_set<Key, Compare, KeyContainer>& x,
-            flat_set<Key, Compare, KeyContainer>& y) noexcept;
+            flat_set<Key, Compare, KeyContainer>& y) noexcept(noexcept(x.swap(y)));
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{is_nothrow_swappable_v<KeyContainer> \&\&
-is_nothrow_swappable_v<Compare>} is \tcode{true}.
-
 \pnum
 \effects Equivalent to: \tcode{x.swap(y)}.
 \end{itemdescr}
@@ -12696,7 +12684,8 @@ class flat_multiset {
     size_type erase(const key_type& x);
     iterator erase(const_iterator first, const_iterator last);
 
-    void swap(flat_multiset& fms) noexcept;
+    void swap(flat_multiset& fms) noexcept(is_nothrow_swappable_v<KeyContainer> &&
+                                           is_nothrow_swappable_v<Compare>);
     void clear() noexcept;
 
     // observers
@@ -12994,13 +12983,11 @@ void insert(sorted_unique_t, initializer_list<value_type> il);
 
 \indexlibrarymember{flatmultiset}{swap}%
 \begin{itemdecl}
-void swap(flat_multiset& fms) noexcept;
+void swap(flat_multiset& fms) noexcept(is_nothrow_swappable_v<KeyContainer> &&
+                                       is_nothrow_swappable_v<Compare>);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{is_nothrow_swappable_v<container_type> \&\&
-is_nothrow_swappable_v<key_compare>} is \tcode{true}.
-
 \pnum \effects Equivalent to:
 \begin{codeblock}
 using std::swap;
@@ -13112,13 +13099,10 @@ template<class Key, class Compare, class KeyContainer>
 \begin{itemdecl}
 template<class Key, class Compare, class KeyContainer>
   void swap(flat_multiset<Key, Compare, KeyContainer>& x,
-            flat_multiset<Key, Compare, KeyContainer>& y) noexcept;
+            flat_multiset<Key, Compare, KeyContainer>& y) noexcept(noexcept(x.swap(y)));
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{is_nothrow_swappable_v<KeyContainer> \&\&
-is_nothrow_swappable_v<Compare>} is \tcode{true}.
-
 \pnum
 \effects Equivalent to: \tcode{x.swap(y)}.
 \end{itemdescr}
