@@ -10651,7 +10651,7 @@ template <class... Args> pair<iterator, bool> emplace(Args&&... args);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{pair<key_type, mapped_type>(std::forward<Args>(args)...)} is well-formed.
+\pnum \requires \tcode{pair<key_type, mapped_type>(std::forward<Args>(args)...)} is well-formed.
 
 \pnum
 \effects
@@ -10680,7 +10680,7 @@ template<class P> iterator insert(const_iterator position, P&& x);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{pair<key_type, mapped_type>(std::forward<P>(x))} is well-formed.
+\pnum \requires \tcode{pair<key_type, mapped_type>(std::forward<P>(x))} is well-formed.
 
 \pnum
 \effects
@@ -10698,7 +10698,7 @@ template<class... Args>
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{mapped_type(std::forward<Args>(args)...)} is well-formed.
+\pnum \requires \tcode{mapped_type(std::forward<Args>(args)...)} is well-formed.
 
 \pnum
 \effects
@@ -10732,7 +10732,7 @@ template<class... Args>
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{mapped_type(std::forward<Args>(args)...)} is well-formed.
+\pnum \requires \tcode{mapped_type(std::forward<Args>(args)...)} is well-formed.
 
 \pnum
 \effects
@@ -10768,7 +10768,7 @@ template<class M>
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{is_assignable_v<mapped_type\&, M>} is \tcode{true}, and
+\pnum \requires \tcode{is_assignable_v<mapped_type\&, M>} is \tcode{true}, and
 \tcode{mapped_type(std::forward<M>(obj))} is well-formed.
 
 \pnum
@@ -10802,7 +10802,7 @@ template<class M>
 
 \begin{itemdescr}
 \pnum
-\constraints
+\requires
 \tcode{is_assignable_v<mapped_type\&, M>} is \tcode{true}, and
 \tcode{mapped_type(std::forward<M>(obj))} is well-formed.
 
@@ -11607,7 +11607,7 @@ template <class... Args> pair<iterator, bool> emplace(Args&&... args);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{pair<key_type,
+\pnum \requires \tcode{pair<key_type,
 mapped_type>(std::forward<Args>(args)...)} is well-formed.
 
 \pnum
@@ -11634,7 +11634,7 @@ template<class P> iterator insert(const_iterator position, P&& x);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{pair<key_type, mapped_type>(std::forward<P>(x))} is well-formed.
+\pnum \requires \tcode{pair<key_type, mapped_type>(std::forward<P>(x))} is well-formed.
 
 \pnum
 \effects
@@ -12289,7 +12289,7 @@ template <class... Args> pair<iterator, bool> emplace(Args&&... args);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{key_type(std::forward<Args>(args)...)} is well-formed.
+\pnum \requires \tcode{key_type(std::forward<Args>(args)...)} is well-formed.
 
 \pnum
 \effects
@@ -12952,7 +12952,7 @@ template <class... Args> iterator emplace(Args&&... args);
 \end{itemdecl}
 
 \begin{itemdescr}
-\pnum \constraints \tcode{key_type(std::forward<Args>(args)...)} is well-formed.
+\pnum \requires \tcode{key_type(std::forward<Args>(args)...)} is well-formed.
 
 \pnum
 \effects
