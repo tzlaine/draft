@@ -10775,8 +10775,8 @@ template<class M>
 \effects
 If the map already contains an element \tcode{e} whose key is equivalent
 to \tcode{k}, assigns \tcode{std::for\-ward<M>(obj)} to \tcode{e.second}.
-Otherwise equivalent to \tcode{insert(k, std::forward<M>(obj))} or
-\tcode{emplace(hint, k, std::forward<M>(obj))} respectively.
+Otherwise equivalent to \tcode{try_emplace(k, std::forward<M>(obj))} or
+\tcode{try_emplace(hint, k, std::forward<M>(obj))} respectively.
 
 \pnum
 \returns
@@ -10788,8 +10788,7 @@ whose key is equivalent to \tcode{k}.
 
 \pnum
 \complexity
-The same as \tcode{emplace} and \tcode{emplace_hint},
-respectively.
+The same as \tcode{try_emplace}.
 \end{itemdescr}
 
 \indexlibrarymember{insert_or_assign}{flatmap}%
@@ -10811,8 +10810,8 @@ template<class M>
 If the map already contains an element \tcode{e}
 whose key is equivalent to \tcode{k},
 assigns \tcode{std::for\-ward<M>(obj)} to \tcode{e.second}.
-Otherwise equivalent to \tcode{insert(std::move(k), std::forward<M>(obj))} or
-\tcode{emplace(hint, std::move(k), std::forward<M>(obj))} respectively.
+Otherwise equivalent to \tcode{try_emplace(std::move(k), std::forward<M>(obj))} or
+\tcode{try_emplace(hint, std::move(k), std::forward<M>(obj))} respectively.
 
 \pnum
 \returns
@@ -10824,8 +10823,7 @@ whose key is equivalent to \tcode{k}.
 
 \pnum
 \complexity
-The same as \tcode{emplace} and \tcode{emplace_hint},
-respectively.
+The same as \tcode{try_emplace}.
 \end{itemdescr}
 
 \indexlibrarymember{flatmap}{insert}%
