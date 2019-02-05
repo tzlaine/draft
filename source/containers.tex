@@ -10053,8 +10053,11 @@ namespace std {
     using mapped_type               = T;
     using value_type                = pair<const key_type, mapped_type>;
     using key_compare               = Compare;
-    using reference                 = pair<const key_type&, mapped_type&>;
-    using const_reference           = pair<const key_type&, const mapped_type&>;
+    using const_key_reference       = typename KeyContainer::const_reference;
+    using mapped_reference          = typename MappedContainer::reference;
+    using const_mapped_reference    = typename MappedContainer::const_reference;
+    using reference                 = pair<const_key_reference, mapped_reference>;
+    using const_reference           = pair<const_key_reference, const_mapped_reference>;
     using size_type                 = size_t;
     using difference_type           = ptrdiff_t;
     using iterator                  = @\impdefx{type of \tcode{flat_map::iterator}}@; // see \ref{container.requirements}
@@ -10203,10 +10206,10 @@ namespace std {
     size_type max_size() const noexcept;
 
     // \ref{flatmap.access}, element access
-    mapped_type& operator[](const key_type& x);
-    mapped_type& operator[](key_type&& x);
-    mapped_type& at(const key_type& x);
-    const mapped_type& at(const key_type& x) const;
+    mapped_reference operator[](const key_type& x);
+    mapped_reference operator[](key_type&& x);
+    mapped_reference at(const key_type& x);
+    const_mapped_reference at(const key_type& x) const;
 
     // \ref{flatmap.modifiers}, modifiers
     template <class... Args> pair<iterator, bool> emplace(Args&&... args);
@@ -10589,7 +10592,7 @@ Equivalent to: \tcode{return std::min<size_type>(c.keys.max_size(), c.values.max
 
 \indexlibrary{\idxcode{operator[]}!\idxcode{flatmap}}%
 \begin{itemdecl}
-mapped_type& operator[](const key_type& x);
+mapped_reference operator[](const key_type& x);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -10600,7 +10603,7 @@ Equivalent to: \tcode{return try_emplace(x).first->second;}
 
 \indexlibrary{\idxcode{operator[]}!\idxcode{flatmap}}%
 \begin{itemdecl}
-mapped_type& operator[](key_type&& x);
+mapped_reference operator[](key_type&& x);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -10611,8 +10614,8 @@ Equivalent to: \tcode{return try_emplace(std::move(x)).first->second;}
 
 \indexlibrary{\idxcode{at}!\idxcode{flatmap}}%
 \begin{itemdecl}
-mapped_type&       at(const key_type& x);
-const mapped_type& at(const key_type& x) const;
+mapped_reference       at(const key_type& x);
+const_mapped_reference at(const key_type& x) const;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -11076,8 +11079,11 @@ namespace std {
     using mapped_type               = T;
     using value_type                = pair<const key_type, mapped_type>;
     using key_compare               = Compare;
-    using reference                 = pair<const key_type&, mapped_type&>;
-    using const_reference           = pair<const key_type&, const mapped_type&>;
+    using const_key_reference       = typename KeyContainer::const_reference;
+    using mapped_reference          = typename MappedContainer::reference;
+    using const_mapped_reference    = typename MappedContainer::const_reference;
+    using reference                 = pair<const_key_reference, mapped_reference>;
+    using const_reference           = pair<const_key_reference, const_mapped_reference>;
     using size_type                 = size_t;
     using difference_type           = ptrdiff_t;
     using iterator                  = @\impdefx{type of \tcode{flat_multimap::iterator}}@; // see \ref{container.requirements}
