@@ -9397,8 +9397,10 @@ A deduction guide for a container adaptor shall not participate in overload reso
 \item It has a \tcode{Container}\added{, \tcode{KeyContainer}, or \tcode{MappedContainer}} template parameter and a type that qualifies as an allocator is deduced for that parameter.
 \item It has an \tcode{Allocator} template parameter and a type that does not qualify as an allocator is deduced for that parameter.
 \item It has both \tcode{Container} and \tcode{Allocator} template parameters, and \tcode{uses_allocator_v<Container, Allocator>} is \tcode{false}.
-\item \added{It has both \tcode{KeyContainer} and \tcode{Allocator} template parameters, and \tcode{uses_allocator_v<KeyContainer, Allocator>} is \tcode{false}.}
-\item \added{It has both \tcode{MappedContainer} and \tcode{Allocator} template parameters, and \tcode{uses_allocator_v<MappedContainer, Allocator>} is \tcode{false}.}
+\item \added{It has both \tcode{KeyContainer} and \tcode{Allocator} template parameters, and \\
+\tcode{uses_allocator_v<KeyContainer, Allocator>} is \tcode{false}.}
+\item \added{It has both \tcode{MappedContainer} and \tcode{Allocator} template parameters, and \\
+\tcode{uses_allocator_v<MappedContainer, Allocator>} is \tcode{false}.}
 \end{itemize}
 
 \rSec2[queue.syn]{Header \tcode{<queue>} synopsis}%
