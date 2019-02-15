@@ -9379,7 +9379,7 @@ adaptor's \tcode{Container}, \tcode{KeyContainer}, \tcode{MappedContainer}, or
 
 \begin{addedblock}
 \pnum
-For container adaptors that have them, the \tcode{insert}, \tcode{emplace},
+For container adaptors that provide them, the \tcode{insert}, \tcode{emplace},
 and \tcode{erase} members shall affect the validity of iterators and
 references to the adaptor's container(s) in the same ways that the containers'
 respective \tcode{insert}, \tcode{emplace}, and \tcode{erase} members do.
@@ -10493,8 +10493,8 @@ resolution only if \tcode{uses_allocator_v<key_container_type, Alloc> ||
   uses_allocator_v<mapped_container_type, Alloc>} is \tcode{true}.
 
 \pnum
-Constructors that take an \tcode{Alloc} argument shall participate in overload
-resolution only if \tcode{Alloc} meets the allocator requirements as described
+Constructors that take an Alloc argument shall participate in
+overload resolution only if Alloc qualifies as allocator as described
 in \iref{container.requirements.general}.
 
 \rSec3[flatmap.defn]{Definition}
@@ -11335,7 +11335,7 @@ containers extract() &&;
 \end{itemdecl}
 
 \begin{itemdescr}
-\effects Equivalent to \tcode{return std::move(c);}
+\pnum \effects Equivalent to \tcode{return std::move(c);}
 \end{itemdescr}
 
 \indexlibrarymember{flatmap}{replace}%
@@ -11516,8 +11516,8 @@ resolution only if \tcode{uses_allocator_v<key_container_type, Alloc> ||
   uses_allocator_v<mapped_container_type, Alloc>} is \tcode{true}.
 
 \pnum
-Constructors that take an \tcode{Alloc} argument shall participate in overload
-resolution only if \tcode{Alloc} meets the allocator requirements as described
+Constructors that take an Alloc argument shall participate in
+overload resolution only if Alloc qualifies as allocator as described
 in \iref{container.requirements.general}.
 
 \rSec3[flatmultimap.defn]{Definition}
@@ -12150,7 +12150,7 @@ containers extract() &&;
 \end{itemdecl}
 
 \begin{itemdescr}
-\effects Equivalent to \tcode{return std::move(c);}
+\pnum \effects Equivalent to \tcode{return std::move(c);}
 \end{itemdescr}
 
 \indexlibrarymember{flatmultimap}{replace}%
