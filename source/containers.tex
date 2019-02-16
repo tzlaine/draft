@@ -10812,8 +10812,12 @@ namespace std {
                   less<typename KeyContainer::value_type>,
                   KeyContainer, MappedContainer>;
 
-  template <class InputIterator, class Compare = less<@\placeholder{iter-mapped-type}@<InputIterator>>>
-    flat_map(InputIterator, InputIterator, Compare = Compare())
+  template <class InputIterator>
+    flat_map(InputIterator, InputIterator)
+      -> flat_map<@\placeholder{iter-mapped-type}@<InputIterator>, @\placeholder{iter-mapped-type}@<InputIterator>>;
+
+  template <class InputIterator, class Compare>
+    flat_map(InputIterator, InputIterator, Compare)
       -> flat_map<@\placeholder{iter-mapped-type}@<InputIterator>, @\placeholder{iter-mapped-type}@<InputIterator>, Compare>;
 
   template<class InputIterator, class Compare, class Alloc>
@@ -10824,8 +10828,12 @@ namespace std {
     flat_map(InputIterator, InputIterator, Alloc)
       -> flat_map<@\placeholder{iter-mapped-type}@<InputIterator>, @\placeholder{iter-mapped-type}@<InputIterator>>;
 
-  template <class InputIterator, class Compare = less<@\placeholder{iter-mapped-type}@<InputIterator>>>
-    flat_map(sorted_unique_t, InputIterator, InputIterator, Compare = Compare())
+  template <class InputIterator>
+    flat_map(sorted_unique_t, InputIterator, InputIterator)
+      -> flat_map<@\placeholder{iter-mapped-type}@<InputIterator>, @\placeholder{iter-mapped-type}@<InputIterator>>;
+
+  template <class InputIterator, class Compare>
+    flat_map(sorted_unique_t, InputIterator, InputIterator, Compare)
       -> flat_map<@\placeholder{iter-mapped-type}@<InputIterator>, @\placeholder{iter-mapped-type}@<InputIterator>, Compare>;
 
   template<class InputIterator, class Compare, class Alloc>
@@ -10836,8 +10844,12 @@ namespace std {
     flat_map(sorted_unique_t, InputIterator, InputIterator, Alloc)
       -> flat_map<@\placeholder{iter-mapped-type}@<InputIterator>, @\placeholder{iter-mapped-type}@<InputIterator>>;
 
-  template<class Key, class T, class Compare = less<Key>>
-    flat_map(initializer_list<pair<Key, T>>, Compare = Compare())
+  template<class Key, class T>
+    flat_map(initializer_list<pair<Key, T>>)
+      -> flat_map<Key, T>;
+
+  template<class Key, class T, class Compare>
+    flat_map(initializer_list<pair<Key, T>>, Compare)
       -> flat_map<Key, T, Compare>;
 
   template<class Key, class T, class Compare, class Alloc>
@@ -10848,8 +10860,12 @@ namespace std {
     flat_map(initializer_list<pair<Key, T>>, Alloc)
       -> flat_map<Key, T>;
 
-  template<class Key, class T, class Compare = less<Key>>
-  flat_map(sorted_unique_t, initializer_list<pair<Key, T>>, Compare = Compare())
+  template<class Key, class T>
+  flat_map(sorted_unique_t, initializer_list<pair<Key, T>>)
+      -> flat_map<Key, T>;
+
+  template<class Key, class T, class Compare>
+  flat_map(sorted_unique_t, initializer_list<pair<Key, T>>, Compare)
       -> flat_map<Key, T, Compare>;
 
   template<class Key, class T, class Compare, class Alloc>
@@ -11809,8 +11825,12 @@ namespace std {
                        less<typename KeyContainer::value_type>,
                        KeyContainer, MappedContainer>;
 
-  template <class InputIterator, class Compare = less<@\placeholder{iter-key-type}@<InputIterator>>>
-    flat_multimap(InputIterator, InputIterator, Compare = Compare())
+  template <class InputIterator>
+    flat_multimap(InputIterator, InputIterator)
+      -> flat_multimap<@\placeholder{iter-key-type}@<InputIterator>, @\placeholder{iter-mapped-type}@<InputIterator>>;
+
+  template <class InputIterator, class Compare>
+    flat_multimap(InputIterator, InputIterator, Compare)
       -> flat_multimap<@\placeholder{iter-key-type}@<InputIterator>, @\placeholder{iter-mapped-type}@<InputIterator>, Compare>;
 
   template<class InputIterator, class Compare, class Alloc>
@@ -11821,9 +11841,12 @@ namespace std {
     flat_multimap(InputIterator, InputIterator, Alloc)
       -> flat_multimap<@\placeholder{iter-key-type}@<InputIterator>, @\placeholder{iter-mapped-type}@<InputIterator>>;
 
-  template <class InputIterator, class Compare = less<@\placeholder{iter-key-type}@<InputIterator>>>
-    flat_multimap(sorted_equivalent_t, InputIterator, InputIterator,
-                  Compare = Compare())
+  template <class InputIterator>
+    flat_multimap(sorted_equivalent_t, InputIterator, InputIterator)
+      -> flat_multimap<@\placeholder{iter-key-type}@<InputIterator>, @\placeholder{iter-mapped-type}@<InputIterator>>;
+
+  template <class InputIterator, class Compare>
+    flat_multimap(sorted_equivalent_t, InputIterator, InputIterator, Compare)
       -> flat_multimap<@\placeholder{iter-key-type}@<InputIterator>, @\placeholder{iter-mapped-type}@<InputIterator>, Compare>;
 
   template<class InputIterator, class Compare, class Alloc>
@@ -11834,8 +11857,12 @@ namespace std {
     flat_multimap(sorted_equivalent_t, InputIterator, InputIterator, Alloc)
       -> flat_multimap<@\placeholder{iter-key-type}@<InputIterator>, @\placeholder{iter-mapped-type}@<InputIterator>>;
 
-  template<class Key, class T, class Compare = less<Key>>
-    flat_multimap(initializer_list<pair<Key, T>>, Compare = Compare())
+  template<class Key, class T>
+    flat_multimap(initializer_list<pair<Key, T>>)
+      -> flat_multimap<Key, T>;
+
+  template<class Key, class T, class Compare>
+    flat_multimap(initializer_list<pair<Key, T>>, Compare)
       -> flat_multimap<Key, T, Compare>;
 
   template<class Key, class T, class Compare, class Alloc>
@@ -11846,9 +11873,12 @@ namespace std {
     flat_multimap(initializer_list<pair<Key, T>>, Alloc)
       -> flat_multimap<Key, T>;
 
-  template<class Key, class T, class Compare = less<Key>>
-  flat_multimap(sorted_equivalent_t, initializer_list<pair<Key, T>>,
-                Compare = Compare())
+  template<class Key, class T>
+  flat_multimap(sorted_equivalent_t, initializer_list<pair<Key, T>>)
+      -> flat_multimap<Key, T>;
+
+  template<class Key, class T, class Compare>
+  flat_multimap(sorted_equivalent_t, initializer_list<pair<Key, T>>, Compare)
       -> flat_multimap<Key, T, Compare>;
 
   template<class Key, class T, class Compare, class Alloc>
@@ -12554,8 +12584,12 @@ namespace std {
     flat_set(sorted_unique_t, Container, Alloc)
       -> flat_set<@\placeholder{cont-value-type}@<Container>>;
 
-  template <class InputIterator, class Compare = less<@\placeholder{iter-value-type}@<InputIterator>>>
-    flat_set(InputIterator, InputIterator, Compare = Compare())
+  template <class InputIterator>
+    flat_set(InputIterator, InputIterator)
+      -> flat_set<@\placeholder{iter-value-type}@<InputIterator>>;
+
+  template <class InputIterator, class Compare>
+    flat_set(InputIterator, InputIterator, Compare)
       -> flat_set<@\placeholder{iter-value-type}@<InputIterator>, Compare>;
 
   template<class InputIterator, class Compare, class Alloc>
@@ -12566,8 +12600,12 @@ namespace std {
     flat_set(InputIterator, InputIterator, Alloc)
       -> flat_set<@\placeholder{iter-value-type}@<InputIterator>>;
 
-  template <class InputIterator, class Compare = less<@\placeholder{iter-value-type}@<InputIterator>>>
-    flat_set(sorted_unique_t, InputIterator, InputIterator, Compare = Compare())
+  template <class InputIterator>
+    flat_set(sorted_unique_t, InputIterator, InputIterator)
+      -> flat_set<@\placeholder{iter-value-type}@<InputIterator>>;
+
+  template <class InputIterator, class Compare>
+    flat_set(sorted_unique_t, InputIterator, InputIterator, Compare)
       -> flat_set<@\placeholder{iter-value-type}@<InputIterator>, Compare>;
 
   template<class InputIterator, class Compare, class Alloc>
@@ -12578,8 +12616,12 @@ namespace std {
     flat_set(sorted_unique_t, InputIterator, InputIterator, Alloc)
       -> flat_set<@\placeholder{iter-value-type}@<InputIterator>>;
 
-  template<class Key, class Compare = less<Key>>
-    flat_set(initializer_list<Key>, Compare = Compare())
+  template<class Key>
+    flat_set(initializer_list<Key>)
+      -> flat_set<Key>;
+
+  template<class Key, class Compare>
+    flat_set(initializer_list<Key>, Compare)
       -> flat_set<Key, Compare>;
 
   template<class Key, class Compare, class Alloc>
@@ -12590,8 +12632,12 @@ namespace std {
     flat_set(initializer_list<Key>, Alloc)
       -> flat_set<Key>;
 
-  template<class Key, class Compare = less<Key>>
-    flat_set(sorted_unique_t, initializer_list<Key>, Compare = Compare())
+  template<class Key>
+    flat_set(sorted_unique_t, initializer_list<Key>)
+      -> flat_set<Key>;
+
+  template<class Key, class Compare>
+    flat_set(sorted_unique_t, initializer_list<Key>, Compare)
       -> flat_set<Key, Compare>;
 
   template<class Key, class Compare, class Alloc>
@@ -13217,8 +13263,12 @@ class flat_multiset {
     flat_multiset(sorted_equivalent_t, Container, Alloc)
       -> flat_multiset<@\placeholder{cont-value-type}@<Container>>;
 
-  template <class InputIterator, class Compare = less<@\placeholder{iter-value-type}@<InputIterator>>>
-    flat_multiset(InputIterator, InputIterator, Compare = Compare())
+  template <class InputIterator>
+    flat_multiset(InputIterator, InputIterator)
+      -> flat_multiset<@\placeholder{iter-value-type}@<InputIterator>, @\placeholder{iter-value-type}@<InputIterator>>;
+
+  template <class InputIterator, class Compare>
+    flat_multiset(InputIterator, InputIterator, Compare)
       -> flat_multiset<@\placeholder{iter-value-type}@<InputIterator>, @\placeholder{iter-value-type}@<InputIterator>, Compare>;
 
   template<class InputIterator, class Compare, class Alloc>
@@ -13229,8 +13279,12 @@ class flat_multiset {
     flat_multiset(InputIterator, InputIterator, Alloc)
       -> flat_multiset<@\placeholder{iter-value-type}@<InputIterator>, @\placeholder{iter-value-type}@<InputIterator>>;
 
-  template <class InputIterator, class Compare = less<@\placeholder{iter-value-type}@<InputIterator>>>
-    flat_multiset(sorted_equivalent_t, InputIterator, InputIterator, Compare = Compare())
+  template <class InputIterator>
+    flat_multiset(sorted_equivalent_t, InputIterator, InputIterator)
+      -> flat_multiset<@\placeholder{iter-value-type}@<InputIterator>, @\placeholder{iter-value-type}@<InputIterator>>;
+
+  template <class InputIterator, class Compare>
+    flat_multiset(sorted_equivalent_t, InputIterator, InputIterator, Compare)
       -> flat_multiset<@\placeholder{iter-value-type}@<InputIterator>, @\placeholder{iter-value-type}@<InputIterator>, Compare>;
 
   template<class InputIterator, class Compare, class Alloc>
@@ -13241,8 +13295,12 @@ class flat_multiset {
     flat_multiset(sorted_equivalent_t, InputIterator, InputIterator, Alloc)
       -> flat_multiset<@\placeholder{iter-value-type}@<InputIterator>, @\placeholder{iter-value-type}@<InputIterator>>;
 
-  template<class Key, class Compare = less<Key>>
-    flat_multiset(initializer_list<Key>, Compare = Compare())
+  template<class Key>
+    flat_multiset(initializer_list<Key>)
+      -> flat_multiset<Key>;
+
+  template<class Key, class Compare>
+    flat_multiset(initializer_list<Key>, Compare)
       -> flat_multiset<Key, Compare>;
 
   template<class Key, class Compare, class Alloc>
@@ -13253,8 +13311,12 @@ class flat_multiset {
     flat_multiset(initializer_list<Key>, Alloc)
       -> flat_multiset<Key>;
 
-  template<class Key, class Compare = less<Key>>
-  flat_multiset(sorted_equivalent_t, initializer_list<Key>, Compare = Compare())
+  template<class Key>
+  flat_multiset(sorted_equivalent_t, initializer_list<Key>)
+      -> flat_multiset<Key>;
+
+  template<class Key, class Compare>
+  flat_multiset(sorted_equivalent_t, initializer_list<Key>, Compare)
       -> flat_multiset<Key, Compare>;
 
   template<class Key, class Compare, class Alloc>
