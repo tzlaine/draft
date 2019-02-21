@@ -10798,7 +10798,8 @@ flat_map(key_container_type key_cont, mapped_container_type mapped_cont);
 \effects Initializes \tcode{c.keys} with \tcode{std::move(key_cont)} and
 \tcode{c.values} with \tcode{std::move(mapped_cont)}; value-initializes
 \tcode{compare}; sorts the range \range{begin()}{end()} with respect to
-\tcode{value_comp()}; and finally erases the range \range{ranges::unique(*this)}{end()};
+\tcode{value_comp()}; and finally erases the range
+\range{ranges::unique(*this, value_comp())}{end()};
 
 \pnum
 \complexity
@@ -10840,7 +10841,7 @@ for (; first != last; ++first) {
 }
 \end{codeblock}
 sorts the range \range{begin()}{end()} with respect to \tcode{value_comp()}; and
-finally erases the range \range{ranges::unique(*this)}{end()}.
+finally erases the range \range{ranges::unique(*this, value_comp())}{end()}.
 
 \pnum
 \complexity
