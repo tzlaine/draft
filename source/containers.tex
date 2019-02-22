@@ -29,7 +29,7 @@ as summarized in
                              &                                  & \tcode{<unordered_set>} \\ \rowsep
 \ref{container.adaptors}     & Container adaptors               & \tcode{<queue>}         \\
                              &                                  & \tcode{<stack>}         \\
-                             &                                  & \added{\tcode{<flat_map>}}      \\
+                             &                                  & \tcode{<flat_map>}      \\
                              &                                  & \added{\tcode{<flat_set>}} \\ \rowsep
 \ref{views}                  & Views                            & \tcode{<span>}          \\ \rowsep
 \end{libsumtab}
@@ -759,9 +759,9 @@ linear arrangement. The library provides four basic kinds of sequence containers
 \tcode{array} is provided as a sequence container which provides limited sequence operations
 because it has a fixed number of elements. The library also provides container
 adaptors that make it easy to construct abstract data types, such
-as \tcode{stack}s, \tcode{queue}s, \added{\tcode{flat_map}s,
-\tcode{flat_multimap}s, \tcode{flat_set}s, or \tcode{flat_multiset}s,
-}out of the basic sequence container kinds (or out of other kinds of sequence
+as \tcode{stack}s, \tcode{queue}s, \tcode{flat_map}s, \removed{or }
+\tcode{flat_multimap}s\added{, \tcode{flat_set}s, or \tcode{flat_multiset}s}
+out of the basic sequence container kinds (or out of other kinds of sequence
 containers).
 
 \pnum
@@ -1504,11 +1504,11 @@ The library provides four basic kinds of associative containers:
 \tcode{multiset},
 \tcode{map}
 and
-\tcode{multimap}.\added{ The library also provides container adaptors that
-make it easy to construct abstract data types, such as \tcode{flat_map}s,
-\tcode{flat_multimap}s, \tcode{flat_set}s, or \tcode{flat_multiset}s, out of
+\tcode{multimap}. The library also provides container adaptors that
+make it easy to construct abstract data types, such as \tcode{flat_map}s\changed{ or}{,}
+\tcode{flat_multimap}s\added{, \tcode{flat_set}s, or \tcode{flat_multiset}s,} out of
 the basic sequence container kinds (or out of other program-defined sequence
-containers).}
+containers).
 
 \pnum
 Each associative container is parameterized on
@@ -1568,9 +1568,7 @@ For \tcode{set} and \tcode{multiset} the value type is the same as the key type.
 For \tcode{map} and \tcode{multimap} it is equal to \tcode{pair<const Key, T>}.
 
 \pnum
-\changed{\tcode{iterator}
-of an associative container is of the bidirectional iterator category.}
-{An associative container's \tcode{iterator} meets the bidirectional iterator requirements.}
+An associative container's \tcode{iterator} meets the bidirectional iterator requirements.
 For associative containers where the value type is the same as the key type, both
 \tcode{iterator}
 and
@@ -9366,18 +9364,17 @@ for (auto i = c.begin(), last = c.end(); i != last; ) {
 \rSec2[container.adaptors.general]{In general}
 
 \pnum
-The headers \tcode{<queue>}\changed{ and}{,} \tcode{<stack>}\added{,
-\tcode{<flat_map>} and \tcode{<flat_set>}} define the container adaptors
-\tcode{queue}, \tcode{priority_queue}\changed{ and}{,} \tcode{stack}\added{,
-\tcode{flat_map}, and \tcode{flat_set}}.
+The headers \tcode{<queue>}, \tcode{<stack>}\changed{ and}{,}
+\tcode{<flat_map>}\added{ and \tcode{<flat_set>}} define the container adaptors
+\tcode{queue}, \tcode{priority_queue}, \tcode{stack}\changed{ and}{,}
+\tcode{flat_map}\added{, and \tcode{flat_set}}.
 
 \pnum
 For container adaptors, no \tcode{swap} function throws an exception unless
 that exception is thrown by the swap of the
-adaptor's \tcode{Container},\added{ \tcode{KeyContainer}, \tcode{MappedContainer},} or
+adaptor's \tcode{Container}, \tcode{KeyContainer}, \tcode{MappedContainer}, or
 \tcode{Compare} object (if any).
 
-\begin{addedblock}
 \pnum
 For container adaptors that provide them, the \tcode{insert}, \tcode{emplace},
 and \tcode{erase} members affect the validity of iterators and
@@ -9387,20 +9384,19 @@ respective \tcode{insert}, \tcode{emplace}, and \tcode{erase} members do.
 A call to \tcode{flat_map<Key, T>::insert} could invalidate all iterators to
 the \tcode{flat_map}.
 \end{example}
-\end{addedblock}
 
 \pnum
 A deduction guide for a container adaptor shall not participate in overload resolution if any of the following are true:
 \begin{itemize}
 \item It has an \tcode{InputIterator} template parameter and a type that does not qualify as an input iterator is deduced for that parameter.
 \item It has a \tcode{Compare} template parameter and a type that qualifies as an allocator is deduced for that parameter.
-\item It has a \tcode{Container}\added{, \tcode{KeyContainer}, or \tcode{MappedContainer}} template parameter and a type that qualifies as an allocator is deduced for that parameter.
+\item It has a \tcode{Container}, \tcode{KeyContainer}, or \tcode{MappedContainer} template parameter and a type that qualifies as an allocator is deduced for that parameter.
 \item It has an \tcode{Allocator} template parameter and a type that does not qualify as an allocator is deduced for that parameter.
 \item It has both \tcode{Container} and \tcode{Allocator} template parameters, and \tcode{uses_allocator_v<Container, Allocator>} is \tcode{false}.
-\item \added{It has both \tcode{KeyContainer} and \tcode{Allocator} template parameters, and \\
-\tcode{uses_allocator_v<KeyContainer, Allocator>} is \tcode{false}.}
-\item \added{It has both \tcode{MappedContainer} and \tcode{Allocator} template parameters, and \\
-\tcode{uses_allocator_v<MappedContainer, Allocator>} is \tcode{false}.}
+\item It has both \tcode{KeyContainer} and \tcode{Allocator} template parameters, and \\
+\tcode{uses_allocator_v<KeyContainer, Allocator>} is \tcode{false}.
+\item It has both \tcode{MappedContainer} and \tcode{Allocator} template parameters, and \\
+\tcode{uses_allocator_v<MappedContainer, Allocator>} is \tcode{false}.
 \end{itemize}
 
 \rSec2[queue.syn]{Header \tcode{<queue>} synopsis}%
@@ -9463,7 +9459,6 @@ namespace std {
 }
 \end{codeblock}
 
-\begin{addedblock}
 \rSec2[flatmap.syn]{Header \tcode{<flat_map>} synopsis}%
 \indexhdr{flatmap}%
 
@@ -9489,6 +9484,7 @@ namespace std {
 }
 \end{codeblock}
 
+\begin{addedblock}
 \rSec2[flatset.syn]{Header \tcode{<flat_set>} synopsis}%
 \indexhdr{flatset}%
 
@@ -10360,7 +10356,6 @@ unless \tcode{is_swappable_v<Container>} is \tcode{true}.
 \effects As if by \tcode{x.swap(y)}.
 \end{itemdescr}
 
-\begin{addedblock}
 \rSec2[flatmap]{Class template \tcode{flat_map}}
 
 \pnum
@@ -11923,6 +11918,7 @@ try {
 \end{codeblock}
 \end{itemdescr}
 
+\begin{addedblock}
 \rSec2[flatset]{Class template \tcode{flat_set}}
 
 \pnum
