@@ -10711,7 +10711,7 @@ namespace std {
     friend bool operator>=(const flat_map& x, const flat_map& y)
       { return !(x < y); }
 
-    friend void swap(const flat_map& x, const flat_map& y) noexcept(noexcept(x.swap(y))
+    friend void swap(flat_map& x, flat_map& y) noexcept(noexcept(x.swap(y))
       { return x.swap(y); }
 
   private:
@@ -11197,7 +11197,7 @@ void swap(flat_map& fm) noexcept(is_nothrow_swappable_v<key_compare>);
 \pnum \effects Equivalent to:
 \begin{codeblock}
 using std::swap;
-swap(c.compare, fm.compare);
+swap(compare, fm.compare);
 swap(c.keys, fm.c.keys);
 swap(c.values, fm.c.values);
 \end{codeblock}
@@ -11258,7 +11258,7 @@ concept.
 
 \pnum
 A \tcode{flat_multimap} satisfies all of the requirements of a container, of a
-reversible container\iref{container.requirements}.  \tcode{flat_map} satisfies
+reversible container\iref{container.requirements}.  \tcode{flat_multimap} satisfies
 the requirements of an associative container\iref{associative.reqmts}, except
 that it:
 \begin{itemize}
@@ -11568,7 +11568,7 @@ namespace std {
     friend bool operator>=(const flat_multimap& x, const flat_multimap& y)
       { return !(x < y); }
 
-    friend void swap(const flat_multimap& x, const flat_multimap& y) noexcept(noexcept(x.swap(y))
+    friend void swap(flat_multimap& x, flat_multimap& y) noexcept(noexcept(x.swap(y))
       { return x.swap(y); }
 
   private:
@@ -11811,7 +11811,7 @@ First, initializes a \tcode{pair<key_type, mapped_type>} object \tcode{t}
 constructed with \tcode{std::forward<Args>(args)...}, then inserts \tcode{t}
 as if by:
 \begin{codeblock}
-auto key_it = upper_bound(c.keys.begin(), c.keys.end(), t.first);
+auto key_it = upper_bound(c.keys.begin(), c.keys.end(), t.first, compare);
 auto value_it = c.values.begin() + distance(c.keys.begin(), key_it);
 c.keys.emplace(key_it, std::move(t.first));
 c.values.emplace(value_it, std::move(t.second));
@@ -11871,7 +11871,7 @@ void swap(flat_multimap& fm) noexcept(is_nothrow_swappable_v<key_compare>);
 \pnum \effects Equivalent to:
 \begin{codeblock}
 using std::swap;
-swap(c.compare, fm.compare);
+swap(compare, fm.compare);
 swap(c.keys, fm.c.keys);
 swap(c.values, fm.c.values);
 \end{codeblock}
@@ -12421,7 +12421,7 @@ is_nothrow_swappable_v<key_compare>} is \tcode{true}.
 \begin{codeblock}
 using std::swap;
 swap(c, fs.c);
-swap(c.compare, fs.compare);
+swap(compare, fs.compare);
 \end{codeblock}
 \end{itemdescr}
 
@@ -13040,7 +13040,7 @@ is_nothrow_swappable_v<key_compare>} is \tcode{true}.
 \begin{codeblock}
 using std::swap;
 swap(c, fms.c);
-swap(c.compare, fms.compare);
+swap(compare, fms.compare);
 \end{codeblock}
 \end{itemdescr}
 
