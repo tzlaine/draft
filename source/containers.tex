@@ -10832,10 +10832,6 @@ template <class Alloc>
 uses_allocator_v<mapped_container_type, Alloc>} is \tcode{true}.
 
 \pnum
-\requires \tcode{Alloc} shall satisfy the \oldconcept{Allocator} requirements
-(\tref{utilities.allocator.requirements}).
-
-\pnum
 \effects Equivalent to the preceding constructors except that \tcode{c.keys} and \tcode{c.values} are constructed with
 uses-allocator construction\iref{allocator.uses.construction}.
 \end{itemdescr}
@@ -11693,10 +11689,6 @@ template <class Alloc>
 \pnum
 \constraints \tcode{uses_allocator_v<key_container_type, Alloc> \&\&
 uses_allocator_v<mapped_container_type, Alloc>} is \tcode{true}.
-
-\pnum
-\requires \tcode{Alloc} shall satisfy the \oldconcept{Allocator} requirements
-(\tref{utilities.allocator.requirements}).
 
 \pnum
 \effects Equivalent to the preceding constructors except that \tcode{c.keys} and \tcode{c.values} are constructed with
