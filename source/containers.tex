@@ -10597,8 +10597,11 @@ namespace std {
       void insert(InputIterator first, InputIterator last);
     template <class InputIterator>
       void insert(sorted_unique_t, InputIterator first, InputIterator last);
-    void insert(initializer_list<value_type>);
-    void insert(sorted_unique_t, initializer_list<value_type> il);
+
+    void insert(initializer_list<value_type> il)
+      { insert(il.begin(), il.end()); }
+    void insert(sorted_unique_t s, initializer_list<value_type> il)
+      { insert(s, il.begin(), il.end()); }
 
     containers extract() &&;
     void replace(key_container_type&& key_cont, mapped_container_type&& mapped_cont);
@@ -11486,8 +11489,11 @@ namespace std {
       void insert(InputIterator first, InputIterator last);
     template <class InputIterator>
       void insert(sorted_equivalent_t, InputIterator first, InputIterator last);
-    void insert(initializer_list<value_type>);
-    void insert(sorted_equivalent_t, initializer_list<value_type> il);
+
+    void insert(initializer_list<value_type> il)
+      { insert(il.begin(), il.end()); }
+    void insert(sorted_unique_t s, initializer_list<value_type> il)
+      { insert(s, il.begin(), il.end()); }
 
     containers extract() &&;
     void replace(key_container_type&& key_cont, mapped_container_type&& mapped_cont);
