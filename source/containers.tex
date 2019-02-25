@@ -10859,8 +10859,9 @@ template <class Alloc>
 uses_allocator_v<mapped_container_type, Alloc>} is \tcode{true}.
 
 \pnum
-\effects Equivalent to the preceding constructors except that \tcode{c.keys} and \tcode{c.values} are constructed with
-uses-allocator construction\iref{allocator.uses.construction}.
+\effects Equivalent to the preceding constructors except that \tcode{c.keys}
+and \tcode{c.values} are constructed with uses-allocator
+construction\iref{allocator.uses.construction}.
 \end{itemdescr}
 
 \rSec3[flatmap.capacity]{Capacity}
@@ -11264,7 +11265,6 @@ a \tcode{flat_multimap<Key,T>} the \tcode{key_type} is \tcode{Key} and the
 \tcode{value_type} is \tcode{pair<const Key,T>}.
 
 \pnum
-TODO
 Except as otherwise noted, operations on \tcode{flat_multimap} are equivalent
 to those of \tcode{flat_map}, except that \tcode{flat_multimap} operations do
 not remove elements with equal keys.  \begin{example}\tcode{flat_multimap}
@@ -11704,162 +11704,9 @@ template <class Alloc>
 uses_allocator_v<mapped_container_type, Alloc>} is \tcode{true}.
 
 \pnum
-\effects Equivalent to the preceding constructors except that \tcode{c.keys} and \tcode{c.values} are constructed with
-uses-allocator construction\iref{allocator.uses.construction}.
-\end{itemdescr}
-
-\rSec3[flatmultimap.capacity]{Capacity}
-
-\indexlibrarymember{size}{flatmultimap}%
-\begin{itemdecl}
-size_type size() const noexcept;
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum
-\effects
-Equivalent to: \tcode{return c.keys.size();}
-\end{itemdescr}
-
-\indexlibrarymember{max_size}{flatmultimap}%
-\begin{itemdecl}
-size_type max_size() const noexcept;
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum
-\effects
-Equivalent to: \tcode{return std::min<size_type>(c.keys.max_size(), c.values.max_size());}
-\end{itemdescr}
-
-\rSec3[flatmultimap.modifiers]{Modifiers}
-
-\indexlibrarymember{operator=}{flatmultimap}%
-\begin{itemdecl}
-flat_multimap& operator=(initializer_list<value_type> il);
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum
-\effects Equivalent to:
-\begin{codeblock}
-clear();
-insert(il);
-return *this;
-\end{codeblock}
-\end{itemdescr}
-
-\indexlibrarymember{emplace}{flatmultimap}%
-\begin{itemdecl}
-template <class... Args> pair<iterator, bool> emplace(Args&&... args);
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum \constraints \tcode{pair<key_type,
-mapped_type>(std::forward<Args>(args)...)} is well-formed.
-
-\pnum
-\effects
-First, initializes a \tcode{pair<key_type, mapped_type>} object \tcode{t}
-with \tcode{std::forward<Args>(args)...}, then inserts \tcode{t} as if by:
-\begin{codeblock}
-auto key_it = upper_bound(c.keys.begin(), c.keys.end(), t.first);
-auto value_it = c.values.begin() + distance(c.keys.begin(), key_it);
-c.keys.emplace(key_it, std::move(t.first));
-c.values.emplace(value_it, std::move(t.second));
-\end{codeblock}
-
-\pnum
-\returns
-An iterator that points to the inserted element.
-\end{itemdescr}
-
-\indexlibrarymember{insert}{flatmultimap}%
-\begin{itemdecl}
-template<class P> iterator insert(P&& x);
-template<class P> iterator insert(const_iterator position, P&& x);
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum \constraints \tcode{pair<key_type, mapped_type>(std::forward<P>(x))} is well-formed.
-
-\pnum
-\effects
-The first form is equivalent to
-\tcode{return emplace(std::forward<P>(x))}. The second form is
-equivalent to \tcode{return emplace_hint(position, std::forward<P>(x))}.
-\end{itemdescr}
-
-\indexlibrarymember{flatmultimap}{insert}%
-\begin{itemdecl}
-template <class InputIterator>
-  void insert(sorted_equivalent_t, InputIterator first, InputIterator last);
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum \expects
-The range \range{first}{last} is sorted with respect to \tcode{value_comp()}.
-
-\pnum \effects Equivalent to: \tcode{insert(first, last)}.
-
-\pnum \complexity Linear.
-\end{itemdescr}
-
-\indexlibrarymember{flatmultimap}{insert}%
-\begin{itemdecl}
-void insert(sorted_equivalent_t, initializer_list<value_type> il);
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum \effects Equivalent to \tcode{insert(sorted_equivalent_t\{\}, il.begin(), il.end())}.
-\end{itemdescr}
-
-\indexlibrarymember{flatmultimap}{swap}%
-\begin{itemdecl}
-void swap(flat_multimap& fm) noexcept(is_nothrow_swappable_v<key_compare>);
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum \effects Equivalent to:
-\begin{codeblock}
-using std::swap;
-swap(compare, fm.compare);
-swap(c.keys, fm.c.keys);
-swap(c.values, fm.c.values);
-\end{codeblock}
-\end{itemdescr}
-
-\indexlibrarymember{flatmultimap}{extract}%
-\begin{itemdecl}
-containers extract() &&;
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum \returns \tcode{std::move(c)}
-\pnum \effects \tcode{*this} is emptied, even if the function is exited via exception.
-\end{itemdescr}
-
-\indexlibrarymember{flatmultimap}{replace}%
-\begin{itemdecl}
-void replace(key_container_type&& key_cont, mapped_container_type&& mapped_cont);
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum \expects
-\tcode{key_cont.size() == mapped_cont.size()} is \tcode{true}, and the elements of
-\tcode{key_cont} are sorted with respect to \tcode{compare}.
-
-\pnum
-\effects Equivalent to:
-\begin{codeblock}
-try {
-  c.keys = std::move(key_cont);
-  c.values = std::move(mapped_cont);
-} catch (...) {
-  clear();
-  throw;
-}
-\end{codeblock}
+\effects Equivalent to the preceding constructors except that \tcode{c.keys}
+and \tcode{c.values} are constructed with uses-allocator
+construction\iref{allocator.uses.construction}.
 \end{itemdescr}
 
 \begin{addedblock}
