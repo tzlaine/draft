@@ -10444,7 +10444,9 @@ namespace std {
 
     template <class InputIterator>
       flat_map(InputIterator first, InputIterator last,
-               const key_compare& comp = key_compare());
+               const key_compare& comp = key_compare())
+        : c(), compare(comp)
+        { insert(first, last); }
     template <class InputIterator, class Alloc>
       flat_map(InputIterator first, InputIterator last,
                const key_compare& comp, const Alloc& a);
@@ -10453,8 +10455,10 @@ namespace std {
                const Alloc& a);
 
     template <class InputIterator>
-      flat_map(sorted_unique_t, InputIterator first, InputIterator last,
-               const key_compare& comp = key_compare());
+      flat_map(sorted_unique_t s, InputIterator first, InputIterator last,
+               const key_compare& comp = key_compare())
+        : c(), compare(comp)
+        { insert(s, first, last); }
     template <class InputIterator, class Alloc>
       flat_map(sorted_unique_t, InputIterator first, InputIterator last,
                const key_compare& comp, const Alloc& a);
@@ -10745,56 +10749,6 @@ Constant.
 
 \indexlibrary{\idxcode{flatmap}!constructor}%
 \begin{itemdecl}
-template <class InputIterator>
-  flat_map(InputIterator first, InputIterator last, const key_compare& comp);
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum
-\effects Initializes \tcode{compare} with \tcode{comp}, adds elements to
-\tcode{c} as if by:
-\begin{codeblock}
-for (; first != last; ++first) {
-  c.keys.insert(std::end(c.keys), first->first);
-  c.values.insert(std::end(c.values), first->second);
-}
-\end{codeblock}
-sorts the range \range{begin()}{end()} with respect to \tcode{value_comp()};
-and finally erases the range \range{ranges::unique(*this,
-key_equiv(compare))}{end()}.
-
-\pnum
-\complexity
-Linear in $N$ if the container arguments are already sorted with respect to
-\tcode{value_comp()} and otherwise $N \log N$, where $N$ is
-\tcode{distance(first, last)}.
-\end{itemdescr}
-
-\indexlibrary{\idxcode{flatmap}!constructor}%
-\begin{itemdecl}
-template <class InputIterator>
-  flat_map(sorted_unique_t, InputIterator first, InputIterator last,
-           const key_compare& comp = key_compare());
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum
-\effects Initializes \tcode{compare} with \tcode{comp}, and adds elements to
-\tcode{c.keys} and \tcode{c.values} as if by:
-\begin{codeblock}
-for (; first != last; ++first) {
-  c.keys.insert(std::end(c.keys), first->first);
-  c.values.insert(std::end(c.values), first->second);
-}
-\end{codeblock}
-
-\pnum
-\complexity
-Linear.
-\end{itemdescr}
-
-\indexlibrary{\idxcode{flatmap}!constructor}%
-\begin{itemdecl}
 template <class Alloc>
 flat_map(key_container_type key_cont, mapped_container_type mapped_cont,
          const Alloc& a);
@@ -10977,6 +10931,54 @@ The first form is equivalent to
 equivalent to \tcode{return emplace_hint(position, std::forward<P>(x))}.
 \end{itemdescr}
 
+\indexlibrarymember{flatmap}{insert}%
+\begin{itemdecl}
+template <class InputIterator>
+  void insert(InputIterator first, InputIterator last);
+\end{itemdecl}
+
+\begin{itemdescr}
+\effects Adds elements to \tcode{c} as if by:
+\begin{codeblock}
+for (; first != last; ++first) {
+  c.keys.insert(std::end(c.keys), first->first);
+  c.values.insert(std::end(c.values), first->second);
+}
+\end{codeblock}
+sorts the range of newly inserted elements with respect
+to \tcode{value_comp()}; merges the resulting sorted range and the sorted
+range of pre-existing elements into a single sorted range; and finally erases
+the range \range{ranges::unique(*this, key_equiv(compare))}{end()}.
+
+\pnum
+\complexity
+$N$ + $M \log M$, where $N$ is \tcode{size()} before the operation and $M$
+is \tcode{distance(first, last)}.
+\end{itemdescr}
+
+\indexlibrarymember{flatmap}{insert}%
+\begin{itemdecl}
+template <class InputIterator>
+  void insert(sorted_unique_t, InputIterator first, InputIterator last);
+\end{itemdecl}
+
+\begin{itemdescr}
+\effects Adds elements to \tcode{c} as if by:
+\begin{codeblock}
+for (; first != last; ++first) {
+  c.keys.insert(std::end(c.keys), first->first);
+  c.values.insert(std::end(c.values), first->second);
+}
+\end{codeblock}
+merges the sorted range of newly added elements and the sorted range of
+pre-existing elements into a single sorted range; and finally erases the
+range \range{ranges::unique(*this, key_equiv(compare))}{end()}.
+
+\pnum
+\complexity
+Linear in $N$, where $N$ is \tcode{size()} after the operation.
+\end{itemdescr}
+
 \indexlibrarymember{try_emplace}{flatmap}%
 \begin{itemdecl}
 template<class... Args>
@@ -11114,30 +11116,6 @@ whose key is equivalent to \tcode{k}.
 \complexity
 The same as \tcode{emplace} and \tcode{emplace_hint},
 respectively.
-\end{itemdescr}
-
-\indexlibrarymember{flatmap}{insert}%
-\begin{itemdecl}
-template <class InputIterator>
-  void insert(sorted_unique_t, InputIterator first, InputIterator last);
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum \expects
-The range \range{first}{last} is sorted with respect to \tcode{value_comp()}.
-
-\pnum \effects Equivalent to: \tcode{insert(first, last)}.
-
-\pnum \complexity Linear.
-\end{itemdescr}
-
-\indexlibrarymember{flatmap}{insert}%
-\begin{itemdecl}
-void insert(sorted_unique_t, initializer_list<value_type> il);
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum \effects Equivalent to \tcode{insert(sorted_unique_t\{\}, il.begin(), il.end())}.
 \end{itemdescr}
 
 \indexlibrarymember{flatmap}{swap}%
@@ -11343,7 +11321,9 @@ namespace std {
 
     template <class InputIterator>
       flat_multimap(InputIterator first, InputIterator last,
-                    const key_compare& comp = key_compare());
+                    const key_compare& comp = key_compare())
+        : c(), compare(comp)
+        { insert(first, last); }
     template <class InputIterator, class Alloc>
       flat_multimap(InputIterator first, InputIterator last,
                     const key_compare& comp, const Alloc& a);
@@ -11353,7 +11333,9 @@ namespace std {
 
     template <class InputIterator>
       flat_multimap(sorted_equivalent_t, InputIterator first, InputIterator last,
-                    const key_compare& comp = key_compare());
+                    const key_compare& comp = key_compare())
+        : c(), compare(comp)
+        { insert(s, first, last); }
     template <class InputIterator, class Alloc>
       flat_multimap(sorted_equivalent_t, InputIterator first, InputIterator last,
                     const key_compare& comp, const Alloc& a);
@@ -11608,54 +11590,6 @@ flat_multimap(sorted_equivalent_t, key_container_type key_cont,
 \pnum
 \complexity
 Constant.
-\end{itemdescr}
-
-\indexlibrary{\idxcode{flatmultimap}!constructor}%
-\begin{itemdecl}
-template <class InputIterator>
-  flat_multimap(InputIterator first, InputIterator last, const key_compare& comp);
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum
-\effects Initializes \tcode{compare} with \tcode{comp}, adds elements to
-\tcode{c} as if by:
-\begin{codeblock}
-for (; first != last; ++first) {
-  c.keys.insert(std::end(c.keys), first->first);
-  c.values.insert(std::end(c.values), first->second);
-}
-\end{codeblock}
-and finally sorts the range \range{begin()}{end()} with respect to \tcode{value_comp()}.
-
-\pnum
-\complexity
-Linear in $N$ if the container arguments are already sorted with respect to
-\tcode{value_comp()} and otherwise $N \log N$, where $N$ is
-\tcode{distance(first, last)}.
-\end{itemdescr}
-
-\indexlibrary{\idxcode{flatmultimap}!constructor}%
-\begin{itemdecl}
-template <class InputIterator>
-  flat_multimap(sorted_equivalent_t, InputIterator first, InputIterator last,
-                const key_compare& comp = key_compare());
-\end{itemdecl}
-
-\begin{itemdescr}
-\pnum
-\effects Initializes \tcode{compare} with \tcode{comp}, and adds elements to
-\tcode{c.keys} and \tcode{c.values} as if by:
-\begin{codeblock}
-for (; first != last; ++first) {
-  c.keys.insert(std::end(c.keys), first->first);
-  c.values.insert(std::end(c.values), first->second);
-}
-\end{codeblock}
-
-\pnum
-\complexity
-Linear.
 \end{itemdescr}
 
 \indexlibrary{\idxcode{flatmultimap}!constructor}%
