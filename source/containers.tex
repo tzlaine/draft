@@ -10816,10 +10816,10 @@ flat_map(key_container_type key_cont, mapped_container_type mapped_cont,
 template <class Container, class Alloc>
   flat_map(const Container& cont, const Alloc& a);
 template <class Alloc>
-flat_map(sorted_unique_t s, key_container_type key_cont,
+flat_map(sorted_unique_t, key_container_type key_cont,
          mapped_container_type mapped_cont, const Alloc& a);
 template <class Container, class Alloc>
-  flat_map(sorted_unique_t s, const Container& cont, const Alloc& a);
+  flat_map(sorted_unique_t, const Container& cont, const Alloc& a);
 template <class Alloc>
   flat_map(const key_compare& comp, const Alloc& a);
 template <class Alloc>
@@ -10834,7 +10834,7 @@ template <class InputIterator, class Alloc>
   flat_map(sorted_unique_t, InputIterator first, InputIterator last,
            const key_compare& comp, const Alloc& a);
 template <class InputIterator, class Alloc>
-  flat_map(sorted_unique_t s, InputIterator first, InputIterator last,
+  flat_map(sorted_unique_t, InputIterator first, InputIterator last,
            const Alloc& a);
 template <class Alloc>
   flat_map(flat_map&& m, const Alloc& a);
@@ -10846,10 +10846,10 @@ template <class Alloc>
 template <class Alloc>
   flat_map(initializer_list<value_type>&& il, const Alloc& a);
 template <class Alloc>
-  flat_map(sorted_unique_t s, initializer_list<value_type>&& il,
+  flat_map(sorted_unique_t, initializer_list<value_type>&& il,
            const key_compare& comp, const Alloc& a);
 template <class Alloc>
-  flat_map(sorted_unique_t s, initializer_list<value_type>&& il,
+  flat_map(sorted_unique_t, initializer_list<value_type>&& il,
            const Alloc& a);
 \end{itemdecl}
 
@@ -11664,7 +11664,7 @@ template <class Alloc>
 flat_multimap(sorted_equivalent_t, key_container_type key_cont,
               mapped_container_type mapped_cont, const Alloc& a);
 template <class Container, class Alloc>
-  flat_multimap(sorted_equivalent_t s, const Container& cont, const Alloc& a);
+  flat_multimap(sorted_equivalent_t, const Container& cont, const Alloc& a);
 template <class Alloc>
   flat_multimap(const key_compare& comp, const Alloc& a);
 template <class Alloc>
@@ -11679,7 +11679,7 @@ template <class InputIterator, class Alloc>
   flat_multimap(sorted_equivalent_t, InputIterator first, InputIterator last,
                 const key_compare& comp, const Alloc& a);
 template <class InputIterator, class Alloc>
-  flat_multimap(sorted_equivalent_t s, InputIterator first, InputIterator last,
+  flat_multimap(sorted_equivalent_t, InputIterator first, InputIterator last,
                 const Alloc& a);
 template <class Alloc>
   flat_multimap(flat_multimap&& m, const Alloc& a);
@@ -11691,10 +11691,10 @@ template <class Alloc>
 template <class Alloc>
   flat_multimap(initializer_list<value_type>&& il, const Alloc& a);
 template <class Alloc>
-  flat_multimap(sorted_equivalent_t s, initializer_list<value_type>&& il,
+  flat_multimap(sorted_equivalent_t, initializer_list<value_type>&& il,
                 const key_compare& comp, const Alloc& a);
 template <class Alloc>
-  flat_multimap(sorted_equivalent_t s, initializer_list<value_type>&& il,
+  flat_multimap(sorted_equivalent_t, initializer_list<value_type>&& il,
                 const Alloc& a);
 \end{itemdecl}
 
