@@ -10331,11 +10331,6 @@ that:
 and \tcode{erase} members that respectively insert, emplace or erase a single
 element from the map is linear, including the ones that take an insertion
 position iterator.
-\item \tcode{flat_map::reverse_iterator} and \tcode{flat_map::const_reverse_iterator}
-need not be implemented using \tcode{reverse_iterator}
-(though \tcode{flat_map::reverse_iterator}
-and \tcode{flat_map::const_reverse_iterator} otherwise satisfy the
-requirements of \ref{container.requirements}).
 \end{itemize}
 A \tcode{flat_multimap} does not meet the additional requirements of an
 allocator-aware container, as described in \tref{containers.allocatoraware}.
@@ -10409,8 +10404,8 @@ namespace std {
     using difference_type           = ptrdiff_t;
     using iterator                  = @\impdefx{type of \tcode{flat_map::iterator}}@; // see \ref{container.requirements}
     using const_iterator            = @\impdefx{type of \tcode{flat_map::const_iterator}}@; // see \ref{container.requirements}
-    using reverse_iterator          = @\impdefx{type of \tcode{flat_map::reverse_iterator}}@; // see above
-    using const_reverse_iterator    = @\impdefx{type of \tcode{flat_map::const_reverse_iterator}}@; // see above
+    using reverse_iterator          = std::reverse_iterator<iterator>;
+    using const_reverse_iterator    = std::reverse_iterator<const_iterator>;
     using key_container_type        = KeyContainer;
     using mapped_container_type     = MappedContainer;
 
@@ -11216,11 +11211,6 @@ that:
 and \tcode{erase} members that respectively insert, emplace or erase a single
 element from the map is linear, including the ones that take an insertion
 position iterator.
-\item \tcode{flat_multimap::reverse_iterator} and
-\tcode{flat_multimap::const_reverse_iterator} need not be implemented using
-\tcode{reverse_iterator} (though \tcode{flat_multimap::reverse_iterator} and
-\tcode{flat_multimap::const_reverse_iterator} otherwise satisfy the requirements of
-\ref{container.requirements}).
 \end{itemize}
 A \tcode{flat_multimap} does not meet the additional requirements of an
 allocator-aware container, as described in \tref{containers.allocatoraware}.
@@ -11296,8 +11286,8 @@ namespace std {
     using difference_type           = ptrdiff_t;
     using iterator                  = @\impdefx{type of \tcode{flat_multimap::iterator}}@; // see \ref{container.requirements}
     using const_iterator            = @\impdefx{type of \tcode{flat_multimap::const_iterator}}@; // see \ref{container.requirements}
-    using reverse_iterator          = @\impdefx{type of \tcode{flat_multimap::reverse_iterator}}@; // see above
-    using const_reverse_iterator    = @\impdefx{type of \tcode{flat_multimap::const_reverse_iterator}}@; // see above
+    using reverse_iterator          = std::reverse_iterator<iterator>;
+    using const_reverse_iterator    = std::reverse_iterator<const_iterator>;
     using key_container_type        = KeyContainer;
     using mapped_container_type     = MappedContainer;
 
